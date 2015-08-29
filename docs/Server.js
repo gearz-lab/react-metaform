@@ -4,7 +4,7 @@ import express from 'express';
 import path from 'path';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
-import webpackConfig from '../webpack/webpack.config.docs.js';
+import webpackConfig from '../webpack/webpack.config.docs.prod.js';
 import Router from 'react-router';
 import routes from './Routes';
 
@@ -36,7 +36,9 @@ if (development) {
                 if(routeHtml.indexOf('<noscript') === 0) {
                     routeHtml = '';
                 }
-                let wrap = require('./pages/BasePage.txt').replace('${routeHtml}', routeHtml);
+                let wrap = require('../docs/pages/BasePage.txt')
+                    .replace(/\$\{routeHtml\}/g, routeHtml)
+                    .replace(/\$\{distUrl\}/g, 'http://localhost:8081/');
                 res.send(wrap);
             });
         });

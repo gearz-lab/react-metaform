@@ -129,7 +129,7 @@ const LiveSchemaEditor = React.createClass({
         return <div className="live-schema-editor">
             <div className='row'>
                 <div className="col-md-12">
-                    <h2>Gearz schema live editor</h2>
+                    <h2>React-metaform demo</h2>
                     </div>
                 <div className="col-md-4">
 

@@ -22,6 +22,10 @@ console.log(licenseSrc);
 console.log(licenseDest);
 
 console.log('building docs'.green);
+if(process.env.NODE_ENV !== 'production') {
+    console.log(`build-docs can only run in production. Current NODE_ENV: ${process.env.NODE_ENV}`.red);
+    process.exit();
+}
 
 let pages = ['home.html', 'liveSchemaEditor.html'];
 
@@ -35,7 +39,9 @@ rimraf(docsBuilt)
                 if(routeHtml.indexOf('<noscript') === 0) {
                     routeHtml = '';
                 }
-                let wrap = require('../docs/pages/BasePage.txt').replace('${routeHtml}', routeHtml);
+                let wrap = require('../docs/pages/BasePage.txt')
+                    .replace(/\$\{routeHtml\}/g, routeHtml)
+                    .replace(/\$\{distUrl\}/g, '');
                 return fsep.writeFile(path.join(docsBuilt, fileName), wrap)
                     .then(write => resolve(write));
             });
@@ -43,7 +49,7 @@ rimraf(docsBuilt)
     })
     .then(() => {
         console.log('running webpack on webpack.config.docs.js...');
-        return exec(`webpack --config webpack.config.docs.js`)
+        return exec(`webpack --config webpack.config.docs.prod.js`);
     })
     // for some reason, fsep.copy is not working anymore :(
     .then(() => new Promise(function(resolve, reject) {
