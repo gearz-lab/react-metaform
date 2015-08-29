@@ -2,7 +2,7 @@ import webpack from 'webpack';
 
 export default {
     entry: [
-        'webpack-dev-server/client?http://localhost:8081',
+        'webpack-dev-server/client?http://localhost:8082',
         'webpack/hot/only-dev-server',
         './docs/Client.js'
     ],
@@ -10,7 +10,7 @@ export default {
     output: {
         filename: 'bundle.js',
         path: './docs-built/assets',
-        publicPath: 'http://localhost:8081/assets/'
+        publicPath: 'http://localhost:8082/assets/'
     },
 
     externals: undefined,
@@ -48,6 +48,6 @@ export default {
         hot: true,
         noInfo: true,
         headers: { 'Access-Control-Allow-Origin': '*' },
-        port: 8081
+        port: 8082
     }
 };

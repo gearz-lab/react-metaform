@@ -17,7 +17,6 @@ var MetaForm = React.createClass({
         entityName: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string.isRequired,
         componentFactory: React.PropTypes.object.isRequired,
-        fields: React.PropTypes.object,
         model: React.PropTypes.object,
         showBottomBar: React.PropTypes.bool,
         // the onSave handler receives the model as a parameter
@@ -26,7 +25,7 @@ var MetaForm = React.createClass({
 
     getInitialState: function() {
         let model = this.props.model ? this.props.model : {};
-        let fields = this.props.fields ? this.props.fields : metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+        let fields = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
         let componentProps = this.getComponentProps(fields, model);
 
         return {

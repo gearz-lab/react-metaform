@@ -103,7 +103,7 @@ const LiveSchemaEditor = React.createClass({
     buildMetaform: function() {
         try {
             let schema = eval('(' + this.state.text + ')');
-            let fields = metadataProvider.getFields(schema, this.state.entityName, this.state.layoutName);
+
             return <Metaform
                 schema={schema}
                 ref="mf"
@@ -111,7 +111,11 @@ const LiveSchemaEditor = React.createClass({
                 layoutName= {this.state.layoutName}
                 componentFactory={DefaultComponentFactory}
                 model={this.state.model}
-                title={this.state.title}/>;
+                title={this.state.title}
+                schema={schema}
+                entityName={this.state.entityName}
+                layoutName={this.state.layoutName}
+                />;
         }
         catch(ex) {
             return <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss}>

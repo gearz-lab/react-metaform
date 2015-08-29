@@ -30,7 +30,7 @@ if (development) {
                 }
                 let wrap = require('../docs/pages/BasePage.txt')
                     .replace(/\$\{routeHtml\}/g, routeHtml)
-                    .replace(/\$\{distUrl\}/g, 'http://localhost:8081/');
+                    .replace(/\$\{distUrl\}/g, 'http://localhost:8082/');
                 res.send(wrap);
             });
         });
