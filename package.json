@@ -22,5 +22,14 @@
   "bugs": {
     "url": "https://github.com/gearz-lab/react-metaform/issues"
   },
-  "homepage": "https://github.com/gearz-lab/react-metaform#readme"
+  "homepage": "https://github.com/gearz-lab/react-metaform#readme",
+  "dependencies": {
+    "formato": "^1.0.5",
+    "react": "^0.13.3",
+    "react-bootstrap": "^0.25.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
 }
