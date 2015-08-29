@@ -29,13 +29,13 @@ rimraf(docsBuilt)
     .then(() => fsep.mkdir(docsBuilt))
     .then(() => {
         console.log('writing static page files...');
-        pages.map(fileName => new Promise((resolve, reject) => {
+        return pages.map(fileName => new Promise((resolve, reject) => {
             Router.run(Routes, '/' + fileName, Handler => {
                 let routeHtml = React.renderToString(React.createElement(Handler));
                 if(routeHtml.indexOf('<noscript') === 0) {
                     routeHtml = '';
                 }
-                let wrap = require('./pages/BasePage.txt').replace('${routeHtml}', routeHtml);
+                let wrap = require('../docs/pages/BasePage.txt').replace('${routeHtml}', routeHtml);
                 return fsep.writeFile(path.join(docsBuilt, fileName), wrap)
                     .then(write => resolve(write));
             });
@@ -43,7 +43,7 @@ rimraf(docsBuilt)
     })
     .then(() => {
         console.log('running webpack on webpack.config.docs.js...');
-        exec(`NODE_ENV=webpack&&webpack --config webpack.config.docs.js`)
+        return exec(`webpack --config webpack.config.docs.js`)
     })
     // for some reason, fsep.copy is not working anymore :(
     .then(() => new Promise(function(resolve, reject) {
