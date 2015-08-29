@@ -112,7 +112,7 @@ class ComponentFactory {
             componentType = this.getComponent(props.component);
         }
         else
-        {react-bootstrap
+        {
             // If the metadata doesn't explicitly specify a component, let's return
             // the default component for type. If there's no default, let's take the first
             // that matches the type

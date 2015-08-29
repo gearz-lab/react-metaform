@@ -1,7 +1,10 @@
 import React from 'react';
 import Router from './Router.js';
+import DefaultComponentFactory from '../src/lib/DefaultComponentFactory.js';
 
 import Styles from './less/styles.less';
+
+
 
 // TODO: Move this to Webpack
 // For React devtools
