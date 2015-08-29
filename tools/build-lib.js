@@ -3,7 +3,7 @@ var rimraf = require('rimraf-promise');
 var colors = require('colors');
 var exec = require('child-process-promise').exec;
 
-console.log('Building lib'.green);
+console.log('building lib'.green);
 
 rimraf('./lib')
     .then(function (error) {
