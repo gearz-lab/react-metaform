@@ -9,6 +9,7 @@ import Alert from 'react-bootstrap/lib/Alert.js';
 import CheckBox from './editors/CheckBox.js';
 import Lookup from './editors/Lookup.js';
 import JsBeautify from 'js-beautify';
+import DefaultComponentFactory from '../lib/DefaultComponentFactory.js';
 
 import _ from 'underscore';
 
@@ -108,6 +109,7 @@ const LiveSchemaEditor = React.createClass({
                 ref="mf"
                 entityName={this.state.entityName}
                 layoutName= {this.state.layoutName}
+                componentFactory={DefaultComponentFactory}
                 model={this.state.model}
                 title={this.state.title}/>;
         }

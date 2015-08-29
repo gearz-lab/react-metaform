@@ -3,7 +3,6 @@ import React from 'react';
 import express from 'express';
 import path from 'path';
 import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack/webpack.config.docs.prod.js';
 import Router from 'react-router';
 import routes from './Routes';
@@ -23,13 +22,6 @@ if (development) {
     webpackConfig.output.publicPath = undefined;
 
     app = app
-        .use(webpackMiddleware(webpack(webpackConfig), {
-            noInfo: false,
-            publicPath: publicPath,
-            stats: {
-                colors: true
-            }
-        }))
         .use(function renderApp(req, res) {
             Router.run(routes, req.url, Handler => {
                 let routeHtml = React.renderToString(<Handler />);

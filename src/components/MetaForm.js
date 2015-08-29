@@ -1,5 +1,4 @@
 import React from 'react';
-import componentFactory from '../lib/ComponentFactory';
 import metadataEvaluator from '../lib/MetadataEvaluator.js';
 import metadataProvider from '../lib/metadataProvider.js';
 import dataEvaluator from '../lib/DataEvaluator.js';
@@ -17,6 +16,7 @@ var MetaForm = React.createClass({
         schema: React.PropTypes.object.isRequired,
         entityName: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string.isRequired,
+        componentFactory: React.PropTypes.object.isRequired,
         fields: React.PropTypes.object,
         model: React.PropTypes.object,
         showBottomBar: React.PropTypes.bool,
@@ -179,7 +179,7 @@ var MetaForm = React.createClass({
                 {title}
                 <div>
                     {
-                        Object.keys(_this.state.componentProps).map(fieldName => componentFactory.buildComponent(_this.state.componentProps[fieldName]))
+                        Object.keys(_this.state.componentProps).map(fieldName => _this.props.componentFactory.buildComponent(_this.state.componentProps[fieldName]))
                     }
                 </div>
                 {bottomBar}
