@@ -11,3 +11,13 @@ gulp.task('build-dist', function () {
         });
     });
 });
+
+gulp.task('build-lib', function () {
+    return rimraf('./lib')
+        .then(function (error) {
+            var babelCli = 'babel --optional es7.objectRestSpread ./src --out-dir ./lib';
+            return exec(babelCli).fail(function (error) {
+                console.log(colors.red(error))
+            });
+        });
+});
