@@ -7,6 +7,7 @@
     "build-docs": "NODE_ENV=production&& babel-node ./tools/build-docs.js",
     "build-dist": "NODE_ENV=production&& babel-node ./tools/build-dist.js",
     "build-lib": "NODE_ENV=production&& babel-node ./tools/build-lib.js",
+    "start-docs": "babel-node ./docs/Server.js",
     "test": "npm run test"
   },
   "repository": {
