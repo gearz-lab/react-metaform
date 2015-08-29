@@ -5,15 +5,9 @@ var exec = require('child-process-promise').exec;
 
 gulp.task('build-dist', function () {
     return rimraf('./dist').then(function (error) {
-        var webpackCli = 'webpack --bail';
-        var webpackCliProduction = 'webpack --bail -p';
+        var webpackCli = 'webpack --config webpack.config.dist.js';
         return exec(webpackCli).fail(function (error) {
             console.log(colors.red(error))
-        })
-            .then(function () {
-                exec(webpackCliProduction).fail(function (error) {
-                    console.log(colors.red(error));
-                });
-            });
+        });
     });
 });
