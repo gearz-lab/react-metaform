@@ -1,0 +1,26 @@
+{
+  "name": "react-metaform",
+  "version": "0.1.0",
+  "description": "A library for dynamically creating React.js forms out of metadata",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gearz-lab/react-metaform.git"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "autoform",
+    "metaform",
+    "reactjs"
+  ],
+  "author": "Andre Pena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gearz-lab/react-metaform/issues"
+  },
+  "homepage": "https://github.com/gearz-lab/react-metaform#readme"
+}
