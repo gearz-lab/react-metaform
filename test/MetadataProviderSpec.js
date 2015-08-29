@@ -2,7 +2,7 @@ import chai from 'chai';
 import metadataProvider from '../src/lib/metadataProvider.js';
 const assert = chai.assert;
 
-describe('MetadataProvider', function() {
+describe('MetadataProvider', function () {
     describe('Should merge fields', function () {
         let schema = {
             entities: [
@@ -25,8 +25,7 @@ describe('MetadataProvider', function() {
             layouts: [
                 {
                     name: 'dumb-layout',
-                    fields: [
-                    ]
+                    fields: []
                 },
                 {
                     name: 'contact-edit',
@@ -67,8 +66,7 @@ describe('MetadataProvider', function() {
                     ]
                 }
             ],
-            layouts: [
-            ]
+            layouts: []
         };
         assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find layout/);
     });
@@ -80,6 +78,35 @@ describe('MetadataProvider', function() {
                 layouts: []
             };
             assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find entity/);
+        });
+    });
+
+    describe('getProcessedSchema', ()=> {
+        it('Basic usage', () => {
+            let schema = require('./assets/metadataProviderTestData/completeData');
+
+            let processedSchema = metadataProvider.getProcessedSchema(schema, 'contact', 'contact-edit');
+            assert.equal(processedSchema.groups.length, 1);
+            assert.equal(processedSchema.groups[0].rows.length, 1);
+            assert.equal(processedSchema.groups[0].rows[0].fields.length, 1);
+
+            let field = processedSchema.groups[0].rows[0].fields[0];
+            assert.equal(field.name, 'name');
+            assert.equal(field.type, 'string');
+            assert.equal(field.displayName, 'Name');
+        });
+
+        it('Missing layouts', () => {
+            let schema = require('./assets/metadataProviderTestData/missingLayouts');
+
+            let processedSchema = metadataProvider.getProcessedSchema(schema, 'contact');
+            assert.equal(processedSchema.groups.length, 1);
+            assert.equal(processedSchema.groups[0].rows.length, 1);
+            assert.equal(processedSchema.groups[0].rows[0].fields.length, 3);
+
+            assert.equal(processedSchema.groups[0].rows[0].fields[0].name, 'type');
+            assert.equal(processedSchema.groups[0].rows[0].fields[1].name, 'name');
+            assert.equal(processedSchema.groups[0].rows[0].fields[2].name, 'date');
         });
     });
 });
