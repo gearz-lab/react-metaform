@@ -4,6 +4,8 @@
   "description": "A library for dynamically creating React.js forms out of metadata",
   "main": "index.js",
   "scripts": {
+    "build-dist": "NODE_ENV=production&& babel-node ./tools/build-dist.js",
+    "build-lib": "NODE_ENV=production&& babel-node ./tools/build-lib.js",
     "test": "npm run test"
   },
   "repository": {
@@ -50,7 +52,7 @@
     "child-process-promise": "^1.1.0",
     "colors": "^1.1.2",
     "css-loader": "^0.16.0",
-    "gulp": "^3.9.0",
+    "fs-extra-promise": "^0.2.0",
     "rimraf-promise": "^1.0.0",
     "style-loader": "^0.12.3"
   }
