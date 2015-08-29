@@ -33,6 +33,7 @@
     "file-loader": "^0.8.4",
     "font-awesome": "^4.4.0",
     "formato": "^1.0.5",
+    "js-beautify": "^1.5.10",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
     "react": "^0.13.3",
