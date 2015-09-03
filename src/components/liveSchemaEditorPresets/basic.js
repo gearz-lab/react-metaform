@@ -26,12 +26,23 @@ export default
     }],
     "layouts": [{
         "name": "contact-edit",
-        "fields": [{
-            "name": "type"
-        }, {
-            "name": "name"
-        }, {
-            "name": "date"
-        }]
+        "orientation": "horizontal",
+        "groups": [
+            {
+                "fields": [{
+                    "name": "type"
+                }, {
+                    "name": "name"
+                }]
+            },
+            {
+                "fields": [
+                    {
+                        "name": "date"
+                    }
+                ]
+            }
+        ]
+
     }]
 }

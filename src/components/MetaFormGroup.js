@@ -10,12 +10,44 @@ var MetaFormGroup = React.createClass({
     render: function() {
         let _this = this;
 
-        let groupContent = this.props.layout.fields ?
-            this.props.layout.fields.map(field => componentFactory.buildComponent(_this.props.componentProps[field.name]))
-            : this.props.layout.groups.map(group => <MetaFormGroup layout={group} componentProps={_this.props.componentProps} />);
+        let content = null;
 
-        return <div>
-            {groupContent}
+        let components = this.props.layout.fields
+            ? this.props.layout.fields.map(field =>
+                {
+                    return {
+                        data: field,
+                        length: this.props.layout.fields.length,
+                        component: componentFactory.buildComponent(_this.props.componentProps[field.name])
+                    }
+                })
+            : this.props.layout.groups.map(group =>
+                {
+                    return {
+                        data: group,
+                        length: this.props.layout.groups.length,
+                        component: <MetaFormGroup layout={group} componentProps={_this.props.componentProps}/>
+                    }
+                });
+
+            content = components.map(component =>
+            {
+                if(_this.props.layout.orientation != 'horizontal')
+                {
+                    return <div className='col-md-12'>
+                                { component.component }
+                            </div>;
+                }
+                else {
+                    let colSpan = component.data.colSpan ? component.data.colSpan : Math.floor(12/component.length);
+                    return <div className={`col-md-${colSpan}`}>
+                        { component.component }
+                    </div>
+                }
+            })
+
+        return <div className='row'>
+            {content}
         </div>;
     }
 });
