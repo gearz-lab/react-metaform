@@ -1,4 +1,5 @@
 import React from 'react';
+import MetaFormGroup from './MetaFormGroup.js';
 import metadataEvaluator from '../lib/MetadataEvaluator.js';
 import metadataProvider from '../lib/metadataProvider.js';
 import dataEvaluator from '../lib/DataEvaluator.js';
@@ -16,7 +17,7 @@ var MetaForm = React.createClass({
         schema: React.PropTypes.object.isRequired,
         entityName: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string.isRequired,
-        componentFactory: React.PropTypes.object.isRequired,
+        fields: React.PropTypes.object,
         model: React.PropTypes.object,
         showBottomBar: React.PropTypes.bool,
         // the onSave handler receives the model as a parameter
@@ -25,7 +26,10 @@ var MetaForm = React.createClass({
 
     getInitialState: function() {
         let model = this.props.model ? this.props.model : {};
+
+        let entityAndLayout = metadataProvider.getEntityAndLayout(this.props.schema, this.props.entityName, this.props.layoutName);
         let fields = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+
         let componentProps = this.getComponentProps(fields, model);
 
         return {
@@ -34,6 +38,8 @@ var MetaForm = React.createClass({
                 messages: this.getValidationSummaryMessages(componentProps)
             },
             fields: fields,
+            entity: entityAndLayout.entity,
+            layout: entityAndLayout.layout,
             model: model,
             // object with a key for each property
             componentProps: componentProps
@@ -134,7 +140,7 @@ var MetaForm = React.createClass({
     /**
      * Handles the save button
      */
-        handleSave() {
+    handleSave() {
         if(this.state.validationSummary.messages.length) {
             // if the validation summary has any message, the 'save' button won't
             // do anything. Actually the 'handleSave' method shouldn't even
@@ -163,24 +169,20 @@ var MetaForm = React.createClass({
         let bottomBar = null;
         if(this.props.showBottomBar === undefined || this.props.showBottomBar === true) {
             bottomBar = <div>
-                <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
-                <div className='meta-form-bottom-bar'>
-                    <ButtonToolbar className='pull-right'>
-                        <Button bsStyle='danger' onClick={_this.handleSave}>Save</Button>
-                        <Button>Cancel</Button>
-                    </ButtonToolbar>
-                </div>
-            </div>;
+                    <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
+                    <div className='meta-form-bottom-bar'>
+                        <ButtonToolbar className='pull-right'>
+                            <Button bsStyle='danger' onClick={_this.handleSave}>Save</Button>
+                            <Button>Cancel</Button>
+                        </ButtonToolbar>
+                    </div>
+                </div>;
         }
 
         return (
             <div className="meta-form">
                 {title}
-                <div>
-                    {
-                        Object.keys(_this.state.componentProps).map(fieldName => _this.props.componentFactory.buildComponent(_this.state.componentProps[fieldName]))
-                    }
-                </div>
+                <MetaFormGroup layout={this.state.layout} componentProps={_this.state.componentProps} />
                 {bottomBar}
             </div>
         );
