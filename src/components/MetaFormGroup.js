@@ -46,9 +46,16 @@ var MetaFormGroup = React.createClass({
                 }
             })
 
-        return <div className='row'>
-            {content}
-        </div>;
+        var layoutHeader = this.props.layout.title
+            ? <header className="meta-form-title"><span>{this.props.layout.title}</span></header>
+            : null;
+
+        return <section>
+                <div className='row'>
+                    {layoutHeader}
+                    {content}
+                </div>
+            </section>;
     }
 });
 

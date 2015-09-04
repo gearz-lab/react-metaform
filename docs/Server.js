@@ -30,7 +30,8 @@ if (development) {
                 }
                 let wrap = require('../docs/pages/BasePage.txt')
                     .replace(/\$\{routeHtml\}/g, routeHtml)
-                    .replace(/\$\{distUrl\}/g, 'http://localhost:8082/');
+                    .replace(/\$\{cssBundlePath\}/g, '')
+                    .replace(/\$\{jsBundlePath\}/g, 'http://localhost:8082/assets/bundle.js');
                 res.send(wrap);
             });
         });

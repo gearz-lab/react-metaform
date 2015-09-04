@@ -3,12 +3,12 @@
     <title>Gearz - A platform for implementing data-centric business apps. </title>
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <link rel='stylesheet' href='${distUrl}assets/main.css'/>
+    <link rel='stylesheet' href='${cssBundlePath}'/>
 </head>
 <body>
     <div>
         <div id="#app_container">${routeHtml}</div>
     </div>
-    <script src='${distUrl}assets/bundle.js'></script>
+    <script src='${jsBundlePath}'></script>
 </body>
 </html>

@@ -41,7 +41,8 @@ rimraf(docsBuilt)
                 }
                 let wrap = require('../docs/pages/BasePage.txt')
                     .replace(/\$\{routeHtml\}/g, routeHtml)
-                    .replace(/\$\{distUrl\}/g, '');
+                    .replace(/\$\{cssBundlePath\}/g, 'assets/main.css')
+                    .replace(/\$\{jsBundlePath\}/g, 'assets/bundle.js')
                 return fsep.writeFile(path.join(docsBuilt, fileName), wrap)
                     .then(write => resolve(write));
             });
