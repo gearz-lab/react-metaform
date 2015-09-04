@@ -7,14 +7,24 @@
 }
 
 .meta-form-title {
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #000;
-  line-height: 0.1em;
-  margin: 10px 0 20px;
+  position:relative;
+  z-index:2;
+  margin: 0 @grid-gutter-width/2 @grid-gutter-width/2 @grid-gutter-width/2;
+}
+
+.meta-form-title:after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:0;
+  right:0;
+  border-top:solid 1px @table-border-color;
+  z-index:-1;
 }
 
 .meta-form-title span {
   background:#fff;
-  padding:0 10px;
+  margin:0;
+  padding:0 @grid-gutter-width/2 0 0;
+  display:inline-block;
 }

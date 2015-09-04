@@ -26,6 +26,7 @@ export default
     }],
     "layouts": [{
         "name": "contact-edit",
+        "title": "Contact information",
         "orientation": "horizontal",
         "groups": [
             {
