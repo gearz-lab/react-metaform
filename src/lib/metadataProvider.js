@@ -13,39 +13,6 @@ class MetadataProvider {
         if(!metadata.type) throw Error('metadata\'s "type" property is required');
     }
 
-    getFieldsInternal(entityFields, layout, partialResult) {
-        if(!partialResult) {
-            partialResult = [];
-        }
-
-        let thisGroupFields = [];
-
-        if(!layout.fields && !layout.groups) {
-            throw Error('a layout can either have fields or groups. Never both.');
-        }
-
-        if(layout.groups) {
-            for(let i = 0; i < layout.groups.length; i++) {
-                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(entityFields, layout.groups[i], partialResult));
-            }
-        }
-        else if (layout.fields) {
-            thisGroupFields = layout.fields.map(item => {
-                let existingEntityProperty = _.find(entityFields, property => property.name == item.name);
-                let field = existingEntityProperty ? existingEntityProperty : {};
-                field = _.extend({}, field, item);
-                this.validateFieldMetadata(field);
-                return field;
-            });
-        }
-        else {
-            console.log(layout);
-            throw Error('a layout must have either fields or groups.');
-        }
-        return _.union(partialResult, thisGroupFields);
-
-    }
-
     getEntityAndLayout(schema, entityName, layoutName) {
         if (schema === null || schema === undefined) {
             throw new Error(`'mergeFields' received invalid parameters. Parameter should not be not or undefined. Parameter name: schema`);
@@ -81,6 +48,58 @@ class MetadataProvider {
         }
     }
 
+    getFieldsInternal(schema, entityFields, group, partialResult, fieldPrefix) {
+        if(!partialResult) {
+            partialResult = [];
+        }
+
+        let thisGroupFields = [];
+
+        if(!group.fields && !group.groups) {
+            throw Error('a layout can either have fields or groups. Never both.');
+        }
+
+        if(group.groups) {
+            for(let i = 0; i < group.groups.length; i++) {
+                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entityFields, group.groups[i], partialResult, fieldPrefix));
+            }
+        }
+        else if (group.fields) {
+
+            for(let i = 0; i < group.fields.length; i++) {
+                let groupField = group.fields[i];
+
+                let existingEntityProperty = _.find(entityFields, property => property.name == groupField.name);
+                let field = existingEntityProperty ? existingEntityProperty : {};
+                field = _.extend({}, field, groupField);
+                this.validateFieldMetadata(field);
+
+                if(field.type == 'entity') {
+                    if(!field.layout) {
+                        throw Error('when a field is of type \'entity\', it needs to specify a \'layout\'');
+                    }
+                    let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
+
+                    let newFieldPrefix = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
+
+
+
+                    let thisGroupInnerFields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout,partialResult, newFieldPrefix);
+                    thisGroupFields = _.union(thisGroupFields, thisGroupInnerFields);
+                }
+                else {
+                    thisGroupFields.push(field);
+                }
+            }
+        }
+        else {
+            console.log(group);
+            throw Error('a layout must have either fields or groups.');
+        }
+        return _.union(partialResult, thisGroupFields);
+
+    }
+
     /**
      * Merges the given field collection
      * @param schema
@@ -89,7 +108,7 @@ class MetadataProvider {
      */
     getFields(schema, entityName, layoutName) {
         let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
-        return this.getFieldsInternal(entityAndLayout.entity.fields, entityAndLayout.layout);
+        return this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout);
     }
 }
 
