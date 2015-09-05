@@ -80,6 +80,10 @@ describe('MetadataProvider', function() {
                           {
                               name: 'number',
                               type: 'string'
+                          },
+                          {
+                              name: 'longDistanceCode',
+                              type: 'int'
                           }
                       ]
                     }
@@ -101,6 +105,9 @@ describe('MetadataProvider', function() {
                         fields: [
                             {
                                 name: 'number'
+                            },
+                            {
+                                name: 'longDistanceCode'
                             }
                         ]
                     }
@@ -109,11 +116,15 @@ describe('MetadataProvider', function() {
 
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
 
-            assert.strictEqual(fields.length, 2);
+            console.log(fields);
+
+            assert.strictEqual(fields.length, 3);
             assert.strictEqual(fields[0].name, 'name');
             assert.strictEqual(fields[0].type, 'string');
             assert.strictEqual(fields[1].name, 'phone.number');
             assert.strictEqual(fields[1].type, 'string');
+            assert.strictEqual(fields[2].name, 'phone.longDistanceCode');
+            assert.strictEqual(fields[2].type, 'int');
         });
 
         it('Should merge fields with nested layouts', function () {
