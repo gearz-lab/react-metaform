@@ -75,25 +75,27 @@ class MetadataProvider {
                 this.validateFieldMetadata(field);
 
                 if(field.type == 'entity') {
+                    if(!field.entityName) {
+                        throw Error('when a field is of type \'entity\', it needs to specify an \'entityName\'')
+                    }
                     if(!field.layout) {
                         throw Error('when a field is of type \'entity\', it needs to specify a \'layout\'');
                     }
-                    let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
+                    let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layout);
 
                     let newFieldPrefix = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
-
-
 
                     let thisGroupInnerFields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout,partialResult, newFieldPrefix);
                     thisGroupFields = _.union(thisGroupFields, thisGroupInnerFields);
                 }
                 else {
+                    let fieldName = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
+                    field.name = fieldName;
                     thisGroupFields.push(field);
                 }
             }
         }
         else {
-            console.log(group);
             throw Error('a layout must have either fields or groups.');
         }
         return _.union(partialResult, thisGroupFields);
