@@ -112,6 +112,48 @@ class MetadataProvider {
         let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
         return this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout);
     }
+
+    processLayoutField(schema, entityFields, field, fieldPrefix) {
+        let entityFieldName = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
+        let entityField = _.find(entityFields, f => f.name == entityFieldName);
+        if(!entityField) {
+            throw Error(`cannot find field. field: ${entityFieldName}. field list: ${entityFields.map(f => f.name)}`);
+        }
+        let resultingField = {};
+        if(entityField.type != 'entity') {
+            resultingField.type = entityField.type;
+            return resultingField;
+        } else {
+            // in this case, the field is an entity field
+            resultingField.type = entityField.type;
+            let entityAndLayout = this.getEntityAndLayout(schema, entityField.entity, entityField.layout);
+            let newFieldPrefix = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
+            resultingField.layout = this.processLayoutGroup(schema, entityFields, entityAndLayout.layout, newFieldPrefix);
+        }
+        return resultingField;
+    }
+
+    processLayoutGroup(schema, entityFields, layoutGroup, fieldPrefix) {
+        let layoutGroupCopy = _.extend({}, layoutGroup);
+        if(layoutGroupCopy.fields) {
+            for(let i = 0; i < layoutGroupCopy.fields.length; i++) {
+                layoutGroupCopy.fields[i] = this.processLayoutField(schema, entityFields, layoutGroupCopy.fields[i], fieldPrefix);
+            }
+        }
+        else if (layoutGroupCopy.groups){
+            for(let i = 0; i < layoutGroupCopy.groups.length; i++) {
+                layoutGroupCopy.groups[i] = this.processLayoutGroup(schema, entityFields, layoutGroupCopy.groups[i], fieldPrefix);
+            }
+        }
+        return layoutGroupCopy;
+
+    }
+
+    processLayout(schema, entityName, layoutName) {
+        let fields = this.getFields(schema, entityName, layoutName);
+        let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
+        return this.processLayoutGroup(schema, fields, entityAndLayout.layout);
+    }
 }
 
 export default new MetadataProvider();

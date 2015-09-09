@@ -8,6 +8,5 @@ import Styles from './less/styles.less';
 window.React = React;
 
 Router.run((Handler, state) => {
-    console.log(state);
     React.render(<Handler/>, document.getElementById('#app_container'));
 });

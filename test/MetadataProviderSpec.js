@@ -116,8 +116,6 @@ describe('MetadataProvider', function() {
 
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
 
-            console.log(fields);
-
             assert.strictEqual(fields.length, 3);
             assert.strictEqual(fields[0].name, 'name');
             assert.strictEqual(fields[0].type, 'string');
@@ -214,4 +212,50 @@ describe('MetadataProvider', function() {
 
     });
 
+    describe('processLayout', function() {
+            it('Should merge fields', function () {
+
+                let schema = {
+                    entities: [
+                        {
+                            name: 'contact',
+                            fields: [
+                                {
+                                    name: 'name',
+                                    type: 'string',
+                                    displayName: 'Name'
+                                },
+                                {
+                                    name: 'date',
+                                    type: 'date',
+                                    displayName: 'Date'
+                                }
+                            ]
+                        }
+                    ],
+                    layouts: [
+                        {
+                            name: 'dumb-layout',
+                            fields: [
+                            ]
+                        },
+                        {
+                            name: 'contact-edit',
+                            fields: [
+                                {
+                                    name: 'name',
+                                    layoutOnlyProp: true
+                                },
+                                {
+                                    name: 'date'
+                                }
+                            ]
+                        }
+                    ]
+                };
+
+                let fields = metadataProvider.processLayout(schema, 'contact', 'contact-edit');
+                console.log(JSON.stringify(fields, null, 4));
+            });
+    });
 });
