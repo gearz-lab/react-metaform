@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import console from '../lib/helpers/consoleHelpers.js';
 
 class MetadataProvider {
 
@@ -15,7 +16,7 @@ class MetadataProvider {
 
     getEntityAndLayout(schema, entityName, layoutName) {
         if (schema === null || schema === undefined) {
-            throw new Error(`'mergeFields' received invalid parameters. Parameter should not be not or undefined. Parameter name: schema`);
+            throw new Error(`'getEntityAndLayout' received invalid parameters. Parameter should not be not or undefined. Parameter name: schema`);
         }
 
         if(schema.layouts === undefined || schema.layouts === null) {
@@ -27,11 +28,11 @@ class MetadataProvider {
         }
 
         if (entityName === null || entityName === undefined) {
-            throw new Error(`'mergeFields' received invalid parameters. Parameter should not be not or undefined. Parameter name: entityName`);
+            throw new Error(`'getEntityAndLayout' received invalid parameters. Parameter should not be not or undefined. Parameter name: entityName`);
         }
 
         if (layoutName === null || layoutName === undefined) {
-            throw new Error(`'mergeFields' received invalid parameters. Parameter should not be not or undefined. Parameter name: layoutName`);
+            throw new Error(`'getEntityAndLayout' received invalid parameters. Parameter should not be not or undefined. Parameter name: layoutName`);
         }
 
         let entity = _.find(schema.entities, e => e.name === entityName);
@@ -69,12 +70,20 @@ class MetadataProvider {
             for(let i = 0; i < group.fields.length; i++) {
                 let groupField = group.fields[i];
 
-                let existingEntityProperty = _.find(entityFields, property => property.name == groupField.name);
-                let field = existingEntityProperty ? existingEntityProperty : {};
-                field = _.extend({}, field, groupField);
+                let existingEntityProperty = _.find(entityFields, field => field.name == groupField.name);
+
+                if(!existingEntityProperty) {
+                    throw Error(`cannot find entity field. Field: ${groupField.name}. Group: ${group}`);
+                }
+
+                let field = _.extend({}, existingEntityProperty, groupField);
                 this.validateFieldMetadata(field);
 
+                field.name = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
+                thisGroupFields.push(field);
+
                 if(field.type == 'entity') {
+                    field.fuckingShit = 2;
                     if(!field.entityName) {
                         throw Error('when a field is of type \'entity\', it needs to specify an \'entityName\'')
                     }
@@ -85,13 +94,8 @@ class MetadataProvider {
 
                     let newFieldPrefix = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
 
-                    let thisGroupInnerFields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout,partialResult, newFieldPrefix);
+                    let thisGroupInnerFields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout, partialResult, newFieldPrefix);
                     thisGroupFields = _.union(thisGroupFields, thisGroupInnerFields);
-                }
-                else {
-                    let fieldName = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
-                    field.name = fieldName;
-                    thisGroupFields.push(field);
                 }
             }
         }
@@ -125,8 +129,8 @@ class MetadataProvider {
             return resultingField;
         } else {
             // in this case, the field is an entity field
-            resultingField.type = entityField.type;
-            let entityAndLayout = this.getEntityAndLayout(schema, entityField.entity, entityField.layout);
+            resultingField.name = entityField.name;
+            let entityAndLayout = this.getEntityAndLayout(schema, entityField.entityName, entityField.layout);
             let newFieldPrefix = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
             resultingField.layout = this.processLayoutGroup(schema, entityFields, entityAndLayout.layout, newFieldPrefix);
         }
