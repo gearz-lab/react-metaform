@@ -3,9 +3,9 @@ import metadataProvider from '../src/lib/metadataProvider.js';
 import console from '../src/lib/helpers/consoleHelpers.js';
 const assert = chai.assert;
 
-describe('MetadataProvider', function() {
+describe('MetadataProvider', function () {
 
-    describe('getFields', function() {
+    describe('getFields', function () {
 
         it('Should merge fields', function () {
 
@@ -24,24 +24,23 @@ describe('MetadataProvider', function() {
                                 type: 'date',
                                 displayName: 'Date'
                             }
-                        ]
-                    }
-                ],
-                layouts: [
-                    {
-                        name: 'dumb-layout',
-                        fields: [
-                        ]
-                    },
-                    {
-                        name: 'contact-edit',
-                        fields: [
+                        ],
+                        layouts: [
                             {
-                                name: 'name',
-                                layoutOnlyProp: true
+                                name: 'dumb-layout',
+                                fields: []
                             },
                             {
-                                name: 'date'
+                                name: 'contact-edit',
+                                fields: [
+                                    {
+                                        name: 'name',
+                                        layoutOnlyProp: true
+                                    },
+                                    {
+                                        name: 'date'
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -73,46 +72,49 @@ describe('MetadataProvider', function() {
                                 entityName: 'phone',
                                 layout: 'phone-edit'
                             }
+                        ],
+                        layouts: [
+                            {
+                                name: 'contact-edit',
+                                fields: [
+                                    {
+                                        name: 'name'
+                                    },
+                                    {
+                                        name: 'phone'
+                                    }
+                                ]
+                            }
                         ]
                     },
                     {
-                      name: 'phone',
-                      fields: [
-                          {
-                              name: 'number',
-                              type: 'string'
-                          },
-                          {
-                              name: 'longDistanceCode',
-                              type: 'int'
-                          }
-                      ]
+                        name: 'phone',
+                        fields: [
+                            {
+                                name: 'number',
+                                type: 'string'
+                            },
+                            {
+                                name: 'longDistanceCode',
+                                type: 'int'
+                            }
+                        ],
+                        layouts: [
+                            {
+                                name: 'phone-edit',
+                                fields: [
+                                    {
+                                        name: 'number'
+                                    },
+                                    {
+                                        name: 'longDistanceCode'
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ],
-                layouts: [
-                    {
-                        name: 'contact-edit',
-                        fields: [
-                            {
-                                name: 'name'
-                            },
-                            {
-                                name: 'phone'
-                            }
-                        ]
-                    },
-                    {
-                        name: 'phone-edit',
-                        fields: [
-                            {
-                                name: 'number'
-                            },
-                            {
-                                name: 'longDistanceCode'
-                            }
-                        ]
-                    }
-                ]
+
             };
 
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
@@ -144,24 +146,23 @@ describe('MetadataProvider', function() {
                                 name: 'date',
                                 type: 'date',
                                 displayName: 'Date'
-                            }
-                        ]
-                    }
-                ],
-                layouts: [
-                    {
-                        name: 'contact-edit',
-                        groups: [
+                            }],
+                        layouts: [
                             {
+                                name: 'contact-edit',
                                 groups: [
                                     {
-                                        fields: [
+                                        groups: [
                                             {
-                                                name: 'name',
-                                                layoutOnlyProp: true
-                                            },
-                                            {
-                                                name: 'date'
+                                                fields: [
+                                                    {
+                                                        name: 'name',
+                                                        layoutOnlyProp: true
+                                                    },
+                                                    {
+                                                        name: 'date'
+                                                    }
+                                                ]
                                             }
                                         ]
                                     }
@@ -199,8 +200,7 @@ describe('MetadataProvider', function() {
                         ]
                     }
                 ],
-                layouts: [
-                ]
+                layouts: []
             };
             assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find layout/);
         });
@@ -215,13 +215,14 @@ describe('MetadataProvider', function() {
 
     });
 
-    describe('processLayout', function() {
-            it('Should merge fields', function () {
+    describe('processLayout', function () {
+        it('Should merge fields', function () {
 
-                let schema = require('./assets/metadataProviderTestData/completeWithNestedEntity');
-                let layoutProcessed = metadataProvider.processLayout(schema, 'contact', 'contact-edit');
-                assert.equal(layoutProcessed.fields.length, 3);
-                assert.equal(layoutProcessed.fields[2].layout.fields.length, 2);
-            });
+            let schema = require('./assets/metadataProviderTestData/completeWithNestedEntity');
+            let layoutProcessed = metadataProvider.processLayout(schema, 'contact', 'contact-edit');
+            assert.equal(layoutProcessed.fields.length, 3);
+            assert.equal(layoutProcessed.fields[2].layout.fields.length, 2);
+        });
     });
-});
+})
+;

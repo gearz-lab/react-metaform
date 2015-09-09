@@ -18,6 +18,23 @@ export default {
                     type: 'entity',
                     entityName: 'phone'
                 }
+            ],
+            layouts: [
+                {
+                    name: 'contact-edit',
+                    fields: [
+                        {
+                            name: 'name'
+                        },
+                        {
+                            name: 'date'
+                        },
+                        {
+                            name: 'phone',
+                            layout: 'phone-edit'
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -32,6 +49,20 @@ export default {
                     type: 'entity',
                     entityName: 'carrier'
                 }
+            ],
+            layouts: [
+                {
+                    name: 'phone-edit',
+                    fields: [
+                        {
+                            name: 'number'
+                        },
+                        {
+                            name: 'carrier',
+                            layout: 'carrier-edit'
+                        }
+                    ]
+                }
             ]
         },
         {
@@ -41,42 +72,15 @@ export default {
                     name: 'longDistanceCode',
                     type: 'int'
                 }
-            ]
-        }
-    ],
-    layouts: [
-        {
-            name: 'contact-edit',
-            fields: [
+            ],
+            layouts: [
                 {
-                    name: 'name'
-                },
-                {
-                    name: 'date'
-                },
-                {
-                    name: 'phone',
-                    layout: 'phone-edit'
-                }
-            ]
-        },
-        {
-            name: 'phone-edit',
-            fields: [
-                {
-                    name: 'number'
-                },
-                {
-                    name: 'carrier',
-                    layout: 'carrier-edit'
-                }
-            ]
-        },
-        {
-            name: 'carrier-edit',
-            fields: [
-                {
-                    name: 'longDistanceCode'
+                    name: 'carrier-edit',
+                    fields: [
+                        {
+                            name: 'longDistanceCode'
+                        }
+                    ]
                 }
             ]
         }

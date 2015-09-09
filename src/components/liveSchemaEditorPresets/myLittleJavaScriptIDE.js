@@ -13,14 +13,14 @@ export default
             "component": "codeeditor",
             "height": "200px",
             "mode": "javascript"
-        }]
-    }],
-    "layouts": [{
-        "name": "code-edit",
-        "fields": [{
-            "name": "filename"
-        }, {
-            "name": "code"
+        }],
+        "layouts": [{
+            "name": "code-edit",
+            "fields": [{
+                "name": "filename"
+            }, {
+                "name": "code"
+            }]
         }]
     }]
 }

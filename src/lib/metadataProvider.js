@@ -19,10 +19,6 @@ class MetadataProvider {
             throw new Error(`'getEntityAndLayout' received invalid parameters. Parameter should not be not or undefined. Parameter name: schema`);
         }
 
-        if(schema.layouts === undefined || schema.layouts === null) {
-            throw new Error('Parameter should not be null or undefined. Parameter: ' + schema.layout);
-        }
-
         if(schema.entities === undefined || schema.entities === null) {
             throw new Error('Parameter should not be null or undefined. Parameter: ' + schema.entity);
         }
@@ -39,7 +35,7 @@ class MetadataProvider {
         if(!entity) {
             throw new Error(`Could not find entity. Entity name: ${entityName}`);
         }
-        let layout = _.find(schema.layouts, l => l.name === layoutName);
+        let layout = _.find(entity.layouts, l => l.name === layoutName);
         if(!layout) {
             throw new Error(`Could not find layout. Layout name: ${layoutName}`);
         }
@@ -112,6 +108,7 @@ class MetadataProvider {
      */
     getFields(schema, entityName, layoutName) {
         let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
+        console.logObject(entityAndLayout);
         return this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout);
     }
 
