@@ -220,7 +220,8 @@ describe('MetadataProvider', function() {
 
                 let schema = require('./assets/metadataProviderTestData/completeWithNestedEntity');
                 let layoutProcessed = metadataProvider.processLayout(schema, 'contact', 'contact-edit');
-                console.logObject(layoutProcessed);
+                assert.equal(layoutProcessed.fields.length, 3);
+                assert.equal(layoutProcessed.fields[2].layout.fields.length, 2);
             });
     });
 });

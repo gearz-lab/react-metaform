@@ -92,9 +92,7 @@ class MetadataProvider {
                     }
                     let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layout);
 
-                    let newFieldPrefix = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
-
-                    let thisGroupInnerFields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout, partialResult, newFieldPrefix);
+                    let thisGroupInnerFields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout, partialResult, field.name);
                     thisGroupFields = _.union(thisGroupFields, thisGroupInnerFields);
                 }
             }

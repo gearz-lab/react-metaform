@@ -26,6 +26,20 @@ export default {
                 {
                     name: 'number',
                     type: 'string'
+                },
+                {
+                    name: 'carrier',
+                    type: 'entity',
+                    entityName: 'carrier'
+                }
+            ]
+        },
+        {
+            name: 'carrier',
+            fields: [
+                {
+                    name: 'longDistanceCode',
+                    type: 'int'
                 }
             ]
         }
@@ -51,6 +65,18 @@ export default {
             fields: [
                 {
                     name: 'number'
+                },
+                {
+                    name: 'carrier',
+                    layout: 'carrier-edit'
+                }
+            ]
+        },
+        {
+            name: 'carrier-edit',
+            fields: [
+                {
+                    name: 'longDistanceCode'
                 }
             ]
         }
