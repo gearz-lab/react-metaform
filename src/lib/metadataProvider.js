@@ -121,7 +121,7 @@ class MetadataProvider {
         }
         let resultingField = {};
         if(entityField.type != 'entity') {
-            resultingField.type = entityField.type;
+            resultingField.name = entityField.name;
             return resultingField;
         } else {
             // in this case, the field is an entity field
@@ -145,6 +145,15 @@ class MetadataProvider {
                 layoutGroupCopy.groups[i] = this.processLayoutGroup(schema, entityFields, layoutGroupCopy.groups[i], fieldPrefix);
             }
         }
+
+        // remove every property that is not 'groups' and 'fields'
+        _.each(_.keys(layoutGroupCopy), i => {
+            if(i == 'groups' || i == 'fields') {
+                return;
+            }
+            delete layoutGroupCopy[i];
+        });
+
         return layoutGroupCopy;
 
     }

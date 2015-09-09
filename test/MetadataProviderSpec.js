@@ -1,5 +1,6 @@
 import chai from 'chai';
 import metadataProvider from '../src/lib/metadataProvider.js';
+import console from '../src/lib/helpers/consoleHelpers.js';
 const assert = chai.assert;
 
 describe('MetadataProvider', function() {
@@ -255,7 +256,7 @@ describe('MetadataProvider', function() {
                 };
 
                 let fields = metadataProvider.processLayout(schema, 'contact', 'contact-edit');
-                console.log(JSON.stringify(fields, null, 4));
+                console.logObject(fields);
             });
     });
 });
