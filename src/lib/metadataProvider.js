@@ -108,7 +108,6 @@ class MetadataProvider {
      */
     getFields(schema, entityName, layoutName) {
         let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
-        console.logObject(entityAndLayout);
         return this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout);
     }
 
