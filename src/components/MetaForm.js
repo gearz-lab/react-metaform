@@ -100,7 +100,7 @@ var MetaForm = React.createClass({
                 field.fields = fields.map(processedFields);
             }
             return field;
-        }
+        };
 
         // the component props are basically the matadata found within the 'fields' array,
         // with some added properties. Let's add these properties.
