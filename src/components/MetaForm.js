@@ -89,6 +89,9 @@ var MetaForm = React.createClass({
         let processedFields = metadataEvaluator.evaluate(fields, model);
 
         let _this = this;
+
+        // the component props are basically the matadata found within the 'fields' array,
+        // with some added properties. Let's add these properties.
         processedFields = processedFields.map(field => {
             field.key = field.name;
             field.onChange = e => _this.updateState(field, e.value);

@@ -10,8 +10,6 @@ var MetaFormGroup = React.createClass({
     render: function() {
         let _this = this;
 
-        let content = null;
-
         let components = this.props.layout.fields
             ? this.props.layout.fields.map(field =>
                 {

@@ -7,6 +7,7 @@ import Select from '../components/editors/Select.js';
 import Lookup from '../components/editors/Lookup.js';
 import DatePicker from '../components/editors/DatePicker.js';
 import CodeEditor from '../components/editors/CodeEditor.js';
+import EntityContainer from '../components/editors/EntityContainer.js';
 
 // Registers all component definitions
 componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);
@@ -16,6 +17,7 @@ componentFactory.registerComponent('lookup', ['string', 'int', 'float'], Lookup)
 componentFactory.registerComponent('checkbox', ['bool'], CheckBox);
 componentFactory.registerComponent('datepicker', ['bool'], DatePicker);
 componentFactory.registerComponent('codeeditor', ['bool'], CodeEditor);
+componentFactory.registerComponent('entitycontainer', ['entity'], EntityContainer);
 
 // Registers the component defaults
 componentFactory.setDefaultComponents({
@@ -23,7 +25,8 @@ componentFactory.setDefaultComponents({
     "int": 'textbox',
     "float": 'textbox',
     "bool": 'checkbox',
-    "date": 'datepicker'
+    "date": 'datepicker',
+    "entity": 'entitycontainer'
 });
 
 export default componentFactory;

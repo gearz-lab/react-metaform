@@ -119,15 +119,17 @@ describe('MetadataProvider', function () {
 
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
 
-            assert.strictEqual(fields.length, 4);
+            assert.strictEqual(fields.length, 2);
             assert.strictEqual(fields[0].name, 'name');
             assert.strictEqual(fields[0].type, 'string');
             assert.strictEqual(fields[1].name, 'phone');
             assert.strictEqual(fields[1].type, 'entity');
-            assert.strictEqual(fields[2].name, 'phone.number');
-            assert.strictEqual(fields[2].type, 'string');
-            assert.strictEqual(fields[3].name, 'phone.longDistanceCode');
-            assert.strictEqual(fields[3].type, 'int');
+
+            assert.strictEqual(fields[1].fields.length, 2);
+            assert.strictEqual(fields[1].fields[0].name, 'number');
+            assert.strictEqual(fields[1].fields[0].type, 'string');
+            assert.strictEqual(fields[1].fields[1].name, 'longDistanceCode');
+            assert.strictEqual(fields[1].fields[1].type, 'int');
         });
 
         it('Should merge fields with nested layouts', function () {
@@ -220,8 +222,13 @@ describe('MetadataProvider', function () {
 
             let schema = require('./assets/metadataProviderTestData/completeWithNestedEntity');
             let layoutProcessed = metadataProvider.processLayout(schema, 'contact', 'contact-edit');
+
+            console.logObject(layoutProcessed);
+
             assert.equal(layoutProcessed.fields.length, 3);
-            assert.equal(layoutProcessed.fields[2].layout.fields.length, 2);
+            assert.equal(layoutProcessed.fields[0].name, 'name');
+            assert.equal(layoutProcessed.fields[1].name, 'date');
+            assert.equal(layoutProcessed.fields[2].name, 'phone');
         });
     });
 })
