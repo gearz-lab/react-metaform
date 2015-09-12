@@ -10,11 +10,6 @@ class DataEvaluator {
         return undefined;
     }
 
-    setValue(value, metadata, model) {
-        if(model && metadata) {
-            model[metadata.name] = value;
-        }
-    }
 }
 
 export default new DataEvaluator();

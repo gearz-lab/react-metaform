@@ -120,7 +120,12 @@ var MetaForm = React.createClass({
             // the user input is valid for it's type
             newState.model[fieldMetadata.name] = typeProcessed.convertedValue;
             newState.componentProps = this.getComponentProps(newState.fields, newState.model);
+
+
+
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
+
+
             newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }
         else {
@@ -128,6 +133,8 @@ var MetaForm = React.createClass({
             // in this case, there's no need to update the model neither to reprocess all
             // the componentProps
             newState.componentProps[fieldMetadata.name].rawValue = newValue;
+
+
             newState.componentProps[fieldMetadata.name].invalid = {
                 value: true,
                 message: `The field '${fieldMetadata.name}' should be a valid ${fieldMetadata.type}.`
