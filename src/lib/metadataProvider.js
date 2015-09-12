@@ -110,28 +110,16 @@ class MetadataProvider {
         return this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout);
     }
 
-    processLayoutField(schema, entityFields, field, fieldPrefix) {
-        let entityFieldName = fieldPrefix ? `${fieldPrefix}.${field.name}` : field.name;
-        let entityField = _.find(entityFields, f => f.name == entityFieldName);
-        if (!entityField) {
-            throw Error(`cannot find field. field: ${entityFieldName}. field list: ${entityFields.map(f => f.name)}`);
-        }
-        let resultingField = {};
-        resultingField.name = entityField.name;
-        resultingField.layoutName = entityField.layoutName;
-        return resultingField;
-    }
-
-    processLayoutGroup(schema, entityFields, layoutGroup, fieldPrefix) {
+    processLayoutGroup(layoutGroup) {
         let layoutGroupCopy = _.extend({}, layoutGroup);
         if (layoutGroupCopy.fields) {
             for (let i = 0; i < layoutGroupCopy.fields.length; i++) {
-                layoutGroupCopy.fields[i] = this.processLayoutField(schema, entityFields, layoutGroupCopy.fields[i], fieldPrefix);
+                layoutGroupCopy.fields[i] = { name: layoutGroupCopy.fields[i].name };
             }
         }
         else if (layoutGroupCopy.groups) {
             for (let i = 0; i < layoutGroupCopy.groups.length; i++) {
-                layoutGroupCopy.groups[i] = this.processLayoutGroup(schema, entityFields, layoutGroupCopy.groups[i], fieldPrefix);
+                layoutGroupCopy.groups[i] = this.processLayoutGroup(layoutGroupCopy.groups[i]);
             }
         }
 
@@ -148,9 +136,8 @@ class MetadataProvider {
     }
 
     processLayout(schema, entityName, layoutName) {
-        let fields = this.getFields(schema, entityName, layoutName);
         let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
-        return this.processLayoutGroup(schema, fields, entityAndLayout.layout);
+        return this.processLayoutGroup(entityAndLayout.layout);
     }
 }
 
