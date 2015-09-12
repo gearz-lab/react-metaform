@@ -8,6 +8,7 @@ import typeProcessorFactory from '../lib/typeProcessorFactory.js';
 import Button from 'react-bootstrap/lib/Button.js';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
 import ValidationSummary from './ValidationSummary.js';
+import objectHelper from '../lib/helpers/objectHelper.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
@@ -109,6 +110,11 @@ var MetaForm = React.createClass({
         return collectionHelper.toObject(processedFields, 'name');
     },
 
+    /**
+     * Updates de model and the componentProps for the new value
+     * @param fieldMetadata
+     * @param newValue
+     */
     updateState: function(fieldMetadata, newValue) {
         let newState = _.extend({}, this.state);
 
@@ -116,29 +122,29 @@ var MetaForm = React.createClass({
         let typeProcessor = new typeProcessorType();
         let typeProcessed = typeProcessor.process(newValue);
 
+        let modelFieldKey = fieldMetadata.key;
+        let componentPropsFieldKey = modelFieldKey.indexOf('.') == -1 ? modelFieldKey : modelFieldKey.split('.').join('.componentProps.');
+
+        objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.rawValue`, newValue );
+
+        console.log(componentPropsFieldKey);
+        console.log(newState.componentProps);
+
         if(typeProcessed.valid) {
             // the user input is valid for it's type
-            newState.model[fieldMetadata.name] = typeProcessed.convertedValue;
+
+            objectHelper.setValue(newState.model, modelFieldKey, typeProcessed.convertedValue);
             newState.componentProps = this.getComponentProps(newState.fields, newState.model);
-
-
-
-            newState.componentProps[fieldMetadata.name].rawValue = newValue;
-
-
             newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }
         else {
             // the user input is not valid for it's type.
             // in this case, there's no need to update the model neither to reprocess all
             // the componentProps
-            newState.componentProps[fieldMetadata.name].rawValue = newValue;
-
-
-            newState.componentProps[fieldMetadata.name].invalid = {
+            objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.invalid`, {
                 value: true,
-                message: `The field '${fieldMetadata.name}' should be a valid ${fieldMetadata.type}.`
-            };
+                message: `The field '${componentPropsFieldKey}' should be a valid ${fieldMetadata.type}.`
+            });
             newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }
 

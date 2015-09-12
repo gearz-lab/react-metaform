@@ -25,6 +25,10 @@ class ObjectHelper {
      */
     setValue(model, path, val) {
         var fields = path.split('.');
+        if(fields.length === 1) {
+            model[path] = val;
+            return;
+        }
         var result = model;
         for (var i = 0, n = fields.length; i < n && result !== undefined; i++) {
             var field = fields[i];
