@@ -1,4 +1,5 @@
 import React from 'react';
+import metadataProvider from '../../lib/metadataProvider.js';
 
 const EntityContainer = React.createClass({
 
@@ -9,6 +10,7 @@ const EntityContainer = React.createClass({
     render: function() {
         return (
             <div>
+
             </div>
         );
     }

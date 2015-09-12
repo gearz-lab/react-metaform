@@ -70,7 +70,7 @@ describe('MetadataProvider', function () {
                                 name: 'phone',
                                 type: 'entity',
                                 entityName: 'phone',
-                                layout: 'phone-edit'
+                                layoutName: 'phone-edit'
                             }
                         ],
                         layouts: [

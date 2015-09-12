@@ -87,24 +87,24 @@ var MetaForm = React.createClass({
     getComponentProps: function(fields, model) {
         // will evaluate all the fields and return an array
         let processedFields = metadataEvaluator.evaluate(fields, model);
-
         let _this = this;
+        let processField = null;
 
-        let processFields = (field) => {
-            field.key = field.name;
+        processField = (field, prefix) => {
+            field.key = prefix ? `${prefix}.${field.name}` : field.name;
             field.onChange = e => _this.updateState(field, e.value);
             if(!field.hasOwnProperty('value')) {
                 field.value = dataEvaluator.evaluate(field, model);
             }
             if(field.fields) {
-                field.fields = fields.map(processedFields);
+                field.componentProps = collectionHelper.toObject(field.fields.map((f, i) => processField(f, field.name)), 'name');
             }
             return field;
         };
 
         // the component props are basically the matadata found within the 'fields' array,
         // with some added properties. Let's add these properties.
-        processedFields = processedFields.map(processFields);
+        processedFields = processedFields.map( f => processField(f));
 
         // will convert the array into an object
         return collectionHelper.toObject(processedFields, 'name');

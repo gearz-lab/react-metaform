@@ -31,7 +31,7 @@ export default {
                         },
                         {
                             name: 'phone',
-                            layout: 'phone-edit'
+                            layoutName: 'phone-edit'
                         }
                     ]
                 }
@@ -59,7 +59,7 @@ export default {
                         },
                         {
                             name: 'carrier',
-                            layout: 'carrier-edit'
+                            layoutName: 'carrier-edit'
                         }
                     ]
                 }

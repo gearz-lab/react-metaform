@@ -82,11 +82,12 @@ class MetadataProvider {
                     if (!field.entityName) {
                         throw Error('when a field is of type \'entity\', it needs to specify an \'entityName\'')
                     }
-                    if (!field.layout) {
-                        throw Error('when a field is of type \'entity\', it needs to specify a \'layout\'');
+                    if (!field.layoutName) {
+                        throw Error('when a field is of type \'entity\', it needs to specify a \'layoutName\'');
                     }
-                    let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layout);
 
+                    let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layoutName);
+                    field.layout = this.processLayout(schema, field.entityName, field.layoutName);
                     field.fields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout, partialResult);
                 }
             }
@@ -117,6 +118,7 @@ class MetadataProvider {
         }
         let resultingField = {};
         resultingField.name = entityField.name;
+        resultingField.layoutName = entityField.layoutName;
         return resultingField;
     }
 
