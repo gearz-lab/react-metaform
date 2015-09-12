@@ -9,24 +9,30 @@ const ValidationSummary = React.createClass({
         onDismiss: React.PropTypes.node
     },
     handleAlertDismiss() {
-        if(this.props.onDismiss) {
+        if (this.props.onDismiss) {
             this.props.onDismiss();
         }
     },
-    render: function() {
-        if(this.props.messages.length > 0) {
-            return (<Alert bsStyle='danger' >
-                <h4>Validation errors:</h4>
-                <ul>
-                    {
-                        this.props.messages.map(error => <li>{error}</li>)
-                    }
-                </ul>
-            </Alert>);
+    render: function () {
+        let content = null;
+        if (this.props.messages.length > 0) {
+            content = (
+                <Alert bsStyle='danger'>
+                    <h4>Validation errors:</h4>
+                    <ul>
+                        {
+                            this.props.messages.map(error => <li>{error}</li>)
+                        }
+                    </ul>
+                </Alert>
+            );
         }
-        return (<div>
-            <Glyphicon glyph='ok' /><span> No validation errors.</span>
-        </div>);
+        else {
+            content = <div><Glyphicon glyph='ok'/><span> No validation errors.</span></div>;
+        }
+        return <div className="validation-summary">
+            {content}
+        </div>;
     }
 });
 
