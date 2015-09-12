@@ -102,7 +102,7 @@ class MetadataProvider {
                     }
 
                     let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layoutName);
-                    field.layout = this.processLayout(schema, field.entityName, field.layoutName);
+                    field.layout = this.processLayout(schema, entityAndLayout.entity, entityAndLayout.layout);
                     field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
                 }
             }
@@ -149,9 +149,14 @@ class MetadataProvider {
         return layoutGroupCopy;
     }
 
-    processLayout(schema, entityName, layoutName) {
-        let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
-        return this.processLayoutGroup(entityAndLayout.layout);
+    processLayout(schema, entity, layout) {
+        if (typeof entity === 'string') {
+            entity = this.getEntity(schema, entity);
+        }
+        if (typeof layout === 'string') {
+            layout = this.getLayout(entity, layout);
+        }
+        return this.processLayoutGroup(layout);
     }
 }
 
