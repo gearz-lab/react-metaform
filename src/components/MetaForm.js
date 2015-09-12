@@ -127,9 +127,6 @@ var MetaForm = React.createClass({
 
         objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.rawValue`, newValue );
 
-        console.log(componentPropsFieldKey);
-        console.log(newState.componentProps);
-
         if(typeProcessed.valid) {
             // the user input is valid for it's type
 
