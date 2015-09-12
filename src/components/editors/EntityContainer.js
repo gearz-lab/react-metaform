@@ -1,5 +1,6 @@
 import React from 'react';
 import metadataProvider from '../../lib/metadataProvider.js';
+import MetaFormGroup from '../MetaFormGroup.js';
 
 const EntityContainer = React.createClass({
 
@@ -8,11 +9,7 @@ const EntityContainer = React.createClass({
     },
 
     render: function() {
-        return (
-            <div>
-
-            </div>
-        );
+        return <MetaFormGroup layout={this.props.layout} componentProps={this.props.componentProps} />
     }
 });
 
