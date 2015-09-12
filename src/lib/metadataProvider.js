@@ -14,9 +14,9 @@ class MetadataProvider {
         if (!metadata.type) throw Error('metadata\'s "type" property is required');
     }
 
-    getEntityAndLayout(schema, entityName, layoutName) {
+    getEntity(schema, entityName) {
         if (schema === null || schema === undefined) {
-            throw new Error(`'getEntityAndLayout' received invalid parameters. Parameter should not be not or undefined. Parameter name: schema`);
+            throw new Error(`Parameter should not be not or undefined. Parameter name: schema`);
         }
 
         if (schema.entities === undefined || schema.entities === null) {
@@ -24,53 +24,68 @@ class MetadataProvider {
         }
 
         if (entityName === null || entityName === undefined) {
-            throw new Error(`'getEntityAndLayout' received invalid parameters. Parameter should not be not or undefined. Parameter name: entityName`);
+            throw new Error(`Parameter should not be not or undefined. Parameter name: entityName`);
         }
-
-        if (layoutName === null || layoutName === undefined) {
-            throw new Error(`'getEntityAndLayout' received invalid parameters. Parameter should not be not or undefined. Parameter name: layoutName`);
-        }
-
         let entity = _.find(schema.entities, e => e.name === entityName);
         if (!entity) {
             throw new Error(`Could not find entity. Entity name: ${entityName}`);
+        }
+        return entity;
+    }
+
+    getLayout(entity, layoutName) {
+        if (entity === null || entity === undefined) {
+            throw new Error(`Parameter should not be not or undefined. Parameter name: entity`);
         }
         let layout = _.find(entity.layouts, l => l.name === layoutName);
         if (!layout) {
             throw new Error(`Could not find layout. Layout name: ${layoutName}`);
         }
+        return layout;
+    }
+
+    getEntityAndLayout(schema, entityName, layoutName) {
+
+        let entity = this.getEntity(schema, entityName);
+        let layout = this.getLayout(entity, layoutName);
+
         return {
             entity: entity,
             layout: layout
         }
     }
 
-    getFieldsInternal(schema, entityFields, layoutGroup, partialResult) {
+    getFieldsInternal(schema, entity, layout, partialResult) {
+
+        if(!entity) {
+            throw Error('Paramater is fucked');
+        }
+
         if (!partialResult) {
             partialResult = [];
         }
 
         let thisGroupFields = [];
 
-        if (!layoutGroup.fields && !layoutGroup.groups) {
+        if (!layout.fields && !layout.groups) {
             throw Error('a layout can either have fields or groups. Never both.');
         }
 
-        if (layoutGroup.groups) {
-            for (let i = 0; i < layoutGroup.groups.length; i++) {
-                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entityFields, layoutGroup.groups[i], partialResult));
+        if (layout.groups) {
+            for (let i = 0; i < layout.groups.length; i++) {
+                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entity, layout.groups[i], partialResult));
             }
         }
-        else if (layoutGroup.fields) {
+        else if (layout.fields) {
 
-            for (let i = 0; i < layoutGroup.fields.length; i++) {
+            for (let i = 0; i < layout.fields.length; i++) {
 
-                let groupField = layoutGroup.fields[i];
+                let groupField = layout.fields[i];
 
-                let existingEntityProperty = _.find(entityFields, field => field.name == groupField.name);
+                let existingEntityProperty = _.find(entity.fields, field => field.name == groupField.name);
 
                 if (!existingEntityProperty) {
-                    throw Error(`cannot find entity field. Field: ${groupField.name}. Group: ${layoutGroup}`);
+                    throw Error(`cannot find entity field. Field: ${groupField.name}. Group: ${layout}`);
                 }
 
                 let field = _.extend({}, existingEntityProperty, groupField);
@@ -88,7 +103,7 @@ class MetadataProvider {
 
                     let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layoutName);
                     field.layout = this.processLayout(schema, field.entityName, field.layoutName);
-                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout, partialResult);
+                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
                 }
             }
         }
@@ -107,7 +122,7 @@ class MetadataProvider {
      */
     getFields(schema, entityName, layoutName) {
         let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
-        return this.getFieldsInternal(schema, entityAndLayout.entity.fields, entityAndLayout.layout);
+        return this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout);
     }
 
     processLayoutGroup(layoutGroup) {
@@ -132,7 +147,6 @@ class MetadataProvider {
         });
 
         return layoutGroupCopy;
-
     }
 
     processLayout(schema, entityName, layoutName) {
