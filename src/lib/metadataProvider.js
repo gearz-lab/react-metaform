@@ -55,7 +55,7 @@ class MetadataProvider {
         }
     }
 
-    getFieldsInternal(schema, entity, layout, partialResult) {
+    getFieldsInternal(schema, entity, layout, prefix, partialResult) {
 
         if(!entity) {
             throw Error('Paramater is fucked');
@@ -73,7 +73,7 @@ class MetadataProvider {
 
         if (layout.groups) {
             for (let i = 0; i < layout.groups.length; i++) {
-                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entity, layout.groups[i], partialResult));
+                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entity, layout.groups[i], prefix, partialResult));
             }
         }
         else if (layout.fields) {
@@ -81,7 +81,6 @@ class MetadataProvider {
             for (let i = 0; i < layout.fields.length; i++) {
 
                 let groupField = layout.fields[i];
-
                 let existingEntityProperty = _.find(entity.fields, field => field.name == groupField.name);
 
                 if (!existingEntityProperty) {
@@ -89,6 +88,7 @@ class MetadataProvider {
                 }
 
                 let field = _.extend({}, existingEntityProperty, groupField);
+                field.key = prefix ? `${prefix}.${field.name}` : field.name;
                 this.validateFieldMetadata(field);
 
                 thisGroupFields.push(field);
@@ -103,7 +103,9 @@ class MetadataProvider {
 
                     let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layoutName);
                     field.layout = this.processLayout(schema, entityAndLayout.entity, entityAndLayout.layout);
-                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
+
+                    let newPrefix = prefix ? `${prefix}.${field.name}` : field.name;
+                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, newPrefix, partialResult);
                 }
             }
         }

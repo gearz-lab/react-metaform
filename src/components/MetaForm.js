@@ -90,14 +90,13 @@ var MetaForm = React.createClass({
         let _this = this;
         let processField = null;
 
-        processField = (field, prefix) => {
-            field.key = prefix ? `${prefix}.${field.name}` : field.name;
+        processField = (field) => {
             field.onChange = e => _this.updateState(field, e.value);
             if(!field.hasOwnProperty('value')) {
                 field.value = dataEvaluator.evaluate(field, model);
             }
             if(field.fields) {
-                field.componentProps = collectionHelper.toObject(field.fields.map((f, i) => processField(f, field.name)), 'name');
+                field.componentProps = collectionHelper.toObject(field.fields.map(processField), 'name');
             }
             return field;
         };
