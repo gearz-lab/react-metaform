@@ -33,7 +33,7 @@ class MetadataEvaluator {
      */
     evaluate(metadata, model) {
         if(!metadata) {
-            throw new Error('metadata parameter is required');
+            throw Error('metadata parameter is required');
         }
         if(metadata.constructor === Array) {
             return metadata.map(i => this.evaluate(i, model));

@@ -102,7 +102,7 @@ class ComponentFactory {
      */
     buildComponent(props) {
         if(!props) {
-            throw new Error('The metadata parameter is required');
+            throw Error('The metadata parameter is required');
         }
 
         this._validateMetadata(props);

@@ -8,6 +8,9 @@ class CollectionHelper {
      * @returns {Object}
      */
     toObject(array, key) {
+        if(!key) {
+            key = 'name';
+        }
         return _.object(_.map(array, function(item) {
                 return [item[key], item]
             }));

@@ -1,9 +1,7 @@
 import React from 'react';
 import MetaFormGroup from './MetaFormGroup.js';
-import metadataEvaluator from '../lib/MetadataEvaluator.js';
 import metadataProvider from '../lib/metadataProvider.js';
-import dataEvaluator from '../lib/DataEvaluator.js';
-import collectionHelper from '../lib/helpers/collectionHelper.js';
+import componentPropsHelper from '../lib/helpers/componentPropsHelper.js';
 import typeProcessorFactory from '../lib/typeProcessorFactory.js';
 import Button from 'react-bootstrap/lib/Button.js';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
@@ -31,7 +29,8 @@ var MetaForm = React.createClass({
         let entityAndLayout = metadataProvider.getEntityAndLayout(this.props.schema, this.props.entityName, this.props.layoutName);
         let fields = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
 
-        let componentProps = this.getComponentProps(fields, model);
+        fields = componentPropsHelper.preprocessFields(fields, (f, e) => this.updateState(f, e.value));
+        let componentProps = componentPropsHelper.getComponentProps(fields, model);
 
         return {
             validationSummary: {
@@ -52,15 +51,6 @@ var MetaForm = React.createClass({
     },
 
     /**
-     *
-     * @param metadata
-     * @param model
-     */
-    postProcessComponentProps: function(componentProps, property, rawValue) {
-
-    },
-
-    /**
      * Returns a validation summary for the given componentProps
      * @param componentProps
      * @returns {Array}
@@ -75,39 +65,6 @@ var MetaForm = React.createClass({
             }
         }
         return result;
-    },
-
-    /**
-     * Returns an object with a property for each given field metadata. The value is the metadata already
-     * processed for the given model
-     * @param fields
-     * @param model
-     * @returns {Object}
-     * @private
-     */
-    getComponentProps: function(fields, model) {
-        // will evaluate all the fields and return an array
-        let processedFields = metadataEvaluator.evaluate(fields, model);
-        let _this = this;
-        let processField = null;
-
-        processField = (field) => {
-            field.onChange = e => _this.updateState(field, e.value);
-            if(!field.hasOwnProperty('value')) {
-                field.value = dataEvaluator.evaluate(field, model);
-            }
-            if(field.fields) {
-                field.componentProps = collectionHelper.toObject(field.fields.map(processField), 'name');
-            }
-            return field;
-        };
-
-        // the component props are basically the matadata found within the 'fields' array,
-        // with some added properties. Let's add these properties.
-        processedFields = processedFields.map( f => processField(f));
-
-        // will convert the array into an object
-        return collectionHelper.toObject(processedFields, 'name');
     },
 
     /**
@@ -131,7 +88,7 @@ var MetaForm = React.createClass({
             // the user input is valid for it's type
 
             objectHelper.setValue(newState.model, modelFieldKey, typeProcessed.convertedValue);
-            newState.componentProps = this.getComponentProps(newState.fields, newState.model);
+            newState.componentProps = componentPropsHelper.getComponentProps(newState.fields, newState.model);
             newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
         }
         else {
