@@ -1,8 +1,7 @@
 import React from 'react';
 import MetaFormGroup from './MetaFormGroup.js';
 import metadataProvider from '../lib/metadataProvider.js';
-import componentPropsHelper from '../lib/helpers/componentPropsHelper.js';
-import typeProcessorFactory from '../lib/typeProcessorFactory.js';
+import MetaFormStateManager from './MetaFormStateManager.js';
 import Button from 'react-bootstrap/lib/Button.js';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
 import ValidationSummary from './ValidationSummary.js';
@@ -23,89 +22,26 @@ var MetaForm = React.createClass({
         onSave: React.PropTypes.func
     },
 
-    getInitialState: function() {
+    getInitialState: function () {
         let model = this.props.model ? this.props.model : {};
 
-        let entityAndLayout = metadataProvider.getEntityAndLayout(this.props.schema, this.props.entityName, this.props.layoutName);
-        let fields = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+        this.metaformStateManager = new MetaFormStateManager(
+            this.props.schema,
+            this.props.entityName,
+            this.props.layoutName,
+            model,
+            () => this.state,
+            (state) => this.setState(state));
 
-        fields = componentPropsHelper.preprocessFields(fields, (f, e) => this.updateState(f, e.value));
-        let componentProps = componentPropsHelper.getComponentProps(fields, model);
-
-        return {
-            validationSummary: {
-                open: false,
-                messages: this.getValidationSummaryMessages(componentProps)
-            },
-            fields: fields,
-            entity: entityAndLayout.entity,
-            layout: entityAndLayout.layout,
-            model: model,
-            // object with a key for each property
-            componentProps: componentProps
-        }
+        return this.metaformStateManager.getInitialState();
     },
 
-    resetState: function(){
+    resetState: function () {
         this.replaceState(this.getInitialState());
     },
 
-    /**
-     * Returns a validation summary for the given componentProps
-     * @param componentProps
-     * @returns {Array}
-     */
-    getValidationSummaryMessages: function(componentProps) {
-        let result = [];
-        for(let key in componentProps) {
-            if(componentProps.hasOwnProperty(key)) {
-                if(componentProps[key].invalid && componentProps[key].invalid.value == true) {
-                    result.push(componentProps[key].invalid.message);
-                }
-            }
-        }
-        return result;
-    },
 
-    /**
-     * Updates de model and the componentProps for the new value
-     * @param fieldMetadata
-     * @param newValue
-     */
-    updateState: function(fieldMetadata, newValue) {
-        let newState = _.extend({}, this.state);
-
-        let typeProcessorType = typeProcessorFactory.getProcessorType(fieldMetadata.type);
-        let typeProcessor = new typeProcessorType();
-        let typeProcessed = typeProcessor.process(newValue);
-
-        let modelFieldKey = fieldMetadata.key;
-        let componentPropsFieldKey = modelFieldKey.indexOf('.') == -1 ? modelFieldKey : modelFieldKey.split('.').join('.componentProps.');
-
-        objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.rawValue`, newValue );
-
-        if(typeProcessed.valid) {
-            // the user input is valid for it's type
-
-            objectHelper.setValue(newState.model, modelFieldKey, typeProcessed.convertedValue);
-            newState.componentProps = componentPropsHelper.getComponentProps(newState.fields, newState.model);
-            newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
-        }
-        else {
-            // the user input is not valid for it's type.
-            // in this case, there's no need to update the model neither to reprocess all
-            // the componentProps
-            objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.invalid`, {
-                value: true,
-                message: `The field '${componentPropsFieldKey}' should be a valid ${fieldMetadata.type}.`
-            });
-            newState.validationSummary.messages = this.getValidationSummaryMessages(newState.componentProps);
-        }
-
-        this.setState(newState);
-    },
-
-    handleValidationSummaryDismiss: function() {
+    handleValidationSummaryDismiss: function () {
         let newState = _.extend({}, this.state);
         newState.validationSummary.open = false;
         this.setState(newState);
@@ -115,25 +51,25 @@ var MetaForm = React.createClass({
      * Handles the save button
      */
     handleSave() {
-        if(this.state.validationSummary.messages.length) {
+        if (this.state.validationSummary.messages.length) {
             // if the validation summary has any message, the 'save' button won't
             // do anything. Actually the 'handleSave' method shouldn't even
             // be called in this case, but anyways...
             return;
         }
-        if(this.props.onSave) {
+        if (this.props.onSave) {
             this.props.onSave(this.state.model);
         }
     },
 
-    render: function() {
+    render: function () {
         // the model is cloned for security reasons, to make it hard for the components to
         // interfere with the MetaForm model. It could even be cloned once per property,
         // but that would impact performance.
         let _this = this;
 
         let title = null;
-        if(this.props.title) {
+        if (this.props.title) {
             title = <div>
                 <h3>{_this.props.title}</h3>
 
@@ -141,22 +77,25 @@ var MetaForm = React.createClass({
         }
 
         let bottomBar = null;
-        if(this.props.showBottomBar === undefined || this.props.showBottomBar === true) {
+        if (this.props.showBottomBar === undefined || this.props.showBottomBar === true) {
             bottomBar = <div>
-                    <ValidationSummary open={_this.state.validationSummary.open} messages={_this.state.validationSummary.messages} onDismiss={_this.handleValidationSummaryDismiss} />
-                    <div className='meta-form-bottom-bar'>
-                        <ButtonToolbar className='pull-right'>
-                            <Button bsStyle='danger' onClick={_this.handleSave}>Save</Button>
-                            <Button>Cancel</Button>
-                        </ButtonToolbar>
-                    </div>
-                </div>;
+                <ValidationSummary open={_this.state.validationSummary.open}
+                                   messages={_this.state.validationSummary.messages}
+                                   onDismiss={_this.handleValidationSummaryDismiss}/>
+
+                <div className='meta-form-bottom-bar'>
+                    <ButtonToolbar className='pull-right'>
+                        <Button bsStyle='danger' onClick={_this.handleSave}>Save</Button>
+                        <Button>Cancel</Button>
+                    </ButtonToolbar>
+                </div>
+            </div>;
         }
 
         return (
             <div className="meta-form">
                 {title}
-                <MetaFormGroup layout={this.state.layout} componentProps={_this.state.componentProps} />
+                <MetaFormGroup layout={this.state.layout} componentProps={_this.state.componentProps}/>
                 {bottomBar}
             </div>
         );
