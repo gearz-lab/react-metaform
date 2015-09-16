@@ -21,7 +21,7 @@ Gets the processed metadata for the given `entity` and `layout` considering the 
 
 Processing:
 
-    - Adds a `key` property to each field. The `key` is hierarchical, meaning a property called `number` on a property called `phone` will have the key `phone.number`.
+ - Adds a `key` property to each field. The `key` is hierarchical, meaning a property called `number` on a property called `phone` will have the key `phone.number`.
 
 Example schema:
 
