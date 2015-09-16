@@ -21,7 +21,12 @@ Gets the processed metadata for the given `entity` and `layout` considering the 
 
 Processing:
 
- - Adds a `key` property to each field. The `key` is hierarchical, meaning a property called `number` on a property called `phone` will have the key `phone.number`.
+ - Merges metadata from the entity and the layout. In react-metaform, metadata can be defined on both the entity and
+ the layout. `getFields` makes sure the metadata is unified.
+ - Adds a `key` property to each field. The `key` is hierarchical, meaning a property called `number` on a property
+ called `phone` will have the key `phone.number`.
+ - Adds a `layout` and a `fields` property to properties which type is `entity`. The `layout` is the layout processed
+ by `processLayout`.
 
 Example schema:
 
