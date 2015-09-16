@@ -134,7 +134,6 @@ class MetaFormStateManager {
     static getComponentProps(fields, model, updateState) {
         // will evaluate all the fields and return an array
         let processedFields = metadataEvaluator.evaluate(fields, model);
-        let _this = this;
         let processField = null;
 
         processField = (field) => {
