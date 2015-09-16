@@ -14,6 +14,12 @@ class MetadataProvider {
         if (!metadata.type) throw Error('metadata\'s "type" property is required');
     }
 
+    /**
+     * Gets a raw entity from the given schema. No processing.
+     * @param schema
+     * @param entityName
+     * @returns {*}
+     */
     getEntity(schema, entityName) {
         if (schema === null || schema === undefined) {
             throw new Error(`Parameter should not be not or undefined. Parameter name: schema`);
@@ -33,6 +39,12 @@ class MetadataProvider {
         return entity;
     }
 
+    /**
+     * Gets a raw layout from the given entity. No processing.
+     * @param entity
+     * @param layoutName
+     * @returns {*}
+     */
     getLayout(entity, layoutName) {
         if (entity === null || entity === undefined) {
             throw new Error(`Parameter should not be not or undefined. Parameter name: entity`);
@@ -44,6 +56,13 @@ class MetadataProvider {
         return layout;
     }
 
+    /**
+     * Gets a raw entity and a raw layout from the given schema.
+     * @param schema
+     * @param entityName
+     * @param layoutName
+     * @returns {{entity: *, layout: *}}
+     */
     getEntityAndLayout(schema, entityName, layoutName) {
 
         let entity = this.getEntity(schema, entityName);
@@ -127,37 +146,36 @@ class MetadataProvider {
         return this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout);
     }
 
+    /**
+     * Creates a clone of the given layout-group that maintains only the hierarchy and the 'name' property
+     * for fields
+     * @param layoutGroup
+     * @returns {Object}
+     */
     processLayoutGroup(layoutGroup) {
-        let layoutGroupCopy = _.extend({}, layoutGroup);
-        if (layoutGroupCopy.fields) {
-            for (let i = 0; i < layoutGroupCopy.fields.length; i++) {
-                layoutGroupCopy.fields[i] = { name: layoutGroupCopy.fields[i].name };
+
+        let layoutGroupClone = {};
+
+        if (layoutGroup.fields) {
+            layoutGroupClone.fields = [];
+            for (let i = 0; i < layoutGroup.fields.length; i++) {
+                layoutGroupClone.fields.push({ name: layoutGroup.fields[i].name });
             }
         }
-        else if (layoutGroupCopy.groups) {
-            for (let i = 0; i < layoutGroupCopy.groups.length; i++) {
-                layoutGroupCopy.groups[i] = this.processLayoutGroup(layoutGroupCopy.groups[i]);
+        else if (layoutGroup.groups) {
+            layoutGroupClone.groups = [];
+            for (let i = 0; i < layoutGroup.groups.length; i++) {
+                layoutGroup.groups.push(this.processLayoutGroup(layoutGroup.groups[i]));
             }
         }
 
-        // remove every property that is not 'groups' and 'fields'
-        _.each(_.keys(layoutGroupCopy), i => {
-            if (i == 'groups' || i == 'fields') {
-                return;
-            }
-            delete layoutGroupCopy[i];
-        });
-
-        return layoutGroupCopy;
+        return layoutGroupClone;
     }
 
     processLayout(schema, entity, layout) {
-        if (typeof entity === 'string') {
-            entity = this.getEntity(schema, entity);
-        }
-        if (typeof layout === 'string') {
-            layout = this.getLayout(entity, layout);
-        }
+        entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
+        layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
+
         return this.processLayoutGroup(layout);
     }
 }
