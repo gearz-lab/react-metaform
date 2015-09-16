@@ -60,8 +60,6 @@ describe('MetadataProvider', function () {
 
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
 
-            console.logObject(fields);
-
             assert.strictEqual(fields.length, 3);
 
             assert.strictEqual(fields[0].name, 'name');

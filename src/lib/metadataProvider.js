@@ -140,6 +140,7 @@ class MetadataProvider {
      * @param schema
      * @param entityName
      * @layoutName layoutName
+     * @external https://github.com/gearz-lab/react-metaform/blob/master/docs-md/MetadataProvider.md
      */
     getFields(schema, entityName, layoutName) {
         let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
