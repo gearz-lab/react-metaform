@@ -2,8 +2,10 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [MetadataProvider](#metadataprovider)
-  - [getFields(schema, entity, layout)](#getfieldsschema-entity-layout)
+- [MetadataProvider
+](#metadataprovider)
+  - [getFields(schema, entity, layout)
+](#getfieldsschema-entity-layout)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -14,6 +16,12 @@ Processes metadata
 
 getFields(schema, entity, layout)
 ---
+
+Gets the processed metadata for the given `entity` and `layout` considering the given `schema`.
+
+Processing:
+
+    - Adds a `key` property to each field. The `key` is hierarchical, meaning a property called `number` on a property called `phone` will have the key `phone.number`.
 
 Example schema:
 
@@ -108,229 +116,62 @@ Example schema:
     
 Example output for `getFields(schema, 'contact', 'contact-edit')`:
 
-    {
-        "validationSummary": {
-            "open": false,
-            "messages": []
+    [
+        {
+            "name": "name",
+            "type": "string",
+            "displayName": "Name",
+            "key": "name"
         },
-        "fields": [
-            {
-                "name": "name",
-                "type": "string",
-                "displayName": "Name",
-                "key": "name"
-            },
-            {
-                "name": "date",
-                "type": "date",
-                "displayName": "Date",
-                "key": "date"
-            },
-            {
-                "name": "phone",
-                "type": "entity",
-                "entityName": "phone",
-                "layoutName": "phone-edit",
-                "key": "phone",
-                "layout": {
-                    "fields": [
-                        {
-                            "name": "number"
-                        },
-                        {
-                            "name": "carrier"
-                        }
-                    ]
-                },
+        {
+            "name": "date",
+            "type": "date",
+            "displayName": "Date",
+            "key": "date"
+        },
+        {
+            "name": "phone",
+            "type": "entity",
+            "entityName": "phone",
+            "layoutName": "phone-edit",
+            "key": "phone",
+            "layout": {
                 "fields": [
                     {
-                        "name": "number",
-                        "type": "string",
-                        "key": "phone.number"
+                        "name": "number"
                     },
                     {
-                        "name": "carrier",
-                        "type": "entity",
-                        "entityName": "carrier",
-                        "layoutName": "carrier-edit",
-                        "key": "phone.carrier",
-                        "layout": {
-                            "fields": [
-                                {
-                                    "name": "longDistanceCode"
-                                }
-                            ]
-                        },
-                        "fields": [
-                            {
-                                "name": "longDistanceCode",
-                                "type": "int",
-                                "key": "phone.carrier.longDistanceCode"
-                            }
-                        ],
-                        "componentProps": {
-                            "longDistanceCode": {
-                                "name": "longDistanceCode",
-                                "type": "int",
-                                "key": "phone.carrier.longDistanceCode"
-                            }
-                        }
+                        "name": "carrier"
                     }
                 ]
-            }
-        ],
-        "entity": {
-            "name": "contact",
+            },
             "fields": [
                 {
-                    "name": "name",
+                    "name": "number",
                     "type": "string",
-                    "displayName": "Name"
+                    "key": "phone.number"
                 },
                 {
-                    "name": "date",
-                    "type": "date",
-                    "displayName": "Date"
-                },
-                {
-                    "name": "phone",
+                    "name": "carrier",
                     "type": "entity",
-                    "entityName": "phone"
-                }
-            ],
-            "layouts": [
-                {
-                    "name": "contact-edit",
+                    "entityName": "carrier",
+                    "layoutName": "carrier-edit",
+                    "key": "phone.carrier",
+                    "layout": {
+                        "fields": [
+                            {
+                                "name": "longDistanceCode"
+                            }
+                        ]
+                    },
                     "fields": [
                         {
-                            "name": "name"
-                        },
-                        {
-                            "name": "date"
-                        },
-                        {
-                            "name": "phone",
-                            "layoutName": "phone-edit"
+                            "name": "longDistanceCode",
+                            "type": "int",
+                            "key": "phone.carrier.longDistanceCode"
                         }
                     ]
                 }
             ]
-        },
-        "layout": {
-            "name": "contact-edit",
-            "fields": [
-                {
-                    "name": "name"
-                },
-                {
-                    "name": "date"
-                },
-                {
-                    "name": "phone",
-                    "layoutName": "phone-edit"
-                }
-            ]
-        },
-        "model": {},
-        "componentProps": {
-            "name": {
-                "name": "name",
-                "type": "string",
-                "displayName": "Name",
-                "key": "name"
-            },
-            "date": {
-                "name": "date",
-                "type": "date",
-                "displayName": "Date",
-                "key": "date"
-            },
-            "phone": {
-                "name": "phone",
-                "type": "entity",
-                "entityName": "phone",
-                "layoutName": "phone-edit",
-                "key": "phone",
-                "layout": {
-                    "fields": [
-                        {
-                            "name": "number"
-                        },
-                        {
-                            "name": "carrier"
-                        }
-                    ]
-                },
-                "fields": [
-                    {
-                        "name": "number",
-                        "type": "string",
-                        "key": "phone.number"
-                    },
-                    {
-                        "name": "carrier",
-                        "type": "entity",
-                        "entityName": "carrier",
-                        "layoutName": "carrier-edit",
-                        "key": "phone.carrier",
-                        "layout": {
-                            "fields": [
-                                {
-                                    "name": "longDistanceCode"
-                                }
-                            ]
-                        },
-                        "fields": [
-                            {
-                                "name": "longDistanceCode",
-                                "type": "int",
-                                "key": "phone.carrier.longDistanceCode"
-                            }
-                        ],
-                        "componentProps": {
-                            "longDistanceCode": {
-                                "name": "longDistanceCode",
-                                "type": "int",
-                                "key": "phone.carrier.longDistanceCode"
-                            }
-                        }
-                    }
-                ],
-                "componentProps": {
-                    "number": {
-                        "name": "number",
-                        "type": "string",
-                        "key": "phone.number"
-                    },
-                    "carrier": {
-                        "name": "carrier",
-                        "type": "entity",
-                        "entityName": "carrier",
-                        "layoutName": "carrier-edit",
-                        "key": "phone.carrier",
-                        "layout": {
-                            "fields": [
-                                {
-                                    "name": "longDistanceCode"
-                                }
-                            ]
-                        },
-                        "fields": [
-                            {
-                                "name": "longDistanceCode",
-                                "type": "int",
-                                "key": "phone.carrier.longDistanceCode"
-                            }
-                        ],
-                        "componentProps": {
-                            "longDistanceCode": {
-                                "name": "longDistanceCode",
-                                "type": "int",
-                                "key": "phone.carrier.longDistanceCode"
-                            }
-                        }
-                    }
-                }
-            }
         }
-    }
+    ]
