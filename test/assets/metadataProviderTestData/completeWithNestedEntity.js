@@ -16,7 +16,8 @@ export default {
                 {
                     name: 'phone',
                     type: 'entity',
-                    entityName: 'phone'
+                    entityName: 'phone',
+                    displayName: 'Phone'
                 }
             ],
             layouts: [

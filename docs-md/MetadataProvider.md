@@ -138,6 +138,7 @@ Example output for `getFields(schema, 'contact', 'contact-edit')`:
             "name": "phone",
             "type": "entity",
             "entityName": "phone",
+            "displayName": "Phone",
             "layoutName": "phone-edit",
             "key": "phone",
             "layout": {

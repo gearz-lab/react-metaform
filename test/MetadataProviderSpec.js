@@ -56,80 +56,40 @@ describe('MetadataProvider', function () {
 
         it('Should work with nested properties', function () {
 
-            let schema = {
-                entities: [
-                    {
-                        name: 'contact',
-                        fields: [
-                            {
-                                name: 'name',
-                                type: 'string',
-                                displayName: 'Name'
-                            },
-                            {
-                                name: 'phone',
-                                type: 'entity',
-                                entityName: 'phone',
-                                layoutName: 'phone-edit'
-                            }
-                        ],
-                        layouts: [
-                            {
-                                name: 'contact-edit',
-                                fields: [
-                                    {
-                                        name: 'name'
-                                    },
-                                    {
-                                        name: 'phone'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        name: 'phone',
-                        fields: [
-                            {
-                                name: 'number',
-                                type: 'string'
-                            },
-                            {
-                                name: 'longDistanceCode',
-                                type: 'int'
-                            }
-                        ],
-                        layouts: [
-                            {
-                                name: 'phone-edit',
-                                fields: [
-                                    {
-                                        name: 'number'
-                                    },
-                                    {
-                                        name: 'longDistanceCode'
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-
-            };
+            let schema = require('./assets/metadataProviderTestData/completeWithNestedEntity');
 
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
 
-            assert.strictEqual(fields.length, 2);
+            console.logObject(fields);
+
+            assert.strictEqual(fields.length, 3);
+
             assert.strictEqual(fields[0].name, 'name');
             assert.strictEqual(fields[0].type, 'string');
-            assert.strictEqual(fields[1].name, 'phone');
-            assert.strictEqual(fields[1].type, 'entity');
+            assert.strictEqual(fields[0].displayName, 'Name');
+            assert.strictEqual(fields[0].key, 'name');
 
-            assert.strictEqual(fields[1].fields.length, 2);
-            assert.strictEqual(fields[1].fields[0].name, 'number');
-            assert.strictEqual(fields[1].fields[0].type, 'string');
-            assert.strictEqual(fields[1].fields[1].name, 'longDistanceCode');
-            assert.strictEqual(fields[1].fields[1].type, 'int');
+            assert.strictEqual(fields[1].name, 'date');
+            assert.strictEqual(fields[1].type, 'date');
+            assert.strictEqual(fields[1].displayName, 'Date');
+            assert.strictEqual(fields[1].key, 'date');
+
+            assert.strictEqual(fields[2].name, 'phone');
+            assert.strictEqual(fields[2].type, 'entity');
+            assert.strictEqual(fields[2].displayName, 'Phone');
+            assert.strictEqual(fields[2].key, 'phone');
+            assert.strictEqual(fields[2].fields.length, 2);
+
+            assert.strictEqual(fields[2].fields[0].name, 'number');
+            assert.strictEqual(fields[2].fields[0].type, 'string');
+            assert.strictEqual(fields[2].fields[0].key, 'phone.number');
+
+            assert.strictEqual(fields[2].fields[1].name, 'carrier');
+            assert.strictEqual(fields[2].fields[1].type, 'entity');
+            assert.strictEqual(fields[2].fields[1].entityName, 'carrier');
+            assert.strictEqual(fields[2].fields[1].layoutName, 'carrier-edit');
+            assert.strictEqual(fields[2].fields[1].key, 'phone.carrier');
+            assert.strictEqual(fields[2].fields[1].fields.length, 1);
         });
 
         it('Should merge fields with nested layouts', function () {
