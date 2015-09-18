@@ -17,6 +17,10 @@ let jsBeautify = JsBeautify.js_beautify;
 
 // presets
 let presetsConfig = [];
+
+//textbox
+import textbox from './liveSchemaEditorPresets/textbox.js';
+presetsConfig.push({value: 'basic', text: 'Basic', title:'Edit contact', entityName:'contact', layoutName: 'contact-edit', code: jsBeautify(JSON.stringify(textbox)) });
 // basic
 import basic from './liveSchemaEditorPresets/basic.js';
 presetsConfig.push({value: 'basic', text: 'Basic', title:'Edit contact', entityName:'contact', layoutName: 'contact-edit', code: jsBeautify(JSON.stringify(basic)) });
