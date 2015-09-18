@@ -93,6 +93,10 @@ const LiveSchemaEditor = React.createClass({
         try {
             let schema = eval('(' + this.state.text + ')');
 
+            // the only reason why I'm getting this here, is so it's going to trigger an exception
+            // when the entityName and/or the layoutName is not valid
+            let schemaAndLayout = metadataProvider.getEntityAndLayout(schema, this.state.entityName, this.state.layoutName);
+
             return <Metaform
                 schema={schema}
                 ref="mf"
