@@ -10,7 +10,6 @@ import CheckBox from './editors/CheckBox.js';
 import Lookup from './editors/Lookup.js';
 import JsBeautify from 'js-beautify';
 import DefaultComponentFactory from '../lib/DefaultComponentFactory.js';
-
 import _ from 'underscore';
 
 let jsBeautify = JsBeautify.js_beautify;
@@ -20,47 +19,67 @@ let presetsConfig = [];
 
 //textbox
 import textbox from './liveSchemaEditorPresets/textbox.js';
-presetsConfig.push({value: 'basic', text: 'Basic', title:'Edit contact', entityName:'contact', layoutName: 'contact-edit', code: jsBeautify(JSON.stringify(textbox)) });
+presetsConfig.push({
+    value: 'basic',
+    text: 'Basic',
+    title: 'Edit contact',
+    entityName: 'contact',
+    layoutName: 'contact-edit',
+    code: jsBeautify(JSON.stringify(textbox))
+});
 // basic
 import basic from './liveSchemaEditorPresets/basic.js';
-presetsConfig.push({value: 'basic', text: 'Basic', title:'Edit contact', entityName:'contact', layoutName: 'contact-edit', code: jsBeautify(JSON.stringify(basic)) });
+presetsConfig.push({
+    value: 'textbox',
+    text: 'TextBox',
+    title: 'Edit contact',
+    entityName: 'contact',
+    layoutName: 'contact-edit',
+    code: jsBeautify(JSON.stringify(basic))
+});
 // myLittleIde
 import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.js';
-presetsConfig.push({value: 'myLittleIde', text: 'My Little JavaScript IDE', title:'My Little JavaScript IDE', entityName:'code', layoutName: 'code-edit', code: jsBeautify(JSON.stringify(myLittleIde)) });
-
+presetsConfig.push({
+    value: 'myLittleIde',
+    text: 'My Little JavaScript IDE',
+    title: 'My Little JavaScript IDE',
+    entityName: 'code',
+    layoutName: 'code-edit',
+    code: jsBeautify(JSON.stringify(myLittleIde))
+});
 
 
 const LiveSchemaEditor = React.createClass({
 
-    getInitialState: function() {
-        let initialPreset = 'basic';
+    getInitialState: function () {
+        let initialPreset = 'textbox';
         let presetConfig = _.find(presetsConfig, p => p.value == initialPreset);
-        if(!presetConfig) {
-            throw new Error(`Could not find the given preset`);
+        if (!presetConfig) {
+            throw Error(`Could not find the given preset`);
         }
         return {
-              schema: {},
-              entityName: presetConfig.entityName,
-              layoutName: presetConfig.layoutName,
-              model: {},
-              title: presetConfig.title,
-              autoUpdateMetaform: true,
-              presets: presetsConfig,
-              selectedPreset: 'basic',
-              text: presetConfig.code
-            };
+            schema: {},
+            entityName: presetConfig.entityName,
+            layoutName: presetConfig.layoutName,
+            model: {},
+            title: presetConfig.title,
+            autoUpdateMetaform: true,
+            presets: presetsConfig,
+            selectedPreset: initialPreset,
+            text: presetConfig.code
+        };
     },
 
-    onPresetChange: function(event) {
+    onPresetChange: function (event) {
         let preset = event.value;
         let updatedState;
-        if(!preset) {
-            updatedState = React.addons.update(this.state, { selectedPreset: {$set: preset} });
+        if (!preset) {
+            updatedState = React.addons.update(this.state, {selectedPreset: {$set: preset}});
             this.setState(updatedState);
             return;
         }
         let presetConfig = _.find(presetsConfig, p => p.value == preset);
-        if(!presetConfig) {
+        if (!presetConfig) {
             throw new Error(`Could not find the given preset`);
         }
         updatedState = _.extend({}, this.state);
@@ -69,34 +88,36 @@ const LiveSchemaEditor = React.createClass({
         updatedState.entityName = presetConfig.entityName;
         updatedState.layoutName = presetConfig.layoutName;
         updatedState.text = presetConfig.code;
-        this.setState(updatedState, () => { this.resetMetaform(); });
+        this.setState(updatedState, () => {
+            this.resetMetaform();
+        });
     },
 
-    onCodeChange: function(event) {
-        let updatedState = React.addons.update(this.state, { text: {$set: event.value} });
+    onCodeChange: function (event) {
+        let updatedState = React.addons.update(this.state, {text: {$set: event.value}});
         this.setState(updatedState);
-        if(this.state.autoUpdateMetaform) {
+        if (this.state.autoUpdateMetaform) {
             this.resetMetaform();
         }
     },
 
-    onMainEntityNameChanged: function(event) {
-        let updatedState = React.addons.update(this.state, { entityName: {$set: event.value} });
+    onMainEntityNameChanged: function (event) {
+        let updatedState = React.addons.update(this.state, {entityName: {$set: event.value}});
         this.setState(updatedState);
     },
 
-    onMainLayoutNameChanged: function(event) {
-        let updatedState = React.addons.update(this.state, { layoutName: {$set: event.value} });
+    onMainLayoutNameChanged: function (event) {
+        let updatedState = React.addons.update(this.state, {layoutName: {$set: event.value}});
         this.setState(updatedState);
     },
 
-    onFormTitleChanged: function(event) {
-        let updatedState = React.addons.update(this.state, { title: {$set: event.value} });
+    onFormTitleChanged: function (event) {
+        let updatedState = React.addons.update(this.state, {title: {$set: event.value}});
         this.setState(updatedState);
     },
 
-    resetMetaform: function() {
-        if(this.refs.mf) {
+    resetMetaform: function () {
+        if (this.refs.mf) {
             this.refs.mf.resetState();
         }
     },
@@ -104,7 +125,7 @@ const LiveSchemaEditor = React.createClass({
     /**
      * Returns the schema object based on the text
      */
-    buildMetaform: function() {
+    buildMetaform: function () {
         try {
             let schema = eval('(' + this.state.text + ')');
 
@@ -112,7 +133,7 @@ const LiveSchemaEditor = React.createClass({
                 schema={schema}
                 ref="mf"
                 entityName={this.state.entityName}
-                layoutName= {this.state.layoutName}
+                layoutName={this.state.layoutName}
                 componentFactory={DefaultComponentFactory}
                 model={this.state.model}
                 title={this.state.title}
@@ -121,10 +142,12 @@ const LiveSchemaEditor = React.createClass({
                 layoutName={this.state.layoutName}
                 />;
         }
-        catch(ex) {
+        catch (ex) {
             return <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss}>
                 <h4>Oh snap! The schema is not valid.</h4>
+
                 <p>Detailed information: <b>{ex.message}</b></p>
+
                 <p>
                     <span>Change the schema</span>
                     <span> or </span>
@@ -134,34 +157,38 @@ const LiveSchemaEditor = React.createClass({
         }
     },
 
-    render: function() {
+    render: function () {
         let _this = this;
         return <div className="live-schema-editor">
             <div className='row'>
                 <div className="col-md-12">
                     <h2>React-metaform demo</h2>
-                    </div>
+                </div>
                 <div className="col-md-4">
 
                     <div className='row'>
                         <div className="col-md-12">
-                            <Lookup name="presets" displayName="Presets" options={this.state.presets} onChange={this.onPresetChange} value={this.state.selectedPreset}/>
+                            <Lookup name="presets" displayName="Presets" options={this.state.presets}
+                                    onChange={this.onPresetChange} value={this.state.selectedPreset}/>
                         </div>
                     </div>
 
 
                     <div className="row">
                         <div className="col-md-6">
-                            <TextBox displayName="Main entity name" value={this.state.entityName} onChange={this.onMainEntityNameChanged} />
+                            <TextBox displayName="Main entity name" value={this.state.entityName}
+                                     onChange={this.onMainEntityNameChanged}/>
                         </div>
                         <div className="col-md-6">
-                            <TextBox displayName="Main layout name" value={this.state.layoutName} onChange={this.onMainLayoutNameChanged}/>
+                            <TextBox displayName="Main layout name" value={this.state.layoutName}
+                                     onChange={this.onMainLayoutNameChanged}/>
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="col-md-12">
-                            <TextBox displayName="Form title" value={this.state.title} onChange={this.onFormTitleChanged}/>
+                            <TextBox displayName="Form title" value={this.state.title}
+                                     onChange={this.onFormTitleChanged}/>
                         </div>
                     </div>
 
@@ -172,14 +199,15 @@ const LiveSchemaEditor = React.createClass({
                         value={this.state.text}
                         />
 
-                    </div>
+                </div>
                 <div className="col-md-8">
-                    <div className="live-schema-editor-mount-node" >
+                    <div className="live-schema-editor-mount-node">
                         {this.buildMetaform()}
                     </div>
                 </div>
-                </div>:
-            </div>;
+            </div>
+            :
+        </div>;
     }
 });
 
