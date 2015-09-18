@@ -41,17 +41,7 @@ class MetaFormStateManager {
     getInitialState() {
         let entityAndLayout = metadataProvider.getEntityAndLayout(this.schema, this.entityName, this.layoutName);
         let fields = metadataProvider.getFields(this.schema, entityAndLayout.entity, entityAndLayout.layout);
-
-        let preprocessFields = (fields) => {
-            let preprocessField = (field) => {
-                field.onChange = e => this.updateState(field, e.value);
-                return field;
-            };
-            return fields.map(preprocessField);
-        };
-
-        fields = preprocessFields(fields);
-        let componentProps = MetaFormStateManager.getComponentProps(fields, this.model, (f, v) => this.updateState(f, v));
+        let componentProps = this.getComponentProps(fields, this.model);
 
         return {
             validationSummary: {
@@ -82,19 +72,26 @@ class MetaFormStateManager {
         let modelFieldKey = fieldMetadata.key;
         let componentPropsFieldKey = modelFieldKey.indexOf('.') == -1 ? modelFieldKey : modelFieldKey.split('.').join('.componentProps.');
 
-        objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.rawValue`, newValue);
-
         if (typeProcessed.valid) {
             // the user input is valid for it's type
 
+            // update the model
             objectHelper.setValue(newState.model, modelFieldKey, typeProcessed.convertedValue);
-            newState.componentProps = MetaFormStateManager.getComponentProps(newState.fields, newState.model, (f, v) => this.updateState(f, v));
+
+            // recalculate the componentProps for all components
+            newState.componentProps = this.getComponentProps(newState.fields, newState.model);
+
+            // set the raw value for the modified component
+            objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.rawValue`, newValue);
+
+            // set the validation messages
             newState.validationSummary.messages = MetaFormStateManager.getValidationSummaryMessages(newState.componentProps);
         }
         else {
             // the user input is not valid for it's type.
             // in this case, there's no need to update the model neither to reprocess all
             // the componentProps
+            objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.rawValue`, newValue);
             objectHelper.setValue(newState.componentProps, `${componentPropsFieldKey}.invalid`, {
                 value: true,
                 message: `The field '${componentPropsFieldKey}' should be a valid ${fieldMetadata.type}.`
@@ -131,13 +128,14 @@ class MetaFormStateManager {
      * @returns {Object}
      * @private
      */
-    static getComponentProps(fields, model, updateState) {
+    getComponentProps(fields, model) {
         // will evaluate all the fields and return an array
         let processedFields = metadataEvaluator.evaluate(fields, model);
         let processField = null;
+        let _this = this;
 
         processField = (field) => {
-            field.onChange = e => updateState(field, e.value);
+            field.onChange = e => _this.updateState(field, e.value);
             if (!field.hasOwnProperty('value')) {
                 field.value = dataEvaluator.evaluate(field, model);
             }
