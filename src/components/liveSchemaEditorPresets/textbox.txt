@@ -5,6 +5,7 @@
             fields: [
                 {
                     name: "name",
+                    displayName: "Name",
                     type: "string"
                 }
             ],
