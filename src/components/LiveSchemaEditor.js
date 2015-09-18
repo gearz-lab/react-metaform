@@ -20,8 +20,8 @@ let presetsConfig = [];
 //textbox
 import textbox from './liveSchemaEditorPresets/textbox.js';
 presetsConfig.push({
-    value: 'basic',
-    text: 'Basic',
+    value: 'textbox',
+    text: 'TextBox',
     title: 'Edit contact',
     entityName: 'contact',
     layoutName: 'contact-edit',
@@ -30,8 +30,8 @@ presetsConfig.push({
 // basic
 import basic from './liveSchemaEditorPresets/basic.js';
 presetsConfig.push({
-    value: 'textbox',
-    text: 'TextBox',
+    value: 'basic',
+    text: 'Basic',
     title: 'Edit contact',
     entityName: 'contact',
     layoutName: 'contact-edit',

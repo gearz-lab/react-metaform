@@ -138,13 +138,15 @@ class MetadataProvider {
     /**
      * Merges the given field collection
      * @param schema
-     * @param entityName
-     * @layoutName layoutName
+     * @param entity
+     * @param layout
      * @external https://github.com/gearz-lab/react-metaform/blob/master/docs-md/MetadataProvider.md
      */
-    getFields(schema, entityName, layoutName) {
-        let entityAndLayout = this.getEntityAndLayout(schema, entityName, layoutName);
-        return this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout);
+    getFields(schema, entity, layout) {
+        entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
+        layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
+
+        return this.getFieldsInternal(schema, entity, layout);
     }
 
     /**

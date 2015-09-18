@@ -50,7 +50,7 @@ var MetaForm = React.createClass({
     /**
      * Handles the save button
      */
-    handleSave() {
+    handleSave: function() {
         if (this.state.validationSummary.messages.length) {
             // if the validation summary has any message, the 'save' button won't
             // do anything. Actually the 'handleSave' method shouldn't even

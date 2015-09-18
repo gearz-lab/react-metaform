@@ -40,7 +40,7 @@ class MetaFormStateManager {
      */
     getInitialState() {
         let entityAndLayout = metadataProvider.getEntityAndLayout(this.schema, this.entityName, this.layoutName);
-        let fields = metadataProvider.getFields(this.schema, this.entityName, this.layoutName);
+        let fields = metadataProvider.getFields(this.schema, entityAndLayout.entity, entityAndLayout.layout);
 
         let preprocessFields = (fields) => {
             let preprocessField = (field) => {
