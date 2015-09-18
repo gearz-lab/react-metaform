@@ -15,7 +15,7 @@ export default {
     externals: undefined,
 
     resolve: {
-        extensions: ['', '.js', '.json']
+        extensions: ['', '.js', '.json', 'txt']
     },
 
     module: {
@@ -26,7 +26,8 @@ export default {
             {test: /\.less$/, loader:  ExtractTextPlugin.extract("style-loader", "css-loader!less-loader")},
             {test: /\.json$/, loader: 'json'},
             {test: /\.jpe?g$|\.gif$|\.png$|\.ico$/, loader: 'file?name=[name].[ext]'},
-            {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'}
+            {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'},
+            {text: /\.txt/, loader: 'file', exclude: /node_modules/ }
         ]
     },
 
@@ -34,7 +35,8 @@ export default {
         new ExtractTextPlugin('[name].css'),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('production')
+                NODE_ENV: JSON.stringify('production'),
+                APP_ENV: JSON.stringify('browser')
             }
         })
     ]

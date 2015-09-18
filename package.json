@@ -75,6 +75,7 @@
     "mocha": "^2.2.5",
     "npm": "^2.14.2",
     "phantomjs": "^1.9.17",
+    "raw-loader": "^0.5.1",
     "rimraf-promise": "^1.0.0",
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",

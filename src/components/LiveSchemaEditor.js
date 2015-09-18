@@ -8,9 +8,17 @@ import metadataProvider from '../lib/metadataProvider.js';
 import Alert from 'react-bootstrap/lib/Alert.js';
 import CheckBox from './editors/CheckBox.js';
 import Lookup from './editors/Lookup.js';
-import JsBeautify from 'js-beautify';
 import DefaultComponentFactory from '../lib/DefaultComponentFactory.js';
+import JsBeautify from 'js-beautify';
+import jsonHelper from '../lib/helpers/jsonHelper.js';
 import _ from 'underscore';
+
+if (process.env.APP_ENV !== 'browser') {
+    require.extensions['.txt'] = function (module, filename) {
+        var fs = require('fs');
+        module.exports = fs.readFileSync(filename, 'utf8');
+    };
+}
 
 let jsBeautify = JsBeautify.js_beautify;
 
@@ -18,34 +26,47 @@ let jsBeautify = JsBeautify.js_beautify;
 let presetsConfig = [];
 
 //textbox
-import textbox from './liveSchemaEditorPresets/textbox.js';
+import textbox from './liveSchemaEditorPresets/textbox.txt';
 presetsConfig.push({
     value: 'textbox',
     text: 'TextBox',
     title: 'Edit contact',
     entityName: 'contact',
     layoutName: 'contact-edit',
-    code: jsBeautify(JSON.stringify(textbox))
+    code: textbox
 });
+
+//textboxWithInvalidConstraint
+import textboxWithInvalidConstraint from './liveSchemaEditorPresets/textboxWithInvalidConstraint.txt';
+presetsConfig.push({
+    value: 'textboxWithInvalidConstraint',
+    text: 'TextBox with an invalid constraint',
+    title: 'Edit contact',
+    entityName: 'contact',
+    layoutName: 'contact-edit',
+    code: textboxWithInvalidConstraint
+});
+
 // basic
-import basic from './liveSchemaEditorPresets/basic.js';
+import basic from './liveSchemaEditorPresets/basic.txt';
 presetsConfig.push({
     value: 'basic',
     text: 'Basic',
     title: 'Edit contact',
     entityName: 'contact',
     layoutName: 'contact-edit',
-    code: jsBeautify(JSON.stringify(basic))
+    code: basic
 });
+
 // myLittleIde
-import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.js';
+import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.txt';
 presetsConfig.push({
     value: 'myLittleIde',
     text: 'My Little JavaScript IDE',
     title: 'My Little JavaScript IDE',
     entityName: 'code',
     layoutName: 'code-edit',
-    code: jsBeautify(JSON.stringify(myLittleIde))
+    code: myLittleIde
 });
 
 

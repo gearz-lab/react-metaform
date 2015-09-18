@@ -22,14 +22,14 @@ export default {
             "type": "date",
             "displayName": "Date or birth"
         }],
-        layouts: [
+        "layouts": [
             {
-                name: "contact-edit",
-                groups: [
+                "name": "contact-edit",
+                "groups": [
                     {
-                        rows: [
+                        "rows": [
                             {
-                                fields: [
+                                "fields": [
                                     {name: "name"}
                                 ]
                             }

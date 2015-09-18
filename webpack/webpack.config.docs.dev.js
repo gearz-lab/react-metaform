@@ -27,7 +27,8 @@ export default {
             {test: /\.less$/, loader:  'style!css!less'},
             {test: /\.json$/, loader: 'json'},
             {test: /\.jpe?g$|\.gif$|\.png$|\.ico$/, loader: 'file?name=[name].[ext]'},
-            {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'}
+            {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'},
+            {test: /\.txt/, loader: 'raw'}
         ]
     },
 
@@ -36,7 +37,8 @@ export default {
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             'process.env': {
-                NODE_ENV: JSON.stringify('development')
+                NODE_ENV: JSON.stringify('development'),
+                APP_ENV: JSON.stringify('browser')
             }
         })
     ],
