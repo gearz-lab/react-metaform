@@ -14,7 +14,7 @@
                     type: "float",
                     value: function(m, h) { return h.format(m.value ? m.value * 0.15 + 0.68: 0) + " USD"; },
                     readOnly: true,
-                    help: "15% of the product value plus 0.68"
+                    help: "15% of the product value plus 0.68 USD"
                 },
                 {
                     name: "shipping",

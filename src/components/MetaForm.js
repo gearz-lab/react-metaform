@@ -37,6 +37,16 @@ var MetaForm = React.createClass({
         return this.metaformStateManager.getInitialState();
     },
 
+    componentWillReceiveProps: function(nextProps) {
+        // I'm not sure if this is the best approach. But what I'm looking for here is to find
+        // a way to update the state.componentProps when the MetaForm is rendered with a different model
+        if(nextProps.model) {
+            let newComponentProps = this.getComponentProps(this.state.fields, nextProps.model);
+            let updatedState = React.addons.update(this.state, {componentProps: {$set: newComponentProps}});
+            this.setState(updatedState);
+        }
+    },
+
     resetState: function () {
         this.replaceState(this.getInitialState());
     },
