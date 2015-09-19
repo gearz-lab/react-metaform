@@ -1,5 +1,6 @@
 import React from 'react/addons.js';
 import CodeEditor from './editors/CodeEditor.js';
+import Input from 'react-bootstrap/lib/Button';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import TextBox from './editors/TextBox.js';
@@ -27,7 +28,7 @@ const LiveSchemaEditor = React.createClass({
             layoutName: presetConfig.layoutName,
             model: {},
             title: presetConfig.title,
-            autoUpdateMetaform: true,
+            autoUpdateMetaform: false,
             presets: presetsConfig,
             selectedPreset: initialPreset,
             text: presetConfig.code
@@ -167,6 +168,17 @@ const LiveSchemaEditor = React.createClass({
                         value={this.state.text}
                         />
 
+                    <div className="row">
+                        <div className="col-md-7">
+                            <Input type="checkbox" label="Checkbox" checked readOnly />
+                        </div>
+                        <div className="col-md-5">
+                            <span className="pull-right">
+                                <Button bsStyle="primary">This is my new button</Button>
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
                 <div className="col-md-8">
                     <div className="live-schema-editor-mount-node">
@@ -174,7 +186,6 @@ const LiveSchemaEditor = React.createClass({
                     </div>
                 </div>
             </div>
-            :
         </div>;
     }
 });

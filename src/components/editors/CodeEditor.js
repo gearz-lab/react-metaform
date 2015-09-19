@@ -1,6 +1,6 @@
 import React from 'react';
 import brace from 'brace';
-import AceEditor from 'react-ace-wrapper';
+import AceEditor from 'react-ace';
 import braceJsx from 'brace/mode/jsx';
 import braceJavaScript from 'brace/mode/javascript.js';
 import braceCSharp from 'brace/mode/csharp.js';
