@@ -199,8 +199,7 @@ const LiveSchemaEditor = React.createClass({
                         </div>
                         <div className="col-md-5">
                             <span className="pull-right">
-                                <Button onClick={this.onUpdateClick} disabled={this.state.autoUpdate}>Update
-                                    form</Button>
+                                <Button onClick={this.onUpdateClick} disabled={this.state.autoUpdate}><Glyphicon glyph="refresh" /><span style={{marginLeft:6}}>Update form</span></Button>
                             </span>
                         </div>
                     </div>

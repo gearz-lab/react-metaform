@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/lib/Button.js';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
 import ValidationSummary from './ValidationSummary.js';
 import objectHelper from '../lib/helpers/objectHelper.js';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
@@ -85,7 +86,7 @@ var MetaForm = React.createClass({
 
                 <div className='meta-form-bottom-bar'>
                     <ButtonToolbar className='pull-right'>
-                        <Button bsStyle='danger' onClick={_this.handleSave}>Save</Button>
+                        <Button bsStyle='danger' onClick={_this.handleSave}><Glyphicon glyph="floppy-disk" /><span style={{marginLeft:6}}>Save</span></Button>
                         <Button>Cancel</Button>
                     </ButtonToolbar>
                 </div>
