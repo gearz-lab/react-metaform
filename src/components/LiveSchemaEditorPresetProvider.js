@@ -10,6 +10,7 @@ import textboxWithInvalidConstraint from './liveSchemaEditorPresets/textboxWithI
 import basic from './liveSchemaEditorPresets/basic.txt';
 import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.txt';
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
+import confirmPurchase from './liveSchemaEditorPresets/confirmPurchase.txt';
 
 class LiveSchemaEditorPresetProvider {
     constructor() {
@@ -54,6 +55,14 @@ class LiveSchemaEditorPresetProvider {
             entityName: 'confirmPassword',
             layoutName: 'default',
             code: confirmPassword
+        });
+        this.presetsConfig.push({
+            value: 'confirmPurchase',
+            text: 'Confirm purchase',
+            title: 'Confirm purchase',
+            entityName: 'sale',
+            layoutName: 'sale-edit',
+            code: confirmPurchase
         });
     }
     getPresets() {
