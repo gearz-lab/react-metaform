@@ -18,6 +18,10 @@ This document describes what is the metadata available for each component. The M
 very specific metadata like `name` and `type`. However, rvery metadata is considered valid by the MetaForm, it is responsibility
  of the component to interpret it.
  
+For a component to work with the `MetaForm`, it has to comply with some standards, like being sensitive to some of the common
+metadata. For this reason, you can choose to use whatever component you like, however, you should wrap the components
+so their `props` are exactly what the `MetaForm` expects.
+ 
 When you are creating a `MetaForm`, you need to pass a `ComponentFactory`. There are 2 available out of the box:
 
  - [ComponentFactory](https://github.com/gearz-lab/react-metaform/blob/master/src/lib/ComponentFactory.js): This is an
@@ -48,7 +52,7 @@ help | Additional help so the end-user knows what the field is about.
 Input
 ---
 
-Metadata for the Input component.
+Metadata for the `Input` component.
 
 Metadata | Description
 --- | ---
@@ -66,6 +70,24 @@ CheckBox
 ---
 
 Metadata for the CheckBox component. The CheckBox doesn't have any specific metadata.
+
+CodeEditor
+---
+
+Metadata for the `CodeEditor` component
+
+The `CodeEditor` wraps the [react-ace](https://github.com/securingsincity/react-ace). This is useful if you want the end-user
+ to be able to write code.
+ 
+Metadata | Description
+--- | ---
+mode | The language the `CodeEditor` should support. The modes are available in the [react-ace documentation](https://github.com/securingsincity/react-ace).
+theme | The theme the `CodeEditor` should be rendered in. The themes are available in the [react-ace documentation](https://github.com/securingsincity/react-ace).
+width | The width of the editor. Values have to be passed as string and both `px` and `%` values are supported. Defaults to `100%`.
+height | The height of the editor. Values have to be passed as string and only `px` is supported.
+fontSize | The numeric value of the font size. Defaults to 12.
+
+
 
  
  
