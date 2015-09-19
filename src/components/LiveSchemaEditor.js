@@ -53,6 +53,7 @@ const LiveSchemaEditor = React.createClass({
         updatedState.entityName = presetConfig.entityName;
         updatedState.layoutName = presetConfig.layoutName;
         updatedState.text = presetConfig.code;
+        this.metaFormCache = null;
         this.setState(updatedState, () => {
             this.resetMetaform();
         });
