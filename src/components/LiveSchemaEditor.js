@@ -1,6 +1,5 @@
 import React from 'react/addons.js';
 import CodeEditor from './editors/CodeEditor.js';
-import Input from 'react-bootstrap/lib/Button';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import TextBox from './editors/TextBox.js';
@@ -22,13 +21,14 @@ const LiveSchemaEditor = React.createClass({
         if (!presetConfig) {
             throw Error(`Could not find the given preset`);
         }
+
         return {
             schema: {},
             entityName: presetConfig.entityName,
             layoutName: presetConfig.layoutName,
             model: {},
             title: presetConfig.title,
-            autoUpdateMetaform: false,
+            autoUpdate: false,
             presets: presetsConfig,
             selectedPreset: initialPreset,
             text: presetConfig.code
@@ -58,12 +58,18 @@ const LiveSchemaEditor = React.createClass({
         });
     },
 
+    onAutoUpdateChange: function (event) {
+        let updatedState = React.addons.update(this.state, {autoUpdate: {$set: event.value}});
+        this.setState(updatedState);
+    },
+
     onCodeChange: function (event) {
         let updatedState = React.addons.update(this.state, {text: {$set: event.value}});
-        this.setState(updatedState);
-        if (this.state.autoUpdateMetaform) {
-            this.resetMetaform();
-        }
+        this.setState(updatedState, () => {
+            if(this.state.autoUpdate) {
+                this.resetMetaform();
+            }
+        });
     },
 
     onMainEntityNameChanged: function (event) {
@@ -81,6 +87,11 @@ const LiveSchemaEditor = React.createClass({
         this.setState(updatedState);
     },
 
+    onUpdateClick: function () {
+        this.metaFormCache = null;
+        this.forceUpdate(() => this.resetMetaform());
+    },
+
     resetMetaform: function () {
         if (this.refs.mf) {
             this.refs.mf.resetState();
@@ -91,25 +102,36 @@ const LiveSchemaEditor = React.createClass({
      * Returns the schema object based on the text
      */
     buildMetaform: function () {
+
         try {
-            let schema = eval('(' + this.state.text + ')');
 
-            // the only reason why I'm getting this here, is so it's going to trigger an exception
-            // when the entityName and/or the layoutName is not valid
-            let schemaAndLayout = metadataProvider.getEntityAndLayout(schema, this.state.entityName, this.state.layoutName);
+            if (this.state.autoUpdate || !this.metaFormCache) {
 
-            return <Metaform
-                schema={schema}
-                ref="mf"
-                entityName={this.state.entityName}
-                layoutName={this.state.layoutName}
-                componentFactory={DefaultComponentFactory}
-                model={this.state.model}
-                title={this.state.title}
-                schema={schema}
-                entityName={this.state.entityName}
-                layoutName={this.state.layoutName}
-                />;
+                let schema = eval('(' + this.state.text + ')');
+
+                // the only reason why I'm getting this here, is so it's going to trigger an exception
+                // when the entityName and/or the layoutName is not valid
+                let schemaAndLayout = metadataProvider.getEntityAndLayout(schema, this.state.entityName, this.state.layoutName);
+
+                let metaForm = <Metaform
+                    schema={schema}
+                    ref="mf"
+                    entityName={this.state.entityName}
+                    layoutName={this.state.layoutName}
+                    componentFactory={DefaultComponentFactory}
+                    model={this.state.model}
+                    title={this.state.title}
+                    schema={schema}
+                    entityName={this.state.entityName}
+                    layoutName={this.state.layoutName}
+                    />;
+                this.metaFormCache = metaForm;
+                return metaForm;
+            }
+            else {
+                return this.metaFormCache;
+            }
+
         }
         catch (ex) {
             return <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss}>
@@ -170,11 +192,14 @@ const LiveSchemaEditor = React.createClass({
 
                     <div className="row">
                         <div className="col-md-7">
-                            <Input type="checkbox" label="Checkbox" checked readOnly />
+                            <CheckBox name="toggle-auto-update" displayName="Auto update form"
+                                      onChange={this.onAutoUpdateChange}
+                                      value={this.state.autoUpdate}/>
                         </div>
                         <div className="col-md-5">
                             <span className="pull-right">
-                                <Button bsStyle="primary">This is my new button</Button>
+                                <Button onClick={this.onUpdateClick} disabled={this.state.autoUpdate}>Update
+                                    form</Button>
                             </span>
                         </div>
                     </div>
