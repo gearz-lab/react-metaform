@@ -2,11 +2,16 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Metadata](#metadata)
-  - [Common](#common)
-  - [Input](#input)
-  - [CheckBox](#checkbox)
-  - [CodeEditor](#codeeditor)
+- [Metadata
+](#metadata)
+  - [Common
+](#common)
+  - [Input
+](#input)
+  - [CheckBox
+](#checkbox)
+  - [CodeEditor
+](#codeeditor)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -61,7 +66,8 @@ addonBefore | The text that should be added-on before the component.
 addonBeforeGlyphicon | The Bootstrap glyphicon that should be added-on before the component. The supported values are available [here](http://getbootstrap.com/components/#glyphicons).
 addonAfter | The text that should be added-on after the component.
 addonAfterGlyphicon | The  Bootstrap glyphicon that should be added-on after the component. The supported values are available [here](http://getbootstrap.com/components/#glyphicons).
-hasFeedback | Whether or not the component should display as invalid. Defaults to true.
+feedback | Whether or not the component should show whether it's valid. Possible values are: `true`: Always show. `false`: Never show. `success`: Show only if it's valid. `error`: Show only if it's not valid. Defaults to `error`.
+hasFeedbackIcon | If feedback should be displayed, `hasFeedbackIcon` determines whether or not glyphicons should be used as well. Defaults to `true`.
 groupClassName | The CSS class that should be added to the Bootstrap field group.
 labelClassName | The CSS class that should be added to the Bootstrap field label.
 

@@ -10,6 +10,13 @@ const TextBox = React.createClass({
         name: React.PropTypes.string.isRequired
     },
 
+    getDefaultProps: function() {
+        return {
+            hasFeedbackIcon: true,
+            feedback: 'error'
+        };
+    },
+
     mixins: [GearzMixin],
 
     /**
@@ -20,12 +27,15 @@ const TextBox = React.createClass({
             if(this.props.invalid.value === undefined || this.props.invalid.value === null) {
                 throw new Error('invalid prop should have a value property');
             }
-            var invalid = this.props.invalid.value;
-            if(invalid) {
+            if(this.props.invalid.value && (this.props.feedback === true || this.props.feedback === 'error')) {
                 return 'error';
             }
         }
-        return 'success';
+
+        if(this.props.feedback === true || this.props.feedback === 'success')
+            return 'success';
+
+        return undefined;
     },
 
     /**
@@ -95,15 +105,16 @@ const TextBox = React.createClass({
             readOnly: this.props.readOnly,
             addonBefore: this._getAddon( this.props.addonBefore, this.props.addonBeforeGlyphicon),
             addonAfter: this._getAddon( this.props.addonAfter, this.props.addonAfterGlyphicon),
-            hasFeedback: this.props.hasFeedback != false,
+            hasFeedback: this.props.hasFeedbackIcon,
             groupClassName: `${this.getVisibleStyle()} ${this.props.groupClassName}`,
             labelClassName: `${this.props.labelClassName}`,
             wrapperClassName: ``,
             onChange:this.handleChange
         };
 
-        if(props.hasFeedback) {
-            props.bsStyle = this._getValidStyle()
+        let bsStyle = this._getValidStyle();
+        if(bsStyle) {
+            props.bsStyle = bsStyle;
         }
 
         return <Input {...props } />;
