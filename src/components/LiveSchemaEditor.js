@@ -156,7 +156,7 @@ const LiveSchemaEditor = React.createClass({
                 <div className="col-md-12">
                     <h2>React-metaform demo</h2>
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-5">
 
                     <div className='row'>
                         <div className="col-md-12">
@@ -206,7 +206,7 @@ const LiveSchemaEditor = React.createClass({
                     </div>
 
                 </div>
-                <div className="col-md-8">
+                <div className="col-md-7">
                     <div className="live-schema-editor-mount-node">
                         {this.buildMetaform()}
                     </div>
