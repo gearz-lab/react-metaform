@@ -160,6 +160,7 @@ const LiveSchemaEditor = React.createClass({
 
                     <div className='row'>
                         <div className="col-md-12">
+                            <span className="pull-right">Check the <a target="blank" href="https://github.com/gearz-lab/react-metaform/blob/master/docs-md/Metadata.md">metadata documentation</a>.</span>
                             <Lookup name="presets" displayName="Presets" options={this.state.presets}
                                     onChange={this.onPresetChange} value={this.state.selectedPreset}/>
                         </div>
