@@ -1,5 +1,5 @@
 import React from 'react';
-import FormControls from 'react-bootstrap/lib/FormControls';
+import Static from 'react-bootstrap/lib/FormControls/Static.js';
 
 const Label = React.createClass({
 
@@ -30,7 +30,7 @@ const Label = React.createClass({
         };
 
         return (
-            <FormControls.Static {...props } />
+            <Static {...props } />
         );
     }
 });

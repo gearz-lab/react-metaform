@@ -9,6 +9,7 @@ import textbox from './liveSchemaEditorPresets/textbox.txt';
 import textboxWithInvalidConstraint from './liveSchemaEditorPresets/textboxWithInvalidConstraint.txt';
 import basic from './liveSchemaEditorPresets/basic.txt';
 import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.txt';
+import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
 
 class LiveSchemaEditorPresetProvider {
     constructor() {
@@ -45,6 +46,14 @@ class LiveSchemaEditorPresetProvider {
             entityName: 'code',
             layoutName: 'code-edit',
             code: myLittleIde
+        });
+        this.presetsConfig.push({
+            value: 'confirmPassword',
+            text: 'Confirm password',
+            title: 'Reset password',
+            entityName: 'confirmPassword',
+            layoutName: 'default',
+            code: confirmPassword
         });
     }
     getPresets() {

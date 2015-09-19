@@ -37,7 +37,7 @@ export default {
             {test: /\.json$/, loader: 'json'},
             {test: /\.jpe?g$|\.gif$|\.png$|\.ico$/, loader: 'file?name=[name].[ext]'},
             {test: /\.eot|\.ttf|\.svg|\.woff2?/, loader: 'file?name=[name].[ext]'},
-            {text: /\.txt/, loader: 'file', exclude: /node_modules/ }
+            {test: /\.txt/, loader: 'raw'}
         ]
     },
 
