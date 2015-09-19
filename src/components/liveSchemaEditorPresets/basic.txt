@@ -1,60 +1,60 @@
 {
-    "entities": [
+    entities: [
         {
-            "name": "contact",
-            "fields": [
+            name: "contact",
+            fields: [
                 {
-                    "name": "type",
-                    "type": "string",
-                    "displayName": "Type",
-                    "component": "lookup",
-                    "options": [
+                    name: "type",
+                    type: "string",
+                    displayName: "Type",
+                    component: "lookup",
+                    options: [
                         {
-                            "value": "one",
-                            "text": "Person"
+                            value: "one",
+                            text: "Person"
                         },
                         {
-                            "value": "two",
-                            "text": "Company"
+                            value: "two",
+                            text: "Company"
                         }
                     ]
                 },
                 {
-                    "name": "name",
-                    "type": "string",
-                    "displayName": "Name"
+                    name: "name",
+                    type: "string",
+                    displayName: "Name"
                 },
                 {
-                    "name": "date",
-                    "type": "date",
-                    "displayName": "Date or birth"
+                    name: "date",
+                    type: "date",
+                    displayName: "Date or birth"
                 },
                 {
-                    "name": "phone",
-                    "type": "array",
-                    "arrayType": "entity",
-                    "entityName": "phone",
-                    "layoutName": "phone-edit"
+                    name: "phone",
+                    type: "array",
+                    arrayType: "entity",
+                    entityName: "phone",
+                    layoutName: "phone-edit"
                 }
             ],
-            "layouts": [{
-                "name": "contact-edit",
-                "title": "Contact information",
-                "orientation": "vertical",
-                "groups": [
+            layouts: [{
+                name: "contact-edit",
+                title: "Contact information",
+                orientation: "vertical",
+                groups: [
                     {
-                        "fields": [
+                        fields: [
                             {
-                                "name": "type"
+                                name: "type"
                             },
                             {
-                                "name": "name"
+                                name: "name"
                             },
                             {
-                                "name": "date"
+                                name: "date"
                             },
                             {
-                                "name": "phone"
+                                name: "phone"
                             }]
                     }
                 ]

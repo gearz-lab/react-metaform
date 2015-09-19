@@ -1,27 +1,27 @@
 {
-    "entities": [
+    entities: [
         {
-            "name": "contact",
-            "fields": [
+            name: "contact",
+            fields: [
                 {
-                    "name": "name",
-                    "type": "string",
-                    "invalid": [
+                    name: "name",
+                    type: "string",
+                    invalid: [
                         {
                             condition: function (m) {
-                                return m.name && m.name.length > 10
+                                return m.name && m.name.length > 10;
                             },
                             message: 'Name is too big'
                         }
                     ]
                 }
             ],
-            "layouts": [{
-                "name": "contact-edit",
-                "title": "Contact information",
+            layouts: [{
+                name: "contact-edit",
+                title: "Contact information",
                 fields: [
                     {
-                        "name": "name"
+                        name: "name"
                     }
                 ]
             }]
