@@ -83,7 +83,7 @@ class MetadataProvider {
      * @param partialResult
      * @return {Number}
      */
-    getFieldsInternal(schema, entity, layout, prefix, partialResult) {
+    getFieldsInternal(schema, entity, layout, partialResult) {
 
         if(!entity) {
             throw Error('Paramater is fucked');
@@ -101,7 +101,7 @@ class MetadataProvider {
 
         if (layout.groups) {
             for (let i = 0; i < layout.groups.length; i++) {
-                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entity, layout.groups[i], prefix, partialResult));
+                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entity, layout.groups[i], partialResult));
             }
         }
         else if (layout.fields) {
@@ -130,9 +130,7 @@ class MetadataProvider {
 
                     let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layoutName);
                     field.layout = this.processLayout(schema, entityAndLayout.entity, entityAndLayout.layout);
-
-                    let newPrefix = prefix ? `${prefix}.${field.name}` : field.name;
-                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, newPrefix, partialResult);
+                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
                 }
             }
         }
