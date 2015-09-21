@@ -65,28 +65,23 @@ describe('MetadataProvider', function () {
             assert.strictEqual(fields[0].name, 'name');
             assert.strictEqual(fields[0].type, 'string');
             assert.strictEqual(fields[0].displayName, 'Name');
-            assert.strictEqual(fields[0].key, 'name');
 
             assert.strictEqual(fields[1].name, 'date');
             assert.strictEqual(fields[1].type, 'date');
             assert.strictEqual(fields[1].displayName, 'Date');
-            assert.strictEqual(fields[1].key, 'date');
 
             assert.strictEqual(fields[2].name, 'phone');
             assert.strictEqual(fields[2].type, 'entity');
             assert.strictEqual(fields[2].displayName, 'Phone');
-            assert.strictEqual(fields[2].key, 'phone');
             assert.strictEqual(fields[2].fields.length, 2);
 
             assert.strictEqual(fields[2].fields[0].name, 'number');
             assert.strictEqual(fields[2].fields[0].type, 'string');
-            assert.strictEqual(fields[2].fields[0].key, 'phone.number');
 
             assert.strictEqual(fields[2].fields[1].name, 'carrier');
             assert.strictEqual(fields[2].fields[1].type, 'entity');
             assert.strictEqual(fields[2].fields[1].entityName, 'carrier');
             assert.strictEqual(fields[2].fields[1].layoutName, 'carrier-edit');
-            assert.strictEqual(fields[2].fields[1].key, 'phone.carrier');
             assert.strictEqual(fields[2].fields[1].fields.length, 1);
         });
 

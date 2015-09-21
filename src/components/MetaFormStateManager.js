@@ -129,19 +129,21 @@ class MetaFormStateManager {
      * @private
      */
     getComponentProps(fields, model) {
-        // will evaluate all the fields and return an array
+        // will evaluate all the fields and return an array.
+        // evaluation means converting every function, for instance, in actual values.
         let processedFields = metadataEvaluator.evaluate(fields, model);
         let processField = null;
         let _this = this;
 
-        processField = (field) => {
+        processField = (field, prefix) => {
             field.onChange = e => _this.updateState(field, e.value);
             if (!field.hasOwnProperty('value')) {
                 field.value = dataEvaluator.evaluate(field, model);
             }
 
             if (field.type == 'entity') {
-                field.componentProps = collectionHelper.toObject(field.fields.map(processField));
+                let newPrefix = prefix ? `${prefix}.${field.name}` : field.name;
+                field.componentProps = collectionHelper.toObject(field.fields.map(f => processField(f, newPrefix)));
             }
             else if (field.type == 'array') {
 
@@ -155,6 +157,16 @@ class MetaFormStateManager {
 
         // will convert the array into an object
         return collectionHelper.toObject(processedFields, 'name');
+    }
+
+    /**
+     * Updates de componentProps
+     * @param model
+     */
+    updateComponentProps(model) {
+        let newState = _.extend({}, this.getState());
+        newState.componentProps = this.getComponentProps(newState.fields, model);
+        this.setState(newState);
     }
 }
 

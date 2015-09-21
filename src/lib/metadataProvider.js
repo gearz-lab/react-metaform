@@ -74,6 +74,15 @@ class MetadataProvider {
         }
     }
 
+    /**
+     * Internal method for merging entity and layout fields
+     * @param schema
+     * @param entity
+     * @param layout
+     * @param prefix
+     * @param partialResult
+     * @return {Number}
+     */
     getFieldsInternal(schema, entity, layout, prefix, partialResult) {
 
         if(!entity) {
@@ -107,7 +116,6 @@ class MetadataProvider {
                 }
 
                 let field = _.extend({}, existingEntityProperty, groupField);
-                field.key = prefix ? `${prefix}.${field.name}` : field.name;
                 this.validateFieldMetadata(field);
 
                 thisGroupFields.push(field);

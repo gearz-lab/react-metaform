@@ -1,5 +1,6 @@
 import expressionEvaluator from './ExpressionEvaluator.js';
 import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
+import entityMetadataFilter from './metadataFilters/entityMetadataFilter.js';
 import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
 import conditionMessagePropertyFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
@@ -39,11 +40,12 @@ class MetadataEvaluator {
             return metadata.map(i => this.evaluate(i, model));
         }
         let result = {};
-        for (var property in metadata) {
-            if (metadata.hasOwnProperty(property)) {
-                result[property] = this.filterProperty(property, metadata[property], model);
+        for (var propertyName in metadata) {
+            if (metadata.hasOwnProperty(propertyName)) {
+                result[propertyName] = this.filterProperty(propertyName, metadata[propertyName], model);
             }
         }
+
         return this.filter(result, model);
     }
 
@@ -95,7 +97,7 @@ class MetadataEvaluator {
     filter(metadata, model) {
         let processedMetadata = metadata;
         for(let i=0; i<this.metadataFilters.length; i++) {
-            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model);
+            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, this);
         }
         return processedMetadata;
     }
@@ -168,5 +170,6 @@ let metadataEvaluator = new MetadataEvaluator();
 metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
 metadataEvaluator.addPropertyFilter(conditionMessagePropertyFilter, 'invalid');
 metadataEvaluator.addFilter(defaultMetadataFilter);
+metadataEvaluator.addFilter(entityMetadataFilter);
 
 export default metadataEvaluator;

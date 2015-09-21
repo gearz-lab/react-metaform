@@ -22,6 +22,8 @@ describe('MetaFormStateManagerSpec', function() {
         );
 
         stateSetter(metaformStateManager.getInitialState());
+
+        //console.logObject(stateWrapper.state.componentProps);
     });
 });
 
