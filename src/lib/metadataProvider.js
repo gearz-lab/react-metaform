@@ -132,6 +132,28 @@ class MetadataProvider {
                     field.layout = this.processLayout(schema, entityAndLayout.entity, entityAndLayout.layout);
                     field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
                 }
+
+                if(field.type == 'array') {
+                    if(!field.arrayType) {
+                        throw Error('when a field is of type \'array\', it needs to specify an \'arrayType\'');
+                    }
+
+                    if(field.arrayType != 'entity') {
+                        throw Error('only entity arrays are currently supported');
+                    }
+
+                    if(!field.entityType) {
+                        throw Error('when a field is of type \'array\' and arrayType is \'entity\', it needs to specify an \'entityType\'');
+                    }
+
+                    if (!field.layoutName) {
+                        throw Error('when a field is of type \'entity\', it needs to specify a \'layoutName\'');
+                    }
+
+                    let entityAndLayout = this.getEntityAndLayout(schema, field.entityType, field.layoutName);
+                    field.layout = this.processLayout(schema, entityAndLayout.entity, entityAndLayout.layout);
+                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
+                }
             }
         }
         else {
