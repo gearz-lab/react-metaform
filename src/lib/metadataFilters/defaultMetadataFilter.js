@@ -2,7 +2,7 @@ import expressionEvaluator from '../ExpressionEvaluator.js';
 import dataEvaluator from '../DataEvaluator.js';
 
 class DefaultMetadataFilter {
-    filter(metadata, model) {
+    filter(metadata, model, keyPrefix, metadataEvaluator) {
         if(!metadata) {
             throw new Error('metadata is required');
         }

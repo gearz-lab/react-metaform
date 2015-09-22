@@ -137,9 +137,6 @@ class MetaFormStateManager {
 
         processField = (field, prefix) => {
             field.onChange = e => _this.updateState(field, e.value);
-            if (!field.hasOwnProperty('value')) {
-                field.value = dataEvaluator.evaluate(field, model);
-            }
 
             if (field.type == 'entity') {
                 let newPrefix = prefix ? `${prefix}.${field.name}` : field.name;

@@ -1,7 +1,12 @@
 import expressionEvaluator from './ExpressionEvaluator.js';
+
+// metadata filters
 import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
 import entityMetadataFilter from './metadataFilters/entityMetadataFilter.js';
 import arrayMetadataFilter from './metadataFilters/arrayMetadataFilter.js';
+import valueSetterMetadataFilter from './metadataFilters/valueSetterMetadataFilter.js';
+
+// property filters
 import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
 import conditionMessagePropertyFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
@@ -33,13 +38,15 @@ class MetadataEvaluator {
      * @param model
      * @returns {{}}
      */
-    evaluate(metadata, model) {
+    evaluate(metadata, model, keyPrefix) {
+
         if(!metadata) {
             throw Error('metadata parameter is required');
         }
         if(metadata.constructor === Array) {
-            return metadata.map(i => this.evaluate(i, model));
+            return metadata.map(i => this.evaluate(i, model, keyPrefix));
         }
+
         let result = {};
         for (var propertyName in metadata) {
             if (metadata.hasOwnProperty(propertyName)) {
@@ -47,7 +54,11 @@ class MetadataEvaluator {
             }
         }
 
-        return this.filter(result, model);
+        // experimenting setting the value property of each metadata
+        let newPrefix = keyPrefix ? `${keyPrefix}.${metadata.name}` : metadata.name;
+        result.key = newPrefix;
+
+        return this.filter(result, model, newPrefix);
     }
 
     /**
@@ -95,10 +106,10 @@ class MetadataEvaluator {
      * @param model
      * @returns {*}
      */
-    filter(metadata, model) {
+    filter(metadata, model, keyPrefix) {
         let processedMetadata = metadata;
         for(let i=0; i<this.metadataFilters.length; i++) {
-            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, this);
+            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this);
         }
         return processedMetadata;
     }
@@ -168,10 +179,16 @@ class MetadataEvaluator {
 }
 
 let metadataEvaluator = new MetadataEvaluator();
-metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
-metadataEvaluator.addPropertyFilter(conditionMessagePropertyFilter, 'invalid');
+
+// register metadata filters
 metadataEvaluator.addFilter(defaultMetadataFilter);
 metadataEvaluator.addFilter(entityMetadataFilter);
 metadataEvaluator.addFilter(arrayMetadataFilter);
+metadataEvaluator.addFilter(valueSetterMetadataFilter);
+
+// register property filters
+metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
+metadataEvaluator.addPropertyFilter(conditionMessagePropertyFilter, 'invalid');
+
 
 export default metadataEvaluator;

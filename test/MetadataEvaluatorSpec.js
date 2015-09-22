@@ -9,11 +9,11 @@ describe('MetadataEvaluator', function () {
     describe('evaluate', function () {
         it('DefaultMetadataFilter with literals', function () {
             let metadata = {
-                name: 'Andre',
+                name: 'name',
                 required: true
             };
             let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre'});
-            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.strictEqual('name', metadataEvaluation.name);
             assert.isTrue(metadataEvaluation.required);
 
         });
@@ -125,22 +125,171 @@ describe('MetadataEvaluator', function () {
             assert.isTrue(metadataEvaluation.required);
             assert.isUndefined(metadataEvaluation.invalid);
         });
+        it('Should work with entities', function () {
+            let metadata = {
+                name: 'phone',
+                type: 'entity',
+                fields: [
+                    {
+                        name: 'number'
+                    },
+                    {
+                        name: 'longDistanceCode',
+                        invalid: [
+                            {
+                                condition: p => p.longDistanceCode > 99,
+                                message: 'long distance codes should be lower than 99'
+                            }
+                        ]
+                    }
+                ]
+            };
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata,
+                {
+                    phone: {
+                        number: '99168204',
+                        longDistanceCode: 200
+                    }
+                });
+            assert.strictEqual(metadataEvaluation.name, 'phone');
+            assert.strictEqual(metadataEvaluation.type, 'entity');
+            assert.strictEqual(metadataEvaluation.fields.length, 2);
+            assert.strictEqual(metadataEvaluation.fields[1].invalid.value, true);
+
+        });
+
         it('Should work with inner entities', function () {
             let metadata = {
                 name: 'phone',
                 type: 'entity',
                 fields: [
                     {
-                        name: 'phoneProperty',
-                        required: p => p.number.length > 3
+                        name: 'number'
+                    },
+                    {
+                        name: 'carrier',
+                        type: 'entity',
+                        entityName: 'carrier',
+                        fields: [
+                            {
+                                name: 'code',
+                                type: 'int'
+                            },
+                            {
+                                name: 'plan',
+                                type: 'string'
+                            }
+                        ]
                     }
                 ]
             };
-            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {phone: {number: '99168204'}});
-            assert.strictEqual(metadataEvaluation.name, 'phone');
-            assert.strictEqual(metadataEvaluation.type, 'entity');
-            assert.strictEqual(metadataEvaluation.fields.length, 1);
-            assert.strictEqual(metadataEvaluation.fields[0].required, true);
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata,
+                {
+                    phone: {
+                        number: '99168204',
+                        carrier: {
+                            code: "51",
+                            plan: 'smart'
+                        }
+                    }
+                });
+
+        });
+
+        it('Should work with of arrays', function () {
+            let metadata = {
+                name: 'phones',
+                type: 'array',
+                arrayType: 'entity',
+                entityType: 'phone',
+                fields: [
+                    {
+                        name: 'number',
+                        newFormat: p => p.number.length > 8
+                    },
+                    {
+                        name: 'longDistanceCode'
+                    }
+                ]
+            };
+
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata,
+                {
+                    phones: [
+                        {
+                            longDistanceCode: 32,
+                            number: '99182938'
+                        },
+                        {
+                            longDistanceCode: 21,
+                            number: '999291102'
+                        }
+                    ]
+                });
+
+
+        });
+
+        it('Should work with of arrays of arrays', function () {
+            let metadata = {
+                name: 'contacts',
+                type: 'array',
+                arrayType: 'entity',
+                entityType: 'contact',
+                fields: [
+                    {
+                        name: 'name',
+                        type: 'string'
+                    },
+                    {
+                        name: 'phones',
+                        type: 'array',
+                        arrayType: 'entity',
+                        entityType: 'phone',
+                        fields: [
+                            {
+                                name: 'number',
+                                newFormat: p => p.number.length > 8
+                            },
+                            {
+                                name: 'longDistanceCode'
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {
+                contacts: [
+                    {
+                        name: 'Andre',
+                        phones: [
+                            {
+                                longDistanceCode: 32,
+                                number: '99168204'
+                            },
+                            {
+                                longDistanceCode: 21,
+                                number: '988934510'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Miguel',
+                        phones: [
+                            {
+                                longDistanceCode: 32,
+                                number: '99182938'
+                            },
+                            {
+                                longDistanceCode: 21,
+                                number: '999291102'
+                            }
+                        ]
+                    }
+                ]
+            });
+
         });
     });
 });
