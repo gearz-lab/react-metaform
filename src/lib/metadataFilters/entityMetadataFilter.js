@@ -1,7 +1,7 @@
 import _ from 'underscore';
 
 class EntityMetadataFilter {
-    filter(metadata, model, keyPrefix, metadataEvaluator) {
+    filter(metadata, model, keyPrefix, metadataEvaluator, metadataIndex) {
         if(!metadata) {
             throw new Error('metadata is required');
         }
@@ -22,7 +22,7 @@ class EntityMetadataFilter {
                     throw Error('when metadata is of type entity, the model value should be an object');
                 }
             }
-            metadata.fields = metadataEvaluator.evaluate(metadata.fields, model[metadata.name], keyPrefix);
+            metadata.fields = metadataEvaluator.evaluate(metadata.fields, model[metadata.name], keyPrefix, metadataIndex);
         }
         return metadata;
     }

@@ -38,13 +38,16 @@ class MetadataEvaluator {
      * @param model
      * @returns {{}}
      */
-    evaluate(metadata, model, keyPrefix) {
+    evaluate(metadata, model, keyPrefix, metadataIndex) {
 
         if(!metadata) {
             throw Error('metadata parameter is required');
         }
         if(metadata.constructor === Array) {
-            return metadata.map(i => this.evaluate(i, model, keyPrefix));
+            return metadata.map(i => this.evaluate(i, model, keyPrefix, metadataIndex));
+        }
+        if(!metadataIndex) {
+            metadataIndex = {};
         }
 
         let result = {};
@@ -58,7 +61,10 @@ class MetadataEvaluator {
         let newPrefix = keyPrefix ? `${keyPrefix}.${metadata.name}` : metadata.name;
         result.key = newPrefix;
 
-        return this.filter(result, model, newPrefix);
+        // populates de index
+        metadataIndex[result.key] = result;
+
+        return this.filter(result, model, newPrefix, metadataIndex);
     }
 
     /**
@@ -106,10 +112,10 @@ class MetadataEvaluator {
      * @param model
      * @returns {*}
      */
-    filter(metadata, model, keyPrefix) {
+    filter(metadata, model, keyPrefix, metadataIndex) {
         let processedMetadata = metadata;
         for(let i=0; i<this.metadataFilters.length; i++) {
-            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this);
+            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this, metadataIndex);
         }
         return processedMetadata;
     }

@@ -183,6 +183,7 @@ describe('MetadataEvaluator', function () {
                     }
                 ]
             };
+            let metadataIndex = {};
             let metadataEvaluation = metadataEvaluator.evaluate(metadata,
                 {
                     phone: {
@@ -192,8 +193,7 @@ describe('MetadataEvaluator', function () {
                             plan: 'smart'
                         }
                     }
-                });
-
+                }, '', metadataIndex );
         });
 
         it('Should work with of arrays', function () {
@@ -259,6 +259,7 @@ describe('MetadataEvaluator', function () {
                 ]
             };
 
+            let metadataIndex = {};
             let metadataEvaluation = metadataEvaluator.evaluate(metadata, {
                 contacts: [
                     {
@@ -288,8 +289,7 @@ describe('MetadataEvaluator', function () {
                         ]
                     }
                 ]
-            });
-
+            }, '', metadataIndex);
         });
     });
 });
