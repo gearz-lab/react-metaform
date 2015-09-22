@@ -5,6 +5,7 @@ import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
 import entityMetadataFilter from './metadataFilters/entityMetadataFilter.js';
 import arrayMetadataFilter from './metadataFilters/arrayMetadataFilter.js';
 import valueSetterMetadataFilter from './metadataFilters/valueSetterMetadataFilter.js';
+import onChangeSetterMetadataFilter from './metadataFilters/onChangeSetterMetadataFilter.js';
 
 // property filters
 import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
@@ -38,13 +39,13 @@ class MetadataEvaluator {
      * @param model
      * @returns {{}}
      */
-    evaluate(metadata, model, keyPrefix, metadataIndex) {
+    evaluate(metadata, model, keyPrefix, metadataIndex, onChange) {
 
         if(!metadata) {
             throw Error('metadata parameter is required');
         }
         if(metadata.constructor === Array) {
-            return metadata.map(i => this.evaluate(i, model, keyPrefix, metadataIndex));
+            return metadata.map(i => this.evaluate(i, model, keyPrefix, metadataIndex, onChange));
         }
         if(!metadataIndex) {
             metadataIndex = {};
@@ -64,7 +65,7 @@ class MetadataEvaluator {
         // populates de index
         metadataIndex[result.key] = result;
 
-        return this.filter(result, model, newPrefix, metadataIndex);
+        return this.filter(result, model, newPrefix, metadataIndex, onChange);
     }
 
     /**
@@ -112,10 +113,10 @@ class MetadataEvaluator {
      * @param model
      * @returns {*}
      */
-    filter(metadata, model, keyPrefix, metadataIndex) {
+    filter(metadata, model, keyPrefix, metadataIndex, onChange) {
         let processedMetadata = metadata;
         for(let i=0; i<this.metadataFilters.length; i++) {
-            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this, metadataIndex);
+            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this, metadataIndex, onChange);
         }
         return processedMetadata;
     }
@@ -191,6 +192,7 @@ metadataEvaluator.addFilter(defaultMetadataFilter);
 metadataEvaluator.addFilter(entityMetadataFilter);
 metadataEvaluator.addFilter(arrayMetadataFilter);
 metadataEvaluator.addFilter(valueSetterMetadataFilter);
+metadataEvaluator.addFilter(onChangeSetterMetadataFilter);
 
 // register property filters
 metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
