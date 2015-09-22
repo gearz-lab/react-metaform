@@ -1,6 +1,7 @@
 import expressionEvaluator from './ExpressionEvaluator.js';
 import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
 import entityMetadataFilter from './metadataFilters/entityMetadataFilter.js';
+import arrayMetadataFilter from './metadataFilters/arrayMetadataFilter.js';
 import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
 import conditionMessagePropertyFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
@@ -171,5 +172,6 @@ metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
 metadataEvaluator.addPropertyFilter(conditionMessagePropertyFilter, 'invalid');
 metadataEvaluator.addFilter(defaultMetadataFilter);
 metadataEvaluator.addFilter(entityMetadataFilter);
+metadataEvaluator.addFilter(arrayMetadataFilter);
 
 export default metadataEvaluator;

@@ -2,7 +2,7 @@
 logs
 *.log
 .idea
-lib
+/lib/
 dist
 docs-built
 node_modules
