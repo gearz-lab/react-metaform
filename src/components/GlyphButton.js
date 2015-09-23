@@ -5,6 +5,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 let GlyphButton = React.createClass({
     propTypes: {
         bsStyle: React.PropTypes.string.isRequired,
+        bsSize: React.PropTypes.string,
         text: React.PropTypes.string,
         glyph: React.PropTypes.string.isRequired,
         onClick: React.PropTypes.func
@@ -18,6 +19,7 @@ let GlyphButton = React.createClass({
         let text = this.props.text ? <span style={{marginLeft:6}}>{this.props.text}</span> : null;
         return <Button
             bsStyle={this.props.bsStyle}
+            bsSize={this.props.bsSize}
             onClick={this.handleSave}>
             <Glyphicon glyph={this.props.glyph}/>
             {text}

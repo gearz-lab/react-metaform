@@ -8,7 +8,7 @@ import Lookup from '../components/editors/Lookup.js';
 import DatePicker from '../components/editors/DatePicker.js';
 import CodeEditor from '../components/editors/CodeEditor.js';
 import EntityContainer from '../components/editors/EntityContainer.js';
-import ArrayContainer from '../components/editors/CollectionContainer.js';
+import ArrayContainer from '../components/editors/ArrayContainer.js';
 
 // Registers all component definitions
 componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);
