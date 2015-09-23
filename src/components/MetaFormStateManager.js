@@ -128,7 +128,7 @@ class MetaFormStateManager {
      * @private
      */
     getComponentProps(fields, model) {
-        return metadataEvaluator.evaluate(fields, model,'', this.metadataIndex, (k,v) => this.updateState(k, v));
+        return metadataEvaluator.evaluate(fields, model,'', this.metadataIndex, (e) => this.updateState(e.key, e.value));
     }
 
     /**

@@ -12,7 +12,7 @@ const Lookup = React.createClass({
     },
 
     handleChange(value){
-        this.props.onChange({name: this.props.name, value: value});
+        this.props.onChange({key: this.props.key, value: value});
     },
 
     render: function() {

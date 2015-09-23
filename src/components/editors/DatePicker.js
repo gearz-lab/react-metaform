@@ -12,7 +12,7 @@ const DatePicker = React.createClass({
     mixins: [GearzMixin],
 
     handleChange(date){
-        this.props.onChange({name: this.props.name, value: date});
+        this.props.onChange({key: this.props.key, value: date});
     },
 
     render: function() {

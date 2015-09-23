@@ -6,6 +6,7 @@ const CheckBox = React.createClass({
 
     propTypes: {
         name: React.PropTypes.string.isRequired,
+        key: React.PropTypes.string.isRequired,
         value: React.PropTypes.node,
         displayName: React.PropTypes.string
     },
@@ -13,9 +14,9 @@ const CheckBox = React.createClass({
     mixins: [GearzMixin],
 
     handleChange(event){
-        let oldValue = this.props.value === true ? true : false;
+        let oldValue = this.props.value === true;
         let newValue = !oldValue;
-        this.props.onChange({name: this.props.name, value: newValue});
+        this.props.onChange({key: this.props.key, value: newValue});
     },
 
     render: function() {
