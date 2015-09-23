@@ -46,7 +46,7 @@ class MetaFormStateManager {
         return {
             validationSummary: {
                 open: false,
-                messages: MetaFormStateManager.getValidationSummaryMessages()
+                messages: this.getValidationSummaryMessages()
             },
             entity: this.entityAndLayout.entity, // this seems useless
             layout: this.entityAndLayout.layout, // this seems useless
@@ -95,7 +95,7 @@ class MetaFormStateManager {
         // set the raw value for the modified component
         fieldMetadata.rawValue = newValue;
         // set the validation messages
-        newState.validationSummary.messages = MetaFormStateManager.getValidationSummaryMessages();
+        newState.validationSummary.messages = this.getValidationSummaryMessages();
 
         this.setState(newState);
     }
@@ -106,8 +106,7 @@ class MetaFormStateManager {
      * @param componentProps
      * @returns {Array}
      */
-    static getValidationSummaryMessages() {
-
+    getValidationSummaryMessages() {
         let result = [];
         for (let key in this.metadataIndex) {
             if (this.metadataIndex.hasOwnProperty(key)) {
