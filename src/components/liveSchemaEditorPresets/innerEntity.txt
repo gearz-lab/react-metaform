@@ -45,6 +45,7 @@
             ],
             layouts: [{
                 name: "profession-edit",
+                orientation: "horizontal",
                 fields: [
                     {
                         name: "professionName"

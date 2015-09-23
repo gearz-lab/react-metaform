@@ -200,6 +200,9 @@ class MetadataProvider {
             }
         }
 
+        // copying useful properties
+        layoutGroupClone.orientation = layoutGroup.orientation;
+
         return layoutGroupClone;
     }
 
