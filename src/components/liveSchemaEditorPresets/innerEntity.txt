@@ -36,6 +36,11 @@
                     name: "professionName",
                     displayName: "Name",
                     type: "string"
+                },
+                {
+                    name: "professionExperience",
+                    displayName: "Experience",
+                    type: "string"
                 }
             ],
             layouts: [{
@@ -43,6 +48,9 @@
                 fields: [
                     {
                         name: "professionName"
+                    },
+                    {
+                        name: "professionExperience"
                     }
                 ]
             }]
