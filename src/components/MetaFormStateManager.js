@@ -52,7 +52,7 @@ class MetaFormStateManager {
             layout: this.entityAndLayout.layout, // this seems useless
             model: this.model,
             // object with a key for each property
-            componentProps: this.getComponentProps(this.fields, this.model)
+            componentProps: this.getComponentProps(this.model)
         }
     }
 
@@ -81,7 +81,7 @@ class MetaFormStateManager {
             objectHelper.setValue(newState.model, id, typeProcessed.convertedValue);
 
             // recalculate the componentProps for all components
-            newState.componentProps = this.getComponentProps(newState.fields, newState.model);
+            newState.componentProps = this.getComponentProps(newState.model);
         }
         else {
             // the user input is not valid for it's type.
@@ -127,8 +127,8 @@ class MetaFormStateManager {
      * @returns {Object}
      * @private
      */
-    getComponentProps(fields, model) {
-        return metadataEvaluator.evaluate(fields, model,'', this.metadataIndex, (e) => this.updateState(e.id, e.value));
+    getComponentProps(model) {
+        return metadataEvaluator.evaluate(this.fields, model,'', this.metadataIndex, (e) => this.updateState(e.id, e.value));
     }
 
     /**
@@ -137,7 +137,7 @@ class MetaFormStateManager {
      */
     updateComponentProps(model) {
         let newState = _.extend({}, this.getState());
-        newState.componentProps = this.getComponentProps(this.fields, model);
+        newState.componentProps = this.getComponentProps(model);
         this.setState(newState);
     }
 }
