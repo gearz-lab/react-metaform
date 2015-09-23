@@ -73,14 +73,14 @@ const TextBox = React.createClass({
         let newValue = event.target.value;
         if(newValue && this.props.maxLength) {
             if(newValue.length <= this.props.maxLength) {
-                this.props.onChange({key: this.props.key, value: newValue});
+                this.props.onChange({id: this.props.id, value: newValue});
             }
             else {
 
             }
         }
         else {
-            this.props.onChange({key: this.props.key, value: newValue});
+            this.props.onChange({id: this.props.id, value: newValue});
         }
     },
 

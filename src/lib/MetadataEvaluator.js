@@ -60,7 +60,10 @@ class MetadataEvaluator {
 
         // experimenting setting the value property of each metadata
         let newPrefix = keyPrefix ? `${keyPrefix}.${metadata.name}` : metadata.name;
+        // key is a special prop in React, so it knows 'what' component this is
         result.key = newPrefix;
+        // because key is inaccessible from a React component, we need to replicate it into an 'id' prop
+        result.id = result.key;
 
         // populates de index
         metadataIndex[result.key] = result;

@@ -16,7 +16,7 @@ const CheckBox = React.createClass({
     handleChange(event){
         let oldValue = this.props.value === true;
         let newValue = !oldValue;
-        this.props.onChange({key: this.props.key, value: newValue});
+        this.props.onChange({id: this.props.id, value: newValue});
     },
 
     render: function() {

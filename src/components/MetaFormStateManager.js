@@ -58,14 +58,14 @@ class MetaFormStateManager {
 
     /**
      * Updates de model and the componentProps for the new value
-     * @param key
+     * @param id
      * @param newValue
      */
-    updateState(key, newValue) {
+    updateState(id, newValue) {
         let newState = _.extend({}, this.getState());
-        let fieldMetadata = this.metadataIndex[key];
+        let fieldMetadata = this.metadataIndex[id];
         if(!fieldMetadata) {
-            throw Error(`could not find metadata for the given field. Field: ${key}`);
+            throw Error(`could not find metadata for the given field. Field: ${id}`);
         }
         let typeProcessorType = typeProcessorFactory.getProcessorType(fieldMetadata.type);
         let typeProcessor = new typeProcessorType();
@@ -78,7 +78,7 @@ class MetaFormStateManager {
             // the user input is valid for it's type
 
             // update the model
-            objectHelper.setValue(newState.model, key, typeProcessed.convertedValue);
+            objectHelper.setValue(newState.model, id, typeProcessed.convertedValue);
 
             // recalculate the componentProps for all components
             newState.componentProps = this.getComponentProps(newState.fields, newState.model);
@@ -89,7 +89,7 @@ class MetaFormStateManager {
             // the componentProps
             fieldMetadata.invalid = {
                 value: true,
-                message: `The field '${key}' should be a valid ${fieldMetadata.type}.`
+                message: `The field '${id}' should be a valid ${fieldMetadata.type}.`
             };
         }
         // set the raw value for the modified component
@@ -128,7 +128,7 @@ class MetaFormStateManager {
      * @private
      */
     getComponentProps(fields, model) {
-        return metadataEvaluator.evaluate(fields, model,'', this.metadataIndex, (e) => this.updateState(e.key, e.value));
+        return metadataEvaluator.evaluate(fields, model,'', this.metadataIndex, (e) => this.updateState(e.id, e.value));
     }
 
     /**

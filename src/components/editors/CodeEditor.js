@@ -15,7 +15,7 @@ const CodeEditor = React.createClass({
         if(!this.props.onChange) {
             return;
         }
-        this.props.onChange({key: this.props.key, value: newValue});
+        this.props.onChange({id: this.props.id, value: newValue});
     },
 
     render: function() {
