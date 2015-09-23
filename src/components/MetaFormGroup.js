@@ -5,24 +5,28 @@ import componentFactory from '../lib/ComponentFactory';
 var MetaFormGroup = React.createClass({
     propTypes: {
         layout: React.PropTypes.object.isRequired,
-        componentProps: React.PropTypes.array.isRequired
+        fields: React.PropTypes.array.isRequired
     },
     render: function () {
         let _this = this;
+
+        // the passed in layout can contain either fields or groups.
+        // in case it contains 'fields', we're gonna render each of the fields.
+        // in case it contains 'groups', we're gonna render render each group, passing the fields as a parameter
 
         let components = this.props.layout.fields
             ? this.props.layout.fields.map(field => {
             return {
                 data: field,
                 length: this.props.layout.fields.length,
-                component: componentFactory.buildComponent(_.find(_this.props.componentProps, cp => cp.name === field.name) )
+                component: componentFactory.buildComponent(_.find(_this.props.fields, cp => cp.name === field.name) )
             }
         })
             : this.props.layout.groups.map(group => {
             return {
                 data: group,
                 length: this.props.layout.groups.length,
-                component: <MetaFormGroup layout={group} componentProps={_this.props.componentProps}/>
+                component: <MetaFormGroup layout={group} fields={_this.props.fields}/>
             }
         });
 

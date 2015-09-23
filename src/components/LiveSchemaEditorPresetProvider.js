@@ -7,7 +7,8 @@ if (process.env.APP_ENV !== 'browser') {
 
 import textbox from './liveSchemaEditorPresets/textbox.txt';
 import textboxWithInvalidConstraint from './liveSchemaEditorPresets/textboxWithInvalidConstraint.txt';
-import basic from './liveSchemaEditorPresets/basic.txt';
+import innerEntity from './liveSchemaEditorPresets/innerEntity.txt';
+import arrays from './liveSchemaEditorPresets/arrays.txt';
 import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.txt';
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
 import confirmPurchase from './liveSchemaEditorPresets/confirmPurchase.txt';
@@ -33,12 +34,20 @@ class LiveSchemaEditorPresetProvider {
             code: textboxWithInvalidConstraint
         });
         this.presetsConfig.push({
-            value: 'basic',
-            text: 'Basic',
+            value: 'innerEntity',
+            text: 'Inner entity',
             title: 'Edit contact',
             entityName: 'contact',
             layoutName: 'contact-edit',
-            code: basic
+            code: innerEntity
+        });
+        this.presetsConfig.push({
+            value: 'arrays',
+            text: 'Arrays',
+            title: 'Edit contact',
+            entityName: 'contact',
+            layoutName: 'contact-edit',
+            code: arrays
         });
         this.presetsConfig.push({
             value: 'myLittleIde',

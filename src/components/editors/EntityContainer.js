@@ -9,7 +9,13 @@ const EntityContainer = React.createClass({
     },
 
     render: function() {
-        return <MetaFormGroup layout={this.props.layout} componentProps={this.props.componentProps} />
+        var header = this.props.displayName ?
+            <header className="meta-form-entity-title"><span>{this.props.displayName}</span></header>
+            : null;
+        return <div>
+            {header}
+            <MetaFormGroup layout={this.props.layout} fields={this.props.fields} />
+        </div>;
     }
 });
 

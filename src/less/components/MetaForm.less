@@ -29,6 +29,29 @@
   display:inline-block;
 }
 
+.meta-form-entity-title {
+  position:relative;
+  z-index:2;
+  margin-bottom: @grid-gutter-width/2;
+}
+
+.meta-form-entity-title:after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:0;
+  right:0;
+  border-top:solid 1px @table-border-color;
+  z-index:-1;
+}
+
+.meta-form-entity-title span {
+  background:#eeeeee;
+  margin:0;
+  padding:0 @grid-gutter-width/2 0 0;
+  display:inline-block;
+}
+
 .meta-form .collection-container-item {
 
 }

@@ -104,7 +104,7 @@ var MetaForm = React.createClass({
         return (
             <div className="meta-form">
                 {title}
-                <MetaFormGroup layout={this.state.layout} componentProps={_this.state.componentProps}/>
+                <MetaFormGroup layout={this.state.layout} fields={_this.state.componentProps}/>
                 {bottomBar}
             </div>
         );
