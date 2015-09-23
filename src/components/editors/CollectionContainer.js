@@ -1,16 +1,13 @@
 import React from 'react';
 import metadataProvider from '../../lib/metadataProvider.js';
 import MetaFormGroup from '../MetaFormGroup.js';
-import Button from 'react-bootstrap/lib/Button.js';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
+import GlyphButton from '../GlyphButton.js';
 
 const CollectionContainerItem = React.createClass({
     render: function () {
         return <div className="collection-container-item">
             <div className="collection-container-remove-item-wrap">
-                <Button>
-                    <Glyphicon glyph="minus"/>
-                </Button>
+                <GlyphButton glyph="minus" text="" />
             </div>
             <div className="collection-container-array-item-wrap">
                 {this.props.children}
@@ -29,8 +26,13 @@ const CollectionContainer = React.createClass({
         return (
             <div>
                 <CollectionContainerItem>
-                    Fuck this shit
+
                 </CollectionContainerItem>
+                <div className="">
+                    <span className="pull-right">
+                        <GlyphButton glyph="plus" text="Add" />
+                    </span>
+                </div>
             </div>
         );
     }

@@ -4,36 +4,11 @@
             name: "contact",
             fields: [
                 {
-                    name: "type",
-                    type: "string",
-                    displayName: "Type",
-                    component: "lookup",
-                    options: [
-                        {
-                            value: "one",
-                            text: "Person"
-                        },
-                        {
-                            value: "two",
-                            text: "Company"
-                        }
-                    ]
-                },
-                {
-                    name: "name",
-                    type: "string",
-                    displayName: "Name"
-                },
-                {
-                    name: "date",
-                    type: "date",
-                    displayName: "Date or birth"
-                },
-                {
-                    name: "phone",
+                    name: "phones",
+                    displayName: "Phones",
                     type: "array",
                     arrayType: "entity",
-                    entityName: "phone",
+                    entityType: "phone",
                     layoutName: "phone-edit"
                 }
             ],
@@ -41,21 +16,9 @@
                 name: "contact-edit",
                 title: "Contact information",
                 orientation: "vertical",
-                groups: [
+                fields: [
                     {
-                        fields: [
-                            {
-                                name: "type"
-                            },
-                            {
-                                name: "name"
-                            },
-                            {
-                                name: "date"
-                            },
-                            {
-                                name: "phone"
-                            }]
+                        name: "phones"
                     }
                 ]
             }]
