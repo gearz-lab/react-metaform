@@ -27,7 +27,7 @@ if(process.env.NODE_ENV !== 'production') {
     process.exit();
 }
 
-let pages = ['home.html', 'liveSchemaEditor.html'];
+let pages = ['demo.html'];
 
 rimraf(docsBuilt)
     .then(() => fsep.mkdir(docsBuilt))
