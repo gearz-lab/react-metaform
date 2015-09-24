@@ -290,10 +290,6 @@ describe('MetadataEvaluator', function () {
                     }
                 ]
             }, '', metadataIndex);
-
-            console.logObject(metadataIndex);
-            assert.equal(1, 2);
-
         });
     });
 });

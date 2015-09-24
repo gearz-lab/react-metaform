@@ -6,8 +6,21 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton.js';
 import MenuItem from 'react-bootstrap/lib/MenuItem.js';
 import Dropdown from 'react-bootstrap/lib/Dropdown.js';
+import arrayHelper from'../../lib/helpers/arrayHelper.js';
 
 const ArrayContainerItem = React.createClass({
+
+    propTypes: {
+        index: React.PropTypes.number,
+        onSelect: React.PropTypes.func
+    },
+
+    handleAction: function (e, eventKey) {
+        if (this.props.onSelect) {
+            this.props.onSelect(this.props.index, eventKey)
+        }
+    },
+
     render: function () {
 
         return <div className="row">
@@ -15,42 +28,23 @@ const ArrayContainerItem = React.createClass({
                 {this.props.children}
             </div>
             <div className="col-md-1">
-    <Dropdown pullRight>
-        <Dropdown.Toggle noCaret bsSize="small">
-            <Glyphicon glyph="cog" />
-        </Dropdown.Toggle>
-        <Dropdown.Menu pullLeft>
-            <MenuItem eventKey="1"><Glyphicon glyph="remove" className="text-danger"/><span className="glyphicon-text text-danger">Remove</span></MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey="2"><Glyphicon glyph="menu-up"/><span className="glyphicon-text">Move up</span></MenuItem>
-            <MenuItem eventKey="3"><Glyphicon glyph="menu-down"/><span className="glyphicon-text">Move down</span></MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey="4"><Glyphicon glyph="menu-up"/><span className="glyphicon-text">Move first</span></MenuItem>
-            <MenuItem eventKey="5"><Glyphicon glyph="menu-down"/><span className="glyphicon-text">Move last</span></MenuItem>
-        </Dropdown.Menu>
-    </Dropdown>
+                <Dropdown pullRight onSelect={this.handleAction}>
+                    <Dropdown.Toggle noCaret bsSize="small">
+                        <Glyphicon glyph="cog"/>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu >
+                        <MenuItem eventKey="remove"><Glyphicon glyph="remove" className="text-danger"/><span
+                            className="glyphicon-text text-danger">Remove</span></MenuItem>
+                        <MenuItem divider/>
+                        <MenuItem eventKey="moveUp"><Glyphicon glyph="chevron-up"/><span className="glyphicon-text">Move up</span></MenuItem>
+                        <MenuItem eventKey="moveDown"><Glyphicon glyph="chevron-down"/><span className="glyphicon-text">Move down</span></MenuItem>
+                        <MenuItem divider/>
+                        <MenuItem eventKey="moveFirst"><Glyphicon glyph="chevron-up"/><span className="glyphicon-text">Move first</span></MenuItem>
+                        <MenuItem eventKey="moveLast"><Glyphicon glyph="chevron-down"/><span className="glyphicon-text">Move last</span></MenuItem>
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
         </div>;
-
-        //return <div className="collection-container-item">
-        //    <div className="collection-container-remove-item-wrap">
-        //        <Dropdown>
-        //            <Dropdown.Toggle noCaret bsStyle="link">
-        //                <Glyphicon glyph="cog" />
-        //            </Dropdown.Toggle>
-        //            <Dropdown.Menu>
-        //                <MenuItem eventKey="1">Action</MenuItem>
-        //                <MenuItem eventKey="2">Another action</MenuItem>
-        //                <MenuItem eventKey="3">Something else here</MenuItem>
-        //                <MenuItem divider />
-        //                <MenuItem eventKey="4">Separated link</MenuItem>
-        //            </Dropdown.Menu>
-        //        </Dropdown>
-        //    </div>
-        //    <div className="collection-container-array-item-wrap">
-        //        {this.props.children}
-        //    </div>
-        //</div>;
     }
 });
 
@@ -60,20 +54,44 @@ const ArrayContainer = React.createClass({
         name: React.PropTypes.string.isRequired
     },
 
-    handleAdd: function() {
-        if(this.props.onChange) {
+    handleAdd: function () {
+        if (this.props.onChange) {
             let value = this.props.value;
             value.push({});
             this.props.onChange({id: this.props.id, value: value});
         }
     },
 
+    handleItemAction: function(index, eventKey) {
+        let value = this.props.value;
+        switch(eventKey) {
+            case "remove":
+                value.splice(index, 1);
+                break;
+            case 'moveUp':
+                arrayHelper.move(value, index, index - 1);
+                break;
+            case 'moveDown':
+                arrayHelper.move(value, index, index + 1);
+                break;
+            case 'moveFirst':
+                arrayHelper.move(value, index, 0);
+                break;
+            case 'moveLast':
+                arrayHelper.move(value, index, value.length - 1);
+                break;
+        }
+        if (this.props.onChange) {
+            this.props.onChange({id: this.props.id, value: value});
+        }
+    },
+
     render: function () {
 
-        let components = this.props.fields.map(f => {
-            return <ArrayContainerItem>
-                    <MetaFormGroup layout={this.props.layout} fields={f}/>
-                </ArrayContainerItem>;
+        let components = this.props.fields.map((fields, index) => {
+            return <ArrayContainerItem index={index} onSelect={this.handleItemAction} >
+                <MetaFormGroup layout={this.props.layout} fields={fields} />
+            </ArrayContainerItem>;
         });
 
         return (
@@ -81,7 +99,7 @@ const ArrayContainer = React.createClass({
                 {components}
                 <div className="">
                     <span className="pull-right">
-                        <GlyphButton glyph="plus" text="Add" onClick={this.handleAdd} bsSize="small" />
+                        <GlyphButton glyph="plus" text="Add" onClick={this.handleAdd} bsSize="small"/>
                     </span>
                 </div>
             </div>
