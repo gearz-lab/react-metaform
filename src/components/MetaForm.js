@@ -94,7 +94,7 @@ var MetaForm = React.createClass({
 
                 <div className='meta-form-bottom-bar'>
                     <ButtonToolbar className='pull-right'>
-                        <Button bsStyle='danger' onClick={_this.handleSave}><Glyphicon glyph="floppy-disk" /><span style={{marginLeft:6}}>Save</span></Button>
+                        <Button bsStyle='danger' onClick={_this.handleSave}><Glyphicon glyph="floppy-disk" /><span className="glyphicon-text">Save</span></Button>
                         <Button>Cancel</Button>
                     </ButtonToolbar>
                 </div>

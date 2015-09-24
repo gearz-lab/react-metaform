@@ -16,10 +16,11 @@ var MetaFormGroup = React.createClass({
 
         let components = this.props.layout.fields
             ? this.props.layout.fields.map(field => {
+            let layoutFieldInProps = _.find(_this.props.fields, cp => cp.name === field.name);
             return {
-                data: field,
+                data: layoutFieldInProps,
                 length: this.props.layout.fields.length,
-                component: componentFactory.buildComponent(_.find(_this.props.fields, cp => cp.name === field.name) )
+                component: componentFactory.buildComponent(layoutFieldInProps)
             }
         })
             : this.props.layout.groups.map(group => {
