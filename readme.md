@@ -2,6 +2,7 @@ React-metaform
 ===
 
 [![Join the chat at https://gitter.im/gearz-lab/react-metaform](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gearz-lab/react-metaform?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+![Travis](https://travis-ci.org/gearz-lab/react-metaform.svg)
 
 `React-metaform` is a [React](https://facebook.github.io/react/) library for dynamically generating forms based on metadata.
 This is particularly useful for creating data-centric business applications in which the schema is flexible and needs
