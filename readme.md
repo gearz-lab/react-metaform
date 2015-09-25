@@ -1,0 +1,13 @@
+React-metaform
+===
+
+React-metaform is a [React](https://facebook.github.io/react/) library for dynamically generating forms based on metadata.
+This is particularly useful for creating data-centric business applications in which the schema is flexible and needs
+to be stored in the database. This is also useful in other scenarios in which the forms are dynamic and cannot be hard-coded.
+ 
+This project is similar to [Meteor Autoform](https://github.com/aldeed/meteor-autoform).
+
+Demo
+---
+
+You can check the online demo [here](http://gearz-lab.github.io/react-metaform/demo.html).
