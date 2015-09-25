@@ -9,7 +9,8 @@ to be stored in the database. This is also useful in other scenarios in which th
  
 This project is similar to [Meteor Autoform](https://github.com/aldeed/meteor-autoform).
 
-**Alpha version disclaimer:**
+**Alpha version disclaimer**
+
 `React-metaform` is under active development. APIs will change and things may still not work as expected. If you find
   any issue, please [report it](https://github.com/gearz-lab/react-metaform/issues). I'll do my best to fix it.
 
