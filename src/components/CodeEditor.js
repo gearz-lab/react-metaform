@@ -7,7 +7,7 @@ import braceCSharp from 'brace/mode/csharp.js';
 import braceJava from 'brace/mode/java.js';
 import braceSql from 'brace/mode/sql.js';
 import gitHubTheme from 'brace/theme/github.js';
-import FormGroup from './FormGroup.js';
+import FormGroup from './editors/FormGroup.js';
 
 const CodeEditor = React.createClass({
 

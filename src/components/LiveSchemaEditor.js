@@ -1,5 +1,5 @@
 import React from 'react/addons.js';
-import CodeEditor from './editors/CodeEditor.js';
+import CodeEditor from './CodeEditor.js';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import TextBox from './editors/TextBox.js';
@@ -192,6 +192,10 @@ const LiveSchemaEditor = React.createClass({
                         value={this.state.text}
                         />
 
+
+
+                </div>
+                <div className="col-md-7">
                     <div className="row">
                         <div className="col-md-7">
                             <CheckBox name="toggle-auto-update" displayName="Auto update form"
@@ -204,9 +208,6 @@ const LiveSchemaEditor = React.createClass({
                             </span>
                         </div>
                     </div>
-
-                </div>
-                <div className="col-md-7">
                     <div className="live-schema-editor-mount-node">
                         {this.buildMetaform()}
                     </div>

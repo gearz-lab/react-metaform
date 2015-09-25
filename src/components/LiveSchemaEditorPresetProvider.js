@@ -9,7 +9,6 @@ import textbox from './liveSchemaEditorPresets/textbox.txt';
 import textboxWithInvalidConstraint from './liveSchemaEditorPresets/textboxWithInvalidConstraint.txt';
 import innerEntity from './liveSchemaEditorPresets/innerEntity.txt';
 import arrays from './liveSchemaEditorPresets/arrays.txt';
-import myLittleIde from './liveSchemaEditorPresets/myLittleJavaScriptIDE.txt';
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
 import confirmPurchase from './liveSchemaEditorPresets/confirmPurchase.txt';
 
@@ -48,14 +47,6 @@ class LiveSchemaEditorPresetProvider {
             entityName: 'contact',
             layoutName: 'contact-edit',
             code: arrays
-        });
-        this.presetsConfig.push({
-            value: 'myLittleIde',
-            text: 'My Little JavaScript IDE',
-            title: 'My Little JavaScript IDE',
-            entityName: 'code',
-            layoutName: 'code-edit',
-            code: myLittleIde
         });
         this.presetsConfig.push({
             value: 'confirmPassword',
