@@ -10,7 +10,8 @@
     "start-demo": "babel-node ./demo/Server.js",
     "start-demo-dev": "SET NODE_ENV=development&&babel-node ./demo/Server.js",
     "wpds": "webpack-dev-server --config ./webpack.config.demo.dev.js",
-    "test": "./node_modules/.bin/karma start --single-run"
+    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
+    "test-chrome": "./node_modules/.bin/karma start --single-run --browsers Chrome"
   },
   "repository": {
     "type": "git",
