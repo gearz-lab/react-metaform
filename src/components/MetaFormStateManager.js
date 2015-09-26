@@ -16,8 +16,9 @@ class MetaFormStateManager {
      * @param model
      * @param stateGetter
      * @param stateSetter
+     * @param onModelChange
      */
-    constructor(schema, entityName, layoutName, model, stateGetter, stateSetter) {
+    constructor(schema, entityName, layoutName, model, stateGetter, stateSetter, onModelChange) {
         this.schema = schema;
         this.entityName = entityName;
         this.layoutName = layoutName;
@@ -25,6 +26,7 @@ class MetaFormStateManager {
         this.stateGetter = stateGetter;
         this.stateSetter = stateSetter;
         this.metadataIndex = {};
+        this.onModelChange = onModelChange;
 
         this.entityAndLayout = metadataProvider.getEntityAndLayout(this.schema, this.entityName, this.layoutName);
         this.fields = metadataProvider.getFields(this.schema, this.entityAndLayout.entity, this.entityAndLayout.layout);
@@ -82,6 +84,10 @@ class MetaFormStateManager {
 
             // recalculate the componentProps for all components
             newState.componentProps = this.getComponentProps(newState.model);
+
+            if(this.onModelChange) {
+                this.onModelChange(newState.model);
+            }
         }
         else {
             // the user input is not valid for it's type.

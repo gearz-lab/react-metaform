@@ -20,7 +20,8 @@ var MetaForm = React.createClass({
         model: React.PropTypes.object,
         showBottomBar: React.PropTypes.bool,
         // the onSave handler receives the model as a parameter
-        onSave: React.PropTypes.func
+        onSave: React.PropTypes.func,
+        onModelChange: React.PropTypes.func
     },
 
     getInitialState: function () {
@@ -32,15 +33,17 @@ var MetaForm = React.createClass({
             this.props.layoutName,
             model,
             () => this.state,
-            (state) => this.setState(state));
+            (state) => this.setState(state),
+            (model) => this.handleModelChange(model)
+        );
 
         return this.metaformStateManager.getInitialState();
     },
 
-    componentWillReceiveProps: function(nextProps) {
+    componentWillReceiveProps: function (nextProps) {
         // I'm not sure if this is the best approach. But what I'm looking for here is to find
         // a way to update the state.componentProps when the MetaForm is rendered with a different model
-        if(nextProps.model) {
+        if (nextProps.model) {
             this.metaformStateManager.updateComponentProps(nextProps.model);
         }
     },
@@ -56,10 +59,16 @@ var MetaForm = React.createClass({
         this.setState(newState);
     },
 
+    handleModelChange: function (model) {
+        if (this.props.onModelChange) {
+            this.props.onModelChange(model);
+        }
+    },
+
     /**
      * Handles the save button
      */
-    handleSave: function() {
+    handleSave: function () {
         if (this.state.validationSummary.messages.length) {
             // if the validation summary has any message, the 'save' button won't
             // do anything. Actually the 'handleSave' method shouldn't even
@@ -94,7 +103,8 @@ var MetaForm = React.createClass({
 
                 <div className='meta-form-bottom-bar'>
                     <ButtonToolbar className='pull-right'>
-                        <Button bsStyle='danger' onClick={_this.handleSave}><Glyphicon glyph="floppy-disk" /><span className="glyphicon-text">Save</span></Button>
+                        <Button bsStyle='danger' onClick={_this.handleSave}><Glyphicon glyph="floppy-disk"/><span
+                            className="glyphicon-text">Save</span></Button>
                         <Button>Cancel</Button>
                     </ButtonToolbar>
                 </div>
