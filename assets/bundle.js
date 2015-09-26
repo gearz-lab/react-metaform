@@ -23022,7 +23022,7 @@
 
 	exports['default'] = _react2['default'].createElement(
 	    _reactRouter.Route,
-	    { name: 'app', path: '/', handler: _pagesRoot2['default'] },
+	    { name: 'app', path: '/react-metaform/', handler: _pagesRoot2['default'] },
 	    _react2['default'].createElement(_reactRouter.Route, { name: 'demo', path: 'demo.html', handler: _pagesDemoJs2['default'] })
 	);
 	module.exports = exports['default'];
