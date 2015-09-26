@@ -21,6 +21,7 @@ var MetaForm = React.createClass({
         showBottomBar: React.PropTypes.bool,
         // the onSave handler receives the model as a parameter
         onSave: React.PropTypes.func,
+        onCancel: React.PropTypes.func,
         onModelChange: React.PropTypes.func
     },
 
@@ -80,6 +81,15 @@ var MetaForm = React.createClass({
         }
     },
 
+    /**
+     * Handles the cancel button
+     */
+    handleCancel: function() {
+        if(this.props.onCancel) {
+            this.props.onCancel();
+        }
+    },
+
     render: function () {
         // the model is cloned for security reasons, to make it hard for the components to
         // interfere with the MetaForm model. It could even be cloned once per property,
@@ -105,7 +115,7 @@ var MetaForm = React.createClass({
                     <ButtonToolbar className='pull-right'>
                         <Button bsStyle='danger' onClick={_this.handleSave}><Glyphicon glyph="floppy-disk"/><span
                             className="glyphicon-text">Save</span></Button>
-                        <Button>Cancel</Button>
+                        <Button onClick={_this.handleCancel}>Cancel</Button>
                     </ButtonToolbar>
                 </div>
             </div>;
