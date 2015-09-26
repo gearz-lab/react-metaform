@@ -143,6 +143,7 @@ class MetaFormStateManager {
     updateComponentProps(model) {
         let newState = _.extend({}, this.getState());
         newState.componentProps = this.getComponentProps(model);
+        newState.validationSummary.messages = this.getValidationSummaryMessages();
         this.setState(newState);
     }
 }
