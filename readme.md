@@ -32,6 +32,36 @@ Install:
 Using
 ---
 
+The `MetaForm` React component:
+
+    import MetaForm from 'react-metaform/lib/MetaForm';
+    
+Additionally, you need a `ComponentFactory`. The `ComponentFactory` is responsible for determining which React
+component to use for a given field metadata. `React-metaform` comes with 2 `ComponentFactories`:
+
+`ComponentFactory` ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/lib/ComponentFactory.js)):
+
+This a *clean* factory. In order to use it, `import` it, register all your components and then pass it to the `componentFactory`
+prop of the `MetaForm`.
+
+    import ComponentFactory from 'react-metaform/lib/ComponentFactory';
+    
+`DefaultComponentFactory` ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/lib/DefaultComponentFactory.js)):
+
+This is a pre-populated factory, the same used in the [demo](http://gearz-lab.github.io/react-metaform/demo.html).
+In order to use it, `import` it and just pass it to the `componentFactory` prop of the `MetaForm`.
+
+    import DefaultComponentFactory from 'react-metaform/lib/DefaultComponentFactory';
+    
+Alternatively:
+
+    import rmf from 'react-metaform';
+    // now these are available:
+    //  rmf.MetaForm
+    //  rmf.ComponentFactory
+    //  rmf.DefaultComponentFactory
+    
+
 License
 ---
 `React-metaform` is [MIT](https://github.com/gearz-lab/react-metaform/blob/master/LICENSE) licensed.
