@@ -30,11 +30,9 @@ These are the most important things you should know about Metadata:
 
  - The application `schema` is composed of `entities` and `layouts`.
  - `Entities` and `layouts` define `fields`.
- - A `field` is defined both in an `entity` and in a `layout`. However, the `field` exists in the `layout` just so the `MetaForm`
-  knows where the `field` to be placed and so it's possible to *override* metadata about the field. For instance. If you
-   redefine the `field's` `component` metadata in a particular layout, it's going to be displayed differently.
- - The metadata in a `field` is almost completely flexible, in a sense that almost everything is valid. It is responsibility of
- the component registered in the `ComponentFactory` to interpret that metadata.
+ - `Fields` have metadata that is interpreted by the components.
+ - Each `Field` metadata can be either a literal or a function. When it's a function, it's evaluated automatically every time the
+ form changes.
 
 ###Schema###
 
@@ -82,8 +80,13 @@ groups | (optional) An array of `group`.
 
 ###Field###
 
-Represents a `field`. `Fields` can exist in `entities`, `layouts` and `groups`. The resulting metadata for a `field` is
-the merge of the `layout/group` and the `entity` it belongs to. Fields are merged based on the `name` metadata.
+Represents a `field`. `Fields` can exist in `entities`, `layouts` or `groups`.
+ 
+Fields can have any sorts of metadata, as long as the component registered in the `ComponentFactory` takes this metadata
+into account. Each field metadata can be either a **literal** or a **function**. When it is a function, it is automatically
+evaluated based on the model, every time the user interacts with the form.
+
+These are the metadata that are component agnostic: 
 
 Metadata | Description
 --- | ---
@@ -93,25 +96,7 @@ type | The `field` type. This is the default way to determine which component sh
  `bolinha` is a valid value for `type`, as long as the `ComponentFactory` registered a component for `bolinha`.
  The list of valid values for the `DefaultComponentFactory` can be found [here](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js). 
 
-
-The MetaForm itself only cares about some
-very specific metadata like `name` and `type`. However, every metadata is considered valid by the MetaForm, it is responsibility
- of the component to interpret it.
- 
-For a component to work with the `MetaForm`, it has to comply with some standards, like being sensitive to some of the common
-metadata. For this reason, you can choose to use whatever component you like, however, you should wrap the components
-so their `props` are exactly what the `MetaForm` expects.
- 
-When you are creating a `MetaForm`, you need to pass a `ComponentFactory`. There are 2 available out of the box:
-
- - [ComponentFactory](https://github.com/gearz-lab/react-metaform/blob/master/src/lib/ComponentFactory.js): This is an
- empty factory. You should use it when you want **complete control** over what components should be rendered for each type.
- Defining your own components also has the advantage of minimizing the resulting bundle.
- - [DefaultComponentFactory](https://github.com/gearz-lab/react-metaform/blob/master/src/lib/DefaultComponentFactory.js):
- This is a `DefaultComponentFactory` already populated with the default components. Using this one may impact your bundle
- size.
- 
-The following documentation refers to the `DefaultComponentFactory`.
+Other `field` metadata will depend on the component.
  
 ####Common####
 
