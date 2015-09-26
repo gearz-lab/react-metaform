@@ -1,13 +1,13 @@
 import componentFactory from './ComponentFactory.js';
 
-import TextBox from '../components/editors/TextBox';
-import Label from '../components/editors/Label.js';
-import CheckBox from '../components/editors/CheckBox.js';
-import Select from '../components/editors/Select.js';
-import Lookup from '../components/editors/Lookup.js';
-import DatePicker from '../components/editors/DatePicker.js';
-import EntityContainer from '../components/editors/EntityContainer.js';
-import ArrayContainer from '../components/editors/ArrayContainer.js';
+import TextBox from './components/editors/TextBox';
+import Label from './components/editors/Label.js';
+import CheckBox from './components/editors/CheckBox.js';
+import Select from './components/editors/Select.js';
+import Lookup from './components/editors/Lookup.js';
+import DatePicker from './components/editors/DatePicker.js';
+import EntityContainer from './components/editors/EntityContainer.js';
+import ArrayContainer from './components/editors/ArrayContainer.js';
 
 // Registers all component definitions
 componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);

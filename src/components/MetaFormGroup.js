@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
-import componentFactory from '../lib/ComponentFactory';
+import componentFactory from '../ComponentFactory';
 
 var MetaFormGroup = React.createClass({
     propTypes: {

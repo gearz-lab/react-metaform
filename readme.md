@@ -18,7 +18,7 @@ This project is similar to [Meteor Autoform](https://github.com/aldeed/meteor-au
 Demo
 ---
 
-You can check the online demo [here](http://gearz-lab.github.io/react-metaform/demo.html).
+You can check the [online demo here](http://gearz-lab.github.io/react-metaform/demo.html).
 
 Installing
 ---
@@ -32,7 +32,7 @@ Install:
 Using
 ---
 
-####MetaForm####
+####MetaForm ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/components/MetaForm.js)]####
 
 The main React component.
 
@@ -48,7 +48,7 @@ prop of the `MetaForm`.
 
     import ComponentFactory from 'react-metaform/lib/ComponentFactory';
     
-####DefaultComponentFactory` ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/lib/DefaultComponentFactory.js))####
+####DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/lib/DefaultComponentFactory.js))####
 
 This is a pre-populated factory, the same used in the [demo](http://gearz-lab.github.io/react-metaform/demo.html).
 In order to use it, `import` it and just pass it to the `componentFactory` prop of the `MetaForm`.

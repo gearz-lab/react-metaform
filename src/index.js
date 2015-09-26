@@ -1,6 +1,6 @@
-import MetaForm from './components/MetaForm.js';
-import ComponentFactory from './lib/ComponentFactory.js';
-import DefaultComponentFactory from './lib/DefaultComponentFactory.js';
+import MetaForm from './MetaForm.js';
+import ComponentFactory from './ComponentFactory.js';
+import DefaultComponentFactory from './DefaultComponentFactory.js';
 
 export default {
     MetaForm,

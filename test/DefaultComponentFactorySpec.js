@@ -1,5 +1,5 @@
 import ReactTestUtils from 'react/lib/ReactTestUtils';
-import ComponentFactory from '../src/lib/DefaultComponentFactory.js';
+import ComponentFactory from '../src/DefaultComponentFactory.js';
 import chai from 'chai';
 const assert = chai.assert;
 

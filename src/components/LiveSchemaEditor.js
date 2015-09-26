@@ -3,12 +3,12 @@ import CodeEditor from './CodeEditor.js';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import TextBox from './editors/TextBox.js';
-import Metaform from './MetaForm.js';
+import Metaform from './../MetaForm.js';
 import metadataProvider from '../lib/metadataProvider.js';
 import Alert from 'react-bootstrap/lib/Alert.js';
 import CheckBox from './editors/CheckBox.js';
 import Lookup from './editors/Lookup.js';
-import DefaultComponentFactory from '../lib/DefaultComponentFactory.js';
+import DefaultComponentFactory from '../DefaultComponentFactory.js';
 import liveSchemaEditorPresetProvider from './LiveSchemaEditorPresetProvider.js';
 import _ from 'underscore';
 

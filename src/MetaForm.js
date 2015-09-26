@@ -1,11 +1,11 @@
 import React from 'react';
-import MetaFormGroup from './MetaFormGroup.js';
-import metadataProvider from '../lib/metadataProvider.js';
-import MetaFormStateManager from './MetaFormStateManager.js';
+import MetaFormGroup from './components/MetaFormGroup.js';
+import metadataProvider from './lib/metadataProvider.js';
+import MetaFormStateManager from './components/MetaFormStateManager.js';
 import Button from 'react-bootstrap/lib/Button.js';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
-import ValidationSummary from './ValidationSummary.js';
-import objectHelper from '../lib/helpers/objectHelper.js';
+import ValidationSummary from './components/ValidationSummary.js';
+import objectHelper from './lib/helpers/objectHelper.js';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import _ from 'underscore';
 
