@@ -14,6 +14,7 @@ This project is similar to [Meteor Autoform](https://github.com/aldeed/meteor-au
 
 `React-metaform` is under active development. APIs will change and things may still not work as expected. If you find
   any issue, please [report it](https://github.com/gearz-lab/react-metaform/issues). I'll do my best to fix it.
+  These are the [known issues scheduled for the 1.0.0 version](https://github.com/gearz-lab/react-metaform/milestones/1.0.0).
 
 Demo
 ---
@@ -63,6 +64,34 @@ Alternatively:
     //  rmf.ComponentFactory
     //  rmf.DefaultComponentFactory
     
+Building and running the demo locally
+---
+
+This should work in every environment, except that environment variables are being set in the `npm` scripts which 
+make them not platform-independent. [This should be fixed for the 1.0.0 release](https://github.com/gearz-lab/react-metaform/issues/5).
+
+    git clone https://github.com/gearz-lab/react-metaform.git
+    cd react-metaform
+    npm install
+    
+In order to run the demo, while [this issue](https://github.com/gearz-lab/react-metaform/issues/6) is not fixed, you need to run 2 npm commands:
+
+    npm run wpds
+    npm run start-demo-dev
+    
+In order to run the `karma` tests:
+
+    npm run test
+    // OR, to run in Chrome instead of PhantomJS
+    npm run test-chrome
+     
+Contributing
+---
+
+Pull-requests are really really welcome. I'll be more than glad to invite frequent contributors to join the organization.
+If you need help understanding the project, please post an issue and I'll do my best to reply and make sure you understand everything
+you need.
+
 
 License
 ---
