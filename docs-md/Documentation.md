@@ -122,6 +122,7 @@ displayName | The user-friendly name for the field.
 type | The field type. The `ComponentFactory` is responsible for mapping which component should be rendered based on the `type`.
 subType | Sometimes the `type` is not enough and some built-in components will read the `subType` for additional info.
 value | The component value. When `value` is set, the components should normally assume the field is calculated and that it is in read-only mode.
+component | Which component to use. 
 readOnly | Whether or not the component should be in read-only state.
 onChange | Handles the component change. The callback function receives 2 parameters: The field name and an event which value is the new value for the component. To get the new value you need to access `e.value`.
 help | Additional help so the end-user knows what the field is about.
@@ -147,3 +148,15 @@ labelClassName | The CSS class that should be added to the Bootstrap field label
 
 Metadata for the CheckBox component. The CheckBox doesn't have any specific metadata.
 
+##Components##
+
+###MetaForm###
+
+A form component that renders itself based on metadata
+
+Prop | Description
+componentFactory | The `ComponentFactory` that should be used
+schema | The application schema. See [Metadata](https://github.com/gearz-lab/react-metaform/blob/master/docs-md/Documentation.md#metadata)
+entityName | The name of the `entity` in the `schema`
+layoutName | The name of the `layout` in the `entity`
+title | The title
