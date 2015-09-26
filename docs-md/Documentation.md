@@ -12,6 +12,8 @@
       - [Common](#common)
       - [Input](#input)
       - [CheckBox](#checkbox)
+  - [Components](#components)
+    - [MetaForm](#metaform)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -160,3 +162,8 @@ schema | The application schema. See [Metadata](https://github.com/gearz-lab/rea
 entityName | The name of the `entity` in the `schema`
 layoutName | The name of the `layout` in the `entity`
 title | The title
+model | The object used as the model. This object is changed on user interaction.
+showBottomBar | Whether or not the bottom bar should be displayed
+onModelChange | Function called whenever the model changes 
+onSave | Function called when the Save button is clicked
+onCancel | Function called when the Cancel button is clicked
