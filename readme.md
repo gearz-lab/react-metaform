@@ -69,6 +69,7 @@ Building and running the demo locally
 
 This should work in every environment, except that environment variables are being set in the `npm` scripts which 
 make them not platform-independent. [This should be fixed for the 1.0.0 release](https://github.com/gearz-lab/react-metaform/issues/5).
+If you're on Linux or OSX, please remove the environment `SETs` from the package.json scripts before you proceed.
 
     git clone https://github.com/gearz-lab/react-metaform.git
     cd react-metaform
