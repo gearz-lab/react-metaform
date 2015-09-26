@@ -33,6 +33,7 @@ The root of all metadata. It may represent your entire application schema or jus
 a subset to the `MetaForm`, make sure it contains all the referenced `entities`.
  
 Metadata | Description
+--- | ---
 entities | An array of `entity`.
 
 ###Entity###
@@ -40,6 +41,7 @@ entities | An array of `entity`.
 Represents an `entity`. 
 
 Metadata | Description
+--- | ---
 name | The `entity` name
 fields | An array or `field`.
 layouts | An array or `layout`.
@@ -51,6 +53,7 @@ Represents a visualization of an `entity`. Examples of layouts would be `edit` a
   Fields are  merged based on the `name` metadata.
   
 Metadata | Description
+--- | ---
 name | The `layout` name
 orientation | How the fields to should be layed out. Valid values are "horizontal" and "vertical". Defaults to "vertical".
 fields | An array of `field`. These `fields` are merged with the fields from the `entity` this layout belongs to. Fields are
@@ -62,6 +65,7 @@ groups | (optional) An array of `group`.
 Represents a group in the `layout`. Groups exist just so the `layouts` are flexible and customizable.
 
 Metadata | Description
+--- | ---
 orientation | How the fields to should be layed out. Valid values are "horizontal" and "vertical". Defaults to "vertical".
 fields | An array of `field`. These `fields` are merged with the fields from the `entity` this layout belongs to. Fields are
 merged based on the `name` metadata.

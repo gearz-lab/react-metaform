@@ -21,6 +21,11 @@ Demo
 
 You can check the [online demo here](http://gearz-lab.github.io/react-metaform/demo.html).
 
+Docs
+---
+
+[Docs are available here](https://github.com/gearz-lab/react-metaform/blob/master/docs-md/Documentation.md).
+
 Installing
 ---
 
