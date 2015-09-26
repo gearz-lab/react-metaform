@@ -23,7 +23,7 @@ You can check the online demo [here](http://gearz-lab.github.io/react-metaform/d
 Installing
 ---
 
-For now, `react-metaform` is only supports `npm`. [Bower supported is on the way](#4).
+For now, `react-metaform` is only supports `npm`. [Bower supported is on the way](https://github.com/gearz-lab/react-metaform/issues/4).
 
 Install:
 
