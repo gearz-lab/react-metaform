@@ -19,3 +19,14 @@ Demo
 ---
 
 You can check the online demo [here](http://gearz-lab.github.io/react-metaform/demo.html).
+
+Installing
+---
+
+Using
+---
+
+License
+---
+`React-metaform` is [MIT](https://github.com/gearz-lab/react-metaform/blob/master/LICENSE) licensed.
+
