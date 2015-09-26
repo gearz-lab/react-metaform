@@ -88,7 +88,9 @@ In order to run the `karma` tests:
 Contributing
 ---
 
-Pull-requests are really really welcome. I'll be more than glad to invite frequent contributors to join the organization.
+**Pull-requests are really really welcome**. If you don't know what to contribute with, please check the [1.0.0 issues](https://github.com/gearz-lab/react-metaform/milestones/1.0.0).
+ 
+I'll be more than glad to invite frequent contributors to join the organization.
 If you need help understanding the project, please post an issue and I'll do my best to reply and make sure you understand everything
 you need.
 
