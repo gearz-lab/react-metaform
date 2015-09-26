@@ -13,10 +13,10 @@ require.extensions['.txt'] = function (module, filename) {
 };
 
 const repoRoot = path.resolve(__dirname, '../');
-const docsBuilt = path.join(repoRoot, 'demo-built');
+const demoBuilt = path.join(repoRoot, 'demo-built');
 
 const licenseSrc = path.join(repoRoot, 'LICENSE');
-const licenseDest = path.join(docsBuilt, 'LICENSE');
+const licenseDest = path.join(demoBuilt, 'LICENSE');
 
 console.log(licenseSrc);
 console.log(licenseDest);
@@ -29,8 +29,8 @@ if(process.env.NODE_ENV !== 'production') {
 
 let pages = ['demo.html'];
 
-rimraf(docsBuilt)
-    .then(() => fsep.mkdir(docsBuilt))
+rimraf(demoBuilt)
+    .then(() => fsep.mkdir(demoBuilt))
     .then(() => {
         console.log('writing static page files...');
         return pages.map(fileName => new Promise((resolve, reject) => {
@@ -43,7 +43,7 @@ rimraf(docsBuilt)
                     .replace(/\$\{routeHtml\}/g, routeHtml)
                     .replace(/\$\{cssBundlePath\}/g, 'assets/main.css')
                     .replace(/\$\{jsBundlePath\}/g, 'assets/bundle.js');
-                let demoHtmlPath = path.join(docsBuilt, fileName);
+                let demoHtmlPath = path.join(demoBuilt, fileName);
                 return fsep.writeFile(demoHtmlPath, wrap)
                     .then(write => resolve(write));
             });
