@@ -135,6 +135,14 @@ labelClassName | The CSS class that should be added to the Bootstrap field label
 
 Metadata for the CheckBox component. The CheckBox doesn't have any specific metadata.
 
+####Select and Lookup####
+
+Metadata for the Select and Lookup components.
+
+Metadata | Description
+--- | ---
+options | The options to display. Options are an array of objects with two properties: **value**: The actual value that is stored in the model. **text**: What is displayed to the user
+
 ##Components##
 
 ###MetaForm###

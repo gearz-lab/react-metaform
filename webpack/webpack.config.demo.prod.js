@@ -9,7 +9,7 @@ export default {
     output: {
         filename: 'bundle.js',
         path: './demo-built/assets',
-        publicPath: '/assets/react-metaform/'
+        publicPath: '/react-metaform/assets/'
     },
 
     externals: undefined,
