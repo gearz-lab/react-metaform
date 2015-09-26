@@ -46,15 +46,15 @@ class MetaFormStateManager {
      */
     getInitialState() {
         return {
-            validationSummary: {
-                open: false,
-                messages: this.getValidationSummaryMessages()
-            },
             entity: this.entityAndLayout.entity, // this seems useless
             layout: this.entityAndLayout.layout, // this seems useless
             model: this.model,
             // object with a key for each property
-            componentProps: this.getComponentProps(this.model)
+            componentProps: this.getComponentProps(this.model),
+            validationSummary: {
+                open: false,
+                messages: this.getValidationSummaryMessages()
+            }
         }
     }
 
@@ -133,6 +133,7 @@ class MetaFormStateManager {
      * @private
      */
     getComponentProps(model) {
+        // this method has a side effect of populating the this.metadataIndex. This should be fixed
         return metadataEvaluator.evaluate(this.fields, model,'', this.metadataIndex, (e) => this.updateState(e.id, e.value));
     }
 
@@ -143,7 +144,6 @@ class MetaFormStateManager {
     updateComponentProps(model) {
         let newState = _.extend({}, this.getState());
         newState.componentProps = this.getComponentProps(model);
-        newState.validationSummary.messages = this.getValidationSummaryMessages();
         this.setState(newState);
     }
 }
