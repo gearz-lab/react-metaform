@@ -38,11 +38,13 @@ Install:
 Using
 ---
 
-####MetaForm ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/MetaForm.js)]####
+####MetaForm ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/MetaForm.js))####
 
 The main React component.
 
     import MetaForm from 'react-metaform/lib/MetaForm';
+    
+The `MetaForm` props are listed [here](https://github.com/gearz-lab/react-metaform/blob/master/docs-md/Documentation.md#metaform).
     
 Additionally, you need a `ComponentFactory`. The `ComponentFactory` is responsible for determining which React
 component to use for a given field metadata. `React-metaform` comes with 2 `ComponentFactories`:
