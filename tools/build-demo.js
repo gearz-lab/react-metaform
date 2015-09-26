@@ -53,14 +53,5 @@ rimraf(docsBuilt)
         console.log('running webpack on webpack.config.demo.prod.js...');
         return exec(`webpack --config webpack.config.demo.prod.js`);
     })
-    // for some reason, fsep.copy is not working anymore :(
-    .then(() => new Promise(function(resolve, reject) {
-        console.log('copying license files...');
-        var rd = fs.createReadStream(licenseSrc);
-        rd.on('error', reject);
-        var wr = fs.createWriteStream(licenseDest);
-        wr.on('error', reject);
-        wr.on('finish', resolve);
-        rd.pipe(wr);
-    }))
+    .then(() => fsep.copyAsync(licenseSrc, licenseDest))
     .then(() => console.log('demo built'.green));
