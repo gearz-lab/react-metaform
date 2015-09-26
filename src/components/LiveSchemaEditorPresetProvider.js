@@ -7,6 +7,7 @@ if (process.env.APP_ENV !== 'browser') {
 
 import textbox from './liveSchemaEditorPresets/textbox.txt';
 import textboxWithInvalidConstraint from './liveSchemaEditorPresets/textboxWithInvalidConstraint.txt';
+import lookup from './liveSchemaEditorPresets/lookup.txt';
 import innerEntity from './liveSchemaEditorPresets/innerEntity.txt';
 import arrays from './liveSchemaEditorPresets/arrays.txt';
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
@@ -31,6 +32,14 @@ class LiveSchemaEditorPresetProvider {
             entityName: 'contact',
             layoutName: 'contact-edit',
             code: textboxWithInvalidConstraint
+        });
+        this.presetsConfig.push({
+            value: 'lookup',
+            text: 'Lookup',
+            title: 'Edit contact',
+            entityName: 'contact',
+            layoutName: 'contact-edit',
+            code: lookup
         });
         this.presetsConfig.push({
             value: 'innerEntity',

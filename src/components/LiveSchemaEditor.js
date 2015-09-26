@@ -60,8 +60,25 @@ const LiveSchemaEditor = React.createClass({
     },
 
     onAutoUpdateChange: function (event) {
-        let updatedState = React.addons.update(this.state, {autoUpdate: {$set: event.value}});
-        this.setState(updatedState);
+
+        let setAutoupdateState = (e) => {
+            let updatedState = React.addons.update(this.state, {autoUpdate: {$set: e.value}});
+            this.setState(updatedState);
+        };
+
+        if(!this.state.autoUpdate) {
+            // if the autoUpdate option was not checked, let's update the form before setting the autoUpdate state
+            this.metaFormCache = null;
+            this.forceUpdate(() => {
+                this.resetMetaform(() => {
+                    setAutoupdateState(event);
+                });
+            });
+        }
+        else {
+            // ... otherwise, let's just change the autoupdate state
+            setAutoupdateState(event);
+        }
     },
 
     onCodeChange: function (event) {
@@ -93,9 +110,9 @@ const LiveSchemaEditor = React.createClass({
         this.forceUpdate(() => this.resetMetaform());
     },
 
-    resetMetaform: function () {
+    resetMetaform: function (next) {
         if (this.refs.mf) {
-            this.refs.mf.resetState();
+            this.refs.mf.resetState(next);
         }
     },
 

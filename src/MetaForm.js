@@ -49,8 +49,8 @@ var MetaForm = React.createClass({
         }
     },
 
-    resetState: function () {
-        this.replaceState(this.getInitialState());
+    resetState: function (next) {
+        this.replaceState(this.getInitialState(), next);
     },
 
 
