@@ -157,6 +157,7 @@ Metadata for the CheckBox component. The CheckBox doesn't have any specific meta
 A form component that renders itself based on metadata
 
 Prop | Description
+--- | ---
 componentFactory | The `ComponentFactory` that should be used
 schema | The application schema. See [Metadata](https://github.com/gearz-lab/react-metaform/blob/master/docs-md/Documentation.md#metadata)
 entityName | The name of the `entity` in the `schema`
