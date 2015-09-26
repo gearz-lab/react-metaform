@@ -4,12 +4,12 @@ export default {
     entry: [
         'webpack-dev-server/client?http://localhost:8082',
         'webpack/hot/only-dev-server',
-        './docs/Client.js'
+        './demo/Client.js'
     ],
 
     output: {
         filename: 'bundle.js',
-        path: './docs-built/assets',
+        path: './demo-built/assets',
         publicPath: 'http://localhost:8082/assets/'
     },
 
@@ -46,7 +46,7 @@ export default {
     // the configuration above does not apply to the webpack-dev-server...
     // webpack-dev-server is configured below
     devServer: {
-        contentBase: "./docs-built",
+        contentBase: "./demo-built",
         hot: true,
         noInfo: true,
         headers: { 'Access-Control-Allow-Origin': '*' },

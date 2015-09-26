@@ -3,12 +3,12 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
     entry: [
-        './docs/Client.js'
+        './demo/Client.js'
     ],
 
     output: {
         filename: 'bundle.js',
-        path: './docs-built/assets',
+        path: './demo-built/assets',
         publicPath: '/assets/'
     },
 

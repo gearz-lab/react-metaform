@@ -4,5 +4,5 @@ logs
 .idea
 /lib/
 dist
-docs-built
+demo-built
 node_modules

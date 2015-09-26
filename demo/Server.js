@@ -3,7 +3,7 @@ import React from 'react';
 import express from 'express';
 import path from 'path';
 import webpack from 'webpack';
-import webpackConfig from '../webpack/webpack.config.docs.prod.js';
+import webpackConfig from '../webpack/webpack.config.demo.prod.js';
 import Router from 'react-router';
 import routes from './Routes';
 
@@ -28,7 +28,7 @@ if (development) {
                 if(routeHtml.indexOf('<noscript') === 0) {
                     routeHtml = '';
                 }
-                let wrap = require('../docs/pages/BasePage.txt')
+                let wrap = require('../demo/pages/BasePage.txt')
                     .replace(/\$\{routeHtml\}/g, routeHtml)
                     .replace(/\$\{cssBundlePath\}/g, '')
                     .replace(/\$\{jsBundlePath\}/g, 'http://localhost:8082/assets/bundle.js');
@@ -37,7 +37,7 @@ if (development) {
         });
 } else {
     app = app
-        .use(express.static(path.join(__dirname, '../docs-built')));
+        .use(express.static(path.join(__dirname, '../demo-built')));
 }
 
 app
