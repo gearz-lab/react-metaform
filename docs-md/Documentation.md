@@ -19,6 +19,8 @@
 
 #React-metaform#
 
+> Be patient. This documentation is still under construction. Pull-requests are welcome.
+
 For an introduction to the library, as well as instructions on how to install, run and build it, please refer to the [README.md](https://github.com/gearz-lab/react-metaform/blob/master/readme.md).
 
 ##Metadata##
