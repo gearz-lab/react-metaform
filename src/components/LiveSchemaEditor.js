@@ -139,9 +139,6 @@ const LiveSchemaEditor = React.createClass({
                     componentFactory={DefaultComponentFactory}
                     model={this.state.model}
                     title={this.state.title}
-                    schema={schema}
-                    entityName={this.state.entityName}
-                    layoutName={this.state.layoutName}
                     />;
                 this.metaFormCache = metaForm;
                 return metaForm;
