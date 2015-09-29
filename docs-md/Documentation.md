@@ -31,8 +31,10 @@ Metadata is the single most important thing to understand in order to work with 
 These are the most important things you should know about Metadata:
 
  - The application `schema` is composed of `entities` and `layouts`.
- - `Entities` and `layouts` define `fields`.
- - `Fields` have metadata that is interpreted by the components.
+ - `Fields` are defined in `entities` and `layouts`.
+ - Each `field` is going to become a component.
+ - `Field`'s metadata is passed to the components as `props`.
+ - `Field` metadata is merged from the `layout` to the `entity` before being passed to the components. It's possible to override `field` metadata in the `layout`. 
  - Each `Field` metadata can be either a literal or a function. When it's a function, it's evaluated automatically every time the
  form changes.
 
@@ -82,11 +84,18 @@ groups | (optional) An array of `group`.
 
 ###Field###
 
-Represents a `field`. `Fields` can exist in `entities`, `layouts` or `groups`.
+Represents a `field`. `Fields` can exist in `entities`, `layouts` or `groups`. `Field` metadata are passed to the component as `props`.
+ 
+ Each `field` metadata's value can be in one of the following formats:
+ 
+ Format | Description
+ --- | ---
+ Literal | Example: 'Andre' or 2.
+ Function | When a field metadata value is a function, it's evaluated and the value is passed to the target component as a `prop`.  Functions receive two parameters: `m`, which is the current model, and `h`, which is a collection of helper methods for dealing with number formats, for instance.  Example: function(m, h) { return m.name }
+ Text expression | Functions are not that easy to store in the database. For this reason, a field can be defined as a text expression. Text expressions are `strings` that start with `_exp`. Example: _exp:m.name
  
 Fields can have any sorts of metadata, as long as the component registered in the `ComponentFactory` takes this metadata
-into account. Each field metadata can be either a **literal** or a **function**. When it is a function, it is automatically
-evaluated based on the model, every time the user interacts with the form.
+into account.
 
 These are the metadata that are component agnostic: 
 
