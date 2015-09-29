@@ -8,8 +8,8 @@ import valueSetterMetadataFilter from './metadataEvaluatorFilters/valueSetterMet
 import onChangeSetterMetadataFilter from './metadataEvaluatorFilters/onChangeSetterMetadataFilter.js';
 
 // property filters
-import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
-import conditionMessagePropertyFilter from './metadataPropertyFilters/conditionMessagePropertyFilter.js';
+import defaultPropertyMetadataFilter from './metadataEvaluatorPropertyFilters/defaultMetadataPropertyFilter.js';
+import conditionMessagePropertyFilter from './metadataEvaluatorPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
 
 class MetadataEvaluator {
