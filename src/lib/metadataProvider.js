@@ -1,7 +1,35 @@
 import _ from 'underscore';
 import console from '../lib/helpers/consoleHelpers.js';
+import textExpressionFilter from './metadataProviderFilters/textExpressionsPropertyFilter.js';
 
 class MetadataProvider {
+
+    constructor() {
+        this.metadataFilters = [];
+    }
+
+    /**
+     * Adds the given filter
+     * @param filter
+     */
+    addFilter(filter) {
+        if(!filter) {
+            throw new Error('filter is required');
+        }
+        this.metadataFilters.push(filter);
+    }
+
+    /**
+     * Filters the given metadata
+     * @returns {*}
+     */
+    filter(metadata) {
+        let processedMetadata = metadata;
+        for(let i=0; i<this.metadataFilters.length; i++) {
+            processedMetadata = this.metadataFilters[i].filter(processedMetadata);
+        }
+        return processedMetadata;
+    }
 
     /**
      * Validates a field metadata
@@ -117,6 +145,7 @@ class MetadataProvider {
 
                 let field = _.extend({}, existingEntityProperty, groupField);
                 this.validateFieldMetadata(field);
+                field = this.filter(field);
 
                 thisGroupFields.push(field);
 
@@ -213,5 +242,8 @@ class MetadataProvider {
         return this.processLayoutGroup(layout);
     }
 }
+
+let metadataProvider = new MetadataProvider();
+metadataProvider.addFilter(textExpressionFilter);
 
 export default new MetadataProvider();

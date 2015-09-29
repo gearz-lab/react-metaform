@@ -22,5 +22,11 @@ describe('FunctionHelper', function() {
             };
             assert.throw(() => functionHelper.generateFromTextExpression('_exp:m.something.bad')(model), TypeError);
         });
+        it('Invalid syntax', function() {
+            let model = {
+                name: 'Andre'
+            };
+            assert.throw(() => functionHelper.generateFromTextExpression('_exp: | 2 s $')(model), TypeError);
+        });
     });
 });
