@@ -95,6 +95,7 @@ In order to run the `karma` tests:
     // OR, to run in Chrome instead of PhantomJS
     npm run test-chrome
      
+   
 Contributing
 ---
 
