@@ -7,6 +7,41 @@ describe('MetadataProvider', function () {
 
     describe('getFields', function () {
 
+        it('Basic usage', () => {
+            let schema = {
+                entities: [],
+                layouts: []
+            };
+            assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find entity/);
+        });
+
+        it('Text expressions', function () {
+            let schema = {
+                entities: [
+                    {
+                        name: 'contact',
+                        fields: [
+                            {
+                                name: 'name',
+                                displayName: '_exp:m.name',
+                                type: 'string'
+                            }
+                        ],
+                        layouts: [{
+                            name: 'contact-edit',
+                            fields: [
+                                {
+                                    name: 'name'
+                                }
+                            ]
+                        }]
+                    }
+                ]
+            };
+            let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
+            assert.equal(fields[0].displayName({name: 'Andre'}), 'Andre');
+        });
+
         it('Should merge fields', function () {
 
             let schema = {
@@ -160,13 +195,7 @@ describe('MetadataProvider', function () {
             assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find layout/);
         });
 
-        it('Basic usage', () => {
-            let schema = {
-                entities: [],
-                layouts: []
-            };
-            assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find entity/);
-        });
+
 
     });
 

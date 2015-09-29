@@ -246,4 +246,4 @@ class MetadataProvider {
 let metadataProvider = new MetadataProvider();
 metadataProvider.addFilter(textExpressionFilter);
 
-export default new MetadataProvider();
+export default metadataProvider;

@@ -7,11 +7,12 @@ class TextExpressionsFilter {
         }
         for(let metadataProperty in metadata) {
             if(metadata.hasOwnProperty(metadataProperty)) {
-                if(typeof metadata[metadataProperty] == 'string' && functionHelper.isExpression(metadata[metadataProperty])) {
+                if(typeof metadata[metadataProperty] === 'string' && functionHelper.isExpression(metadata[metadataProperty])) {
                     metadata[metadataProperty] = functionHelper.generateFromTextExpression(metadata[metadataProperty]);
                 }
             }
         }
+        return metadata;
     }
 }
 export default new TextExpressionsFilter();
