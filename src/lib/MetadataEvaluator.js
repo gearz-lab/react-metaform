@@ -1,11 +1,11 @@
 import expressionEvaluator from './ExpressionEvaluator.js';
 
 // metadata filters
-import defaultMetadataFilter from './metadataFilters/defaultMetadataFilter.js';
-import entityMetadataFilter from './metadataFilters/entityMetadataFilter.js';
-import arrayMetadataFilter from './metadataFilters/arrayMetadataFilter.js';
-import valueSetterMetadataFilter from './metadataFilters/valueSetterMetadataFilter.js';
-import onChangeSetterMetadataFilter from './metadataFilters/onChangeSetterMetadataFilter.js';
+import defaultMetadataFilter from './metadataEvaluatorFilters/defaultMetadataFilter.js';
+import entityMetadataFilter from './metadataEvaluatorFilters/entityMetadataFilter.js';
+import arrayMetadataFilter from './metadataEvaluatorFilters/arrayMetadataFilter.js';
+import valueSetterMetadataFilter from './metadataEvaluatorFilters/valueSetterMetadataFilter.js';
+import onChangeSetterMetadataFilter from './metadataEvaluatorFilters/onChangeSetterMetadataFilter.js';
 
 // property filters
 import defaultPropertyMetadataFilter from './metadataPropertyFilters/defaultMetadataPropertyFilter.js';
