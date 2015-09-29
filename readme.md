@@ -87,6 +87,8 @@ In order to run the demo, while [this issue](https://github.com/gearz-lab/react-
     npm run wpds
     npm run start-demo-dev
     
+Now the demo should be available here: [http://localhost:4000/react-metaform/demo.html](http://localhost:4000/react-metaform/demo.html).
+    
 In order to run the `karma` tests:
 
     npm run test
