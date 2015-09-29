@@ -95,6 +95,10 @@ In order to run the `karma` tests:
     // OR, to run in Chrome instead of PhantomJS
     npm run test-chrome
      
+Change log
+---
+
+What has changed is stated [here](https://github.com/gearz-lab/react-metaform/blob/master/docs-md/ChangeLog.md).
    
 Contributing
 ---
