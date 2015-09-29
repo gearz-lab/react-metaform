@@ -42,5 +42,5 @@ if (development) {
 
 app
     .listen(4000, function () {
-        console.log('Server started at http://localhost:4000');
+        console.log('Server started at http://localhost:4000/react-metaform/demo.html');
     });

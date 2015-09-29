@@ -12,6 +12,11 @@
       - [Common](#common)
       - [Input](#input)
       - [CheckBox](#checkbox)
+      - [Select and Lookup](#select-and-lookup)
+  - [Lib](#lib)
+    - [Component factories](#component-factories)
+      - [ComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/ComponentFactory.js))](#componentfactory-sourcehttpsgithubcomgearz-labreact-metaformblobmastersrccomponentfactoryjs)
+      - [DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js))](#defaultcomponentfactory-sourcehttpsgithubcomgearz-labreact-metaformblobmastersrcdefaultcomponentfactoryjs)
   - [Components](#components)
     - [MetaForm](#metaform)
 
@@ -153,6 +158,26 @@ Metadata for the Select and Lookup components.
 Metadata | Description
 --- | ---
 options | The options to display. Options are an array of objects with two properties: **value**: The actual value that is stored in the model. **text**: What is displayed to the user
+
+##Lib##
+
+###Component factories###
+
+Component factories are how `react-metaform` knows which component to render for a particular field metadata.
+
+####ComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/ComponentFactory.js))####
+
+This a *clean* factory. In order to use it, `import` it, register all your components and then pass it to the `componentFactory`
+prop of the `MetaForm`.
+
+    import ComponentFactory from 'react-metaform/lib/ComponentFactory';
+
+####DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js))####
+
+This is a pre-populated factory, the same used in the [demo](http://gearz-lab.github.io/react-metaform/demo.html).
+In order to use it, `import` it and just pass it to the `componentFactory` prop of the `MetaForm`.
+
+    import DefaultComponentFactory from 'react-metaform/lib/DefaultComponentFactory';
 
 ##Components##
 
