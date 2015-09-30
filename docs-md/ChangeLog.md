@@ -8,6 +8,10 @@
  
 ##History##
 
+###0.2.10 (Sep 30, 2015)
+
+ - Improving the MetaForm resilience to schema errors.
+
 ###0.2.9 (Sep 29, 2015)
 
  - Adding support for text-expressions.

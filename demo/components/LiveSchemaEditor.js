@@ -1,5 +1,6 @@
 import React from 'react/addons.js';
-import CodeEditor from './CodeEditor.js';
+import CodeEditor from './../../src/components/CodeEditor.js';
+import Routes from '../Router.js';
 // Bootstrap
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
@@ -7,12 +8,12 @@ import Alert from 'react-bootstrap/lib/Alert.js';
 import Tabs from 'react-bootstrap/lib/Tabs.js';
 import Tab from 'react-bootstrap/lib/Tab.js';
 
-import TextBox from './editors/TextBox.js';
-import Metaform from './../MetaForm.js';
-import metadataProvider from '../lib/metadataProvider.js';
-import CheckBox from './editors/CheckBox.js';
-import Lookup from './editors/Lookup.js';
-import DefaultComponentFactory from '../DefaultComponentFactory.js';
+import TextBox from './../../src/components/editors/TextBox.js';
+import Metaform from './../../src/MetaForm.js';
+import metadataProvider from '../../src/lib/metadataProvider.js';
+import CheckBox from './../../src/components/editors/CheckBox.js';
+import Lookup from './../../src/components/editors/Lookup.js';
+import DefaultComponentFactory from '../../src/DefaultComponentFactory.js';
 import liveSchemaEditorPresetProvider from './LiveSchemaEditorPresetProvider.js';
 import _ from 'underscore';
 
@@ -20,10 +21,10 @@ let presetsConfig = liveSchemaEditorPresetProvider.getPresets();
 const LiveSchemaEditor = React.createClass({
 
     getInitialState: function () {
-        let initialPreset = 'textbox';
+        let initialPreset = this.props.initialPreset ?  this.props.initialPreset : 'textbox';
         let presetConfig = _.find(presetsConfig, p => p.value == initialPreset);
         if (!presetConfig) {
-            throw Error(`Could not find the given preset`);
+            presetConfig = presetsConfig[0];
         }
 
         return {
@@ -44,14 +45,9 @@ const LiveSchemaEditor = React.createClass({
     onPresetChange: function (event) {
         let preset = event.value;
         let updatedState;
-        if (!preset) {
-            updatedState = React.addons.update(this.state, {selectedPreset: {$set: preset}});
-            this.setState(updatedState);
-            return;
-        }
         let presetConfig = _.find(presetsConfig, p => p.value == preset);
         if (!presetConfig) {
-            throw new Error(`Could not find the given preset`);
+            presetConfig = presetsConfig[0];
         }
         updatedState = _.extend({}, this.state);
         updatedState.selectedPreset = preset;
@@ -63,7 +59,9 @@ const LiveSchemaEditor = React.createClass({
         updatedState.model = {};
         this.metaFormCache = null;
         this.setState(updatedState, () => {
-            this.resetMetaform();
+            this.resetMetaform(function() {
+                Routes.transitionTo('demo', {}, { preset: preset });
+            });
         });
     },
 

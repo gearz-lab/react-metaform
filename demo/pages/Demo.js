@@ -5,8 +5,9 @@ const LED = React.createClass({
     render: function () {
 
         if(typeof window !== 'undefined') {
-            var LiveSchemaEditor  = require('../../src/components/LiveSchemaEditor.js');
-            return <LiveSchemaEditor />;
+            let initialPreset = this.props.query.preset ?  this.props.query.preset : 'textbox';
+            var LiveSchemaEditor  = require('../components/LiveSchemaEditor.js');
+            return <LiveSchemaEditor initialPreset={initialPreset} />;
         }
 
         return null;
