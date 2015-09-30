@@ -57,7 +57,9 @@ class ComponentFactory {
      */
     getComponent(id) {
         var component = this.componentsById[id];
-        if(!component) throw `Could not find the given component. Id: ${id}`;
+        if(!component) {
+            throw `Could not find the given component. Id: ${id}`;
+        }
         return this.componentsById[id];
     }
 

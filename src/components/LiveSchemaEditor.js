@@ -161,15 +161,10 @@ const LiveSchemaEditor = React.createClass({
 
         }
         catch (ex) {
-            return <Alert bsStyle='danger' onDismiss={this.handleAlertDismiss}>
+            return <Alert bsStyle='danger'>
                 <h4>Oh snap! The schema is not valid.</h4>
-
-                <p>Detailed information: <b>{ex.message}</b></p>
-
-                <p>
-                    <span>Change the schema</span>
-                    <span> or </span>
-                    <Button onClick={() => this.forceUpdate()}>try again</Button>
+                <p>Detailed information:
+                    <b>{ex.message}</b>
                 </p>
             </Alert>
         }

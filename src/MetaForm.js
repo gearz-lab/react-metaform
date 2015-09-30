@@ -1,4 +1,5 @@
 import React from 'react';
+import Alert from 'react-bootstrap/lib/Alert.js';
 import MetaFormGroup from './components/MetaFormGroup.js';
 import metadataProvider from './lib/metadataProvider.js';
 import MetaFormStateManager from './components/MetaFormStateManager.js';
@@ -28,29 +29,45 @@ var MetaForm = React.createClass({
     getInitialState: function () {
         let model = this.props.model ? this.props.model : {};
 
-        this.metaformStateManager = new MetaFormStateManager(
-            this.props.schema,
-            this.props.entityName,
-            this.props.layoutName,
-            model,
-            () => this.state,
-            (state) => this.setState(state),
-            (model) => this.handleModelChange(model)
-        );
+        try {
+            this.metaformStateManager = new MetaFormStateManager(
+                this.props.schema,
+                this.props.entityName,
+                this.props.layoutName,
+                model,
+                () => this.state,
+                (state) => this.setState(state),
+                (model) => this.handleModelChange(model)
+            );
 
-        return this.metaformStateManager.getInitialState();
+            return this.metaformStateManager.getInitialState();
+        }
+        catch (ex) {
+            return {
+                error: ex
+            }
+        }
     },
 
     componentWillReceiveProps: function (nextProps) {
         // I'm not sure if this is the best approach. But what I'm looking for here is to find
         // a way to update the state.componentProps when the MetaForm is rendered with a different model
-        if (nextProps.model) {
-            this.metaformStateManager.updateComponentProps(nextProps.model);
+        if(!this.state.error) {
+            if (nextProps.model) {
+                this.metaformStateManager.updateComponentProps(nextProps.model);
+            }
         }
     },
 
     resetState: function (next) {
-        this.replaceState(this.getInitialState(), next);
+        let newState;
+        try {
+            newState = this.getInitialState();
+        }
+        catch(ex) {
+            newState = { error: ex };
+        }
+        this.replaceState(newState, next);
     },
 
 
@@ -84,8 +101,8 @@ var MetaForm = React.createClass({
     /**
      * Handles the cancel button
      */
-    handleCancel: function() {
-        if(this.props.onCancel) {
+    handleCancel: function () {
+        if (this.props.onCancel) {
             this.props.onCancel();
         }
     },
@@ -102,6 +119,15 @@ var MetaForm = React.createClass({
                 <h3>{_this.props.title}</h3>
 
             </div>;
+        }
+
+        if(this.state.error) {
+            return <Alert bsStyle='danger'>
+                <h4>Oh snap! The schema is not valid.</h4>
+                <p>Detailed information:
+                    <b>{this.state.error}</b>
+                </p>
+            </Alert>
         }
 
         let bottomBar = null;
