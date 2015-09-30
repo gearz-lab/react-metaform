@@ -8,11 +8,11 @@
  
 ##History##
 
-###0.2.9 (Sep 29, 2015)###
+###0.2.9 (Sep 29, 2015)
 
  - Adding support for text-expressions.
 
 
-###0.2.8 (Sep 26, 2015)###: 
+###0.2.8 (Sep 26, 2015)
 
  - First public release.
