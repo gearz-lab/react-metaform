@@ -109,6 +109,13 @@ I'll be more than glad to invite frequent contributors to join the organization.
 If you need help understanding the project, please post an issue and I'll do my best to reply and make sure you understand everything
 you need.
 
+In order to make a pull request:
+
+ 1. Fork it.
+ 2. Create your feature-branch git checkout -b your-new-feature-branch
+ 3. Commit your change git commit -am 'Add new feature'
+ 4. Push to the branch git push origin your-new-feature-branch
+ 5. Create new Pull Request with master branch
 
 License
 ---

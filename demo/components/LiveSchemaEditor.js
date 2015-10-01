@@ -15,13 +15,14 @@ import CheckBox from './../../src/components/editors/CheckBox.js';
 import Lookup from './../../src/components/editors/Lookup.js';
 import DefaultComponentFactory from '../../src/DefaultComponentFactory.js';
 import liveSchemaEditorPresetProvider from './LiveSchemaEditorPresetProvider.js';
+import GitHubForkRibbon from 'react-github-fork-ribbon';
 import _ from 'underscore';
 
 let presetsConfig = liveSchemaEditorPresetProvider.getPresets();
 const LiveSchemaEditor = React.createClass({
 
     getInitialState: function () {
-        let initialPreset = this.props.initialPreset ?  this.props.initialPreset : 'textbox';
+        let initialPreset = this.props.initialPreset ? this.props.initialPreset : 'textbox';
         let presetConfig = _.find(presetsConfig, p => p.value == initialPreset);
         if (!presetConfig) {
             presetConfig = presetsConfig[0];
@@ -59,8 +60,8 @@ const LiveSchemaEditor = React.createClass({
         updatedState.model = {};
         this.metaFormCache = null;
         this.setState(updatedState, () => {
-            this.resetMetaform(function() {
-                Routes.transitionTo('demo', {}, { preset: preset });
+            this.resetMetaform(function () {
+                Routes.transitionTo('demo', {}, {preset: preset});
             });
         });
     },
@@ -161,6 +162,7 @@ const LiveSchemaEditor = React.createClass({
         catch (ex) {
             return <Alert bsStyle='danger'>
                 <h4>Oh snap! The schema is not valid.</h4>
+
                 <p>Detailed information:
                     <b>{ex.message}</b>
                 </p>
@@ -171,6 +173,14 @@ const LiveSchemaEditor = React.createClass({
     render: function () {
         let _this = this;
         return <div className="live-schema-editor">
+
+            <GitHubForkRibbon href="https://github.com/gearz-lab/react-metaform"
+                              target="_blank"
+                              position="right"
+                color="black">
+                                Fork me on GitHub
+            </GitHubForkRibbon>
+
             <div className='row'>
                 <div className="col-md-12">
                     <h2>React-metaform demo v0.2.8</h2>
@@ -226,7 +236,8 @@ const LiveSchemaEditor = React.createClass({
                                     <div className="col-md-5">
                                         <Button onClick={this.onUpdateClick}
                                                 disabled={this.state.autoUpdate}><Glyphicon
-                                            glyph="refresh"/><span style={{marginLeft:6}}>Update form</span></Button>
+                                            glyph="refresh"/><span
+                                            style={{marginLeft:6}}>Update form</span></Button>
 
                                     </div>
                                     <div className="col-md-7">
