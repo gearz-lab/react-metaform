@@ -8,7 +8,7 @@
  
 ##History##
 
-###0.2.10 (Sep 30, 2015)
+###0.2.11 (Sep 30, 2015)
 
  - Removing the LiveSchemaEditor from the library (it's now part of the demo)
  - The LiveSchemaEditor version is now dynamic
