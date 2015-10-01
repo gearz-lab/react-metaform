@@ -31,7 +31,7 @@ For an introduction to the library, as well as instructions on how to install, r
 ##Metadata##
 
 Metadata is the single most important thing to understand in order to work with `react-metaform`. Basically, you pass a
-`schema` to the `MetaForm` component and it renders itself. You can find examples of valid schema [here](https://github.com/gearz-lab/react-metaform/tree/master/src/components/liveSchemaEditorPresets).
+`schema` to the `MetaForm` component and it renders itself. You can find examples of valid schema [here](https://github.com/gearz-lab/react-metaform/tree/master/demo/components/liveSchemaEditorPresets).
 
 These are the most important things you should know about Metadata:
 
