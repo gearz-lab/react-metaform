@@ -17,6 +17,7 @@ import DefaultComponentFactory from '../../src/DefaultComponentFactory.js';
 import liveSchemaEditorPresetProvider from './LiveSchemaEditorPresetProvider.js';
 import GitHubForkRibbon from 'react-github-fork-ribbon';
 import _ from 'underscore';
+import psjon from '../../package.json';
 
 let presetsConfig = liveSchemaEditorPresetProvider.getPresets();
 const LiveSchemaEditor = React.createClass({
@@ -183,7 +184,7 @@ const LiveSchemaEditor = React.createClass({
 
             <div className='row'>
                 <div className="col-md-12">
-                    <h2>React-metaform demo v0.2.8</h2>
+                    <h2>React-metaform demo {psjon.version}</h2>
                 </div>
                 <div className="col-md-5">
 
