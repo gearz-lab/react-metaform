@@ -8,15 +8,15 @@ class ComponentFactory {
     constructor() {
         // this is expected to contain a property for each supported type
         // and this property's value is expected to be an array of ComponentBuilder
-        this.componentsByType = { };
+        this.fieldComponentsByType = { };
 
         // this is expected to contain a property for each component definition
         // and the value is expected to be the component definition itself
-        this.componentsById = { };
+        this.fieldComponentsById = { };
 
-        // defaultComponents is expected to contain a property for each supported type
+        // defaultFieldComponents is expected to contain a property for each supported type
         // and this property's value is expected to be the component definition id
-        this.defaultComponents = { }
+        this.defaultFieldComponents = { }
     }
 
     /**
@@ -44,23 +44,23 @@ class ComponentFactory {
         for(var i = 0; i < types.length; i++)
         {
             const type = types[i];
-            if(!(type in this.componentsByType))
-                this.componentsByType[type] = [];
-            this.componentsByType[type].push(component);
+            if(!(type in this.fieldComponentsByType))
+                this.fieldComponentsByType[type] = [];
+            this.fieldComponentsByType[type].push(component);
         }
         // registers the component definition
-        this.componentsById[id] = component;
+        this.fieldComponentsById[id] = component;
     }
 
     /**
      * @param id The ComponentBuilder id
      */
     getComponent(id) {
-        var component = this.componentsById[id];
+        var component = this.fieldComponentsById[id];
         if(!component) {
             throw `Could not find the given component. Id: ${id}`;
         }
-        return this.componentsById[id];
+        return this.fieldComponentsById[id];
     }
 
     /**
@@ -70,8 +70,8 @@ class ComponentFactory {
      */
     getComponents(type) {
         if(!type)
-            return this.componentsByType;
-        return this.componentsByType[type];
+            return this.fieldComponentsByType;
+        return this.fieldComponentsByType[type];
     }
 
     /**
@@ -80,8 +80,8 @@ class ComponentFactory {
      */
     getDefaultComponent(type) {
         if(!type) throw 'type should have a value';
-        if(this.defaultComponents[type])
-            return this.getComponent(this.defaultComponents[type]);
+        if(this.defaultFieldComponents[type])
+            return this.getComponent(this.defaultFieldComponents[type]);
         const componentsForType = this.getComponents(type);
         const component = _.first(componentsForType);
         if(!component)
@@ -94,7 +94,7 @@ class ComponentFactory {
      * @param components - An object that should contain a type as a key and a ComponentBuilder as value
      */
     setDefaultComponents(components) {
-        this.defaultComponents = components;
+        this.defaultFieldComponents = components;
     }
 
     /**
