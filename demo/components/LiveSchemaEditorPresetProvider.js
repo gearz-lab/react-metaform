@@ -12,6 +12,7 @@ import innerEntity from './liveSchemaEditorPresets/innerEntity.txt';
 import arrays from './liveSchemaEditorPresets/arrays.txt';
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
 import confirmPurchase from './liveSchemaEditorPresets/confirmPurchase.txt';
+import selectiveMetaFormGroup from './liveSchemaEditorPresets/selectiveMetaFormGroup.txt';
 
 class LiveSchemaEditorPresetProvider {
     constructor() {
@@ -73,6 +74,14 @@ class LiveSchemaEditorPresetProvider {
             layoutName: 'sale-edit',
             code: confirmPurchase
         });
+        //this.presetsConfig.push({
+        //    value: 'selectiveMetaFormGroup',
+        //    text: 'SelectiveMetaFormGroup',
+        //    title: 'SelectiveMetaFormGroup',
+        //    entityName: 'contact',
+        //    layoutName: 'contact-edit',
+        //    code: selectiveMetaFormGroup
+        //});
     }
     getPresets() {
         return this.presetsConfig;

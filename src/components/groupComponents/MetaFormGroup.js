@@ -4,6 +4,7 @@ import Alert from 'react-bootstrap/lib/Alert.js';
 
 var MetaFormGroup = React.createClass({
     propTypes: {
+        component: React.PropTypes.string,
         layout: React.PropTypes.object.isRequired,
         fields: React.PropTypes.array.isRequired,
         componentFactory: React.PropTypes.object.isRequired

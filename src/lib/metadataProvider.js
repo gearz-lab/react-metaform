@@ -213,9 +213,7 @@ class MetadataProvider {
      * @returns {Object}
      */
     processLayoutGroup(layoutGroup) {
-
         let layoutGroupClone = {};
-
         if (layoutGroup.fields) {
             layoutGroupClone.fields = [];
             for (let i = 0; i < layoutGroup.fields.length; i++) {
@@ -231,6 +229,7 @@ class MetadataProvider {
 
         // copying useful properties
         layoutGroupClone.orientation = layoutGroup.orientation;
+        layoutGroupClone.component = layoutGroup.component;
 
         return layoutGroupClone;
     }

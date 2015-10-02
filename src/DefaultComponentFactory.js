@@ -12,6 +12,7 @@ import ArrayContainer from './components/fieldComponents/ArrayContainer.js';
 
 // Group components
 import MetaFormGroup from './components/groupComponents/MetaFormGroup.js';
+import SelectiveMetaFormGroup from './components/groupComponents/SelectiveMetaFormGroup.js';
 
 // Registers all field component definitions
 componentFactory.registerFieldComponent('textbox', ['string', 'int', 'float'], TextBox);
@@ -25,6 +26,7 @@ componentFactory.registerFieldComponent('arraycontainer', ['array'], ArrayContai
 
 // Registers all group component definitions
 componentFactory.registerGroupComponent('metaformgroup', MetaFormGroup);
+componentFactory.registerGroupComponent('selectivemetaformgroup', SelectiveMetaFormGroup);
 
 // Registers the component defaults
 componentFactory.setDefaultFieldComponents({
