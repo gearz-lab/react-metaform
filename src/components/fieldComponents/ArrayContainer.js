@@ -1,6 +1,6 @@
 import React from 'react';
 import metadataProvider from '../../lib/metadataProvider.js';
-import MetaFormGroup from '../MetaFormGroup.js';
+import MetaFormGroup from '../groupComponents/MetaFormGroup.js';
 import GlyphButton from '../GlyphButton.js';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton.js';

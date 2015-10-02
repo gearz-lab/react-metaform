@@ -8,11 +8,11 @@ import Alert from 'react-bootstrap/lib/Alert.js';
 import Tabs from 'react-bootstrap/lib/Tabs.js';
 import Tab from 'react-bootstrap/lib/Tab.js';
 
-import TextBox from './../../src/components/editors/TextBox.js';
+import TextBox from '../../src/components/fieldComponents/TextBox.js';
 import Metaform from './../../src/MetaForm.js';
 import metadataProvider from '../../src/lib/metadataProvider.js';
-import CheckBox from './../../src/components/editors/CheckBox.js';
-import Lookup from './../../src/components/editors/Lookup.js';
+import CheckBox from '../../src/components/fieldComponents/CheckBox.js';
+import Lookup from '../../src/components/fieldComponents/Lookup.js';
 import DefaultComponentFactory from '../../src/DefaultComponentFactory.js';
 import liveSchemaEditorPresetProvider from './LiveSchemaEditorPresetProvider.js';
 import GitHubForkRibbon from 'react-github-fork-ribbon';

@@ -1,15 +1,19 @@
 import componentFactory from './ComponentFactory.js';
 
-import TextBox from './components/editors/TextBox';
-import Label from './components/editors/Label.js';
-import CheckBox from './components/editors/CheckBox.js';
-import Select from './components/editors/Select.js';
-import Lookup from './components/editors/Lookup.js';
-import DatePicker from './components/editors/DatePicker.js';
-import EntityContainer from './components/editors/EntityContainer.js';
-import ArrayContainer from './components/editors/ArrayContainer.js';
+// Field components
+import TextBox from './components/fieldComponents/TextBox';
+import Label from './components/fieldComponents/Label.js';
+import CheckBox from './components/fieldComponents/CheckBox.js';
+import Select from './components/fieldComponents/Select.js';
+import Lookup from './components/fieldComponents/Lookup.js';
+import DatePicker from './components/fieldComponents/DatePicker.js';
+import EntityContainer from './components/fieldComponents/EntityContainer.js';
+import ArrayContainer from './components/fieldComponents/ArrayContainer.js';
 
-// Registers all component definitions
+// Group components
+import MetaFormGroup from './components/groupComponents/MetaFormGroup.js';
+
+// Registers all field component definitions
 componentFactory.registerFieldComponent('textbox', ['string', 'int', 'float'], TextBox);
 componentFactory.registerFieldComponent('label', ['string', 'int', 'float'], Label);
 componentFactory.registerFieldComponent('select', ['string', 'int', 'float'], Select);
@@ -18,6 +22,9 @@ componentFactory.registerFieldComponent('checkbox', ['bool'], CheckBox);
 componentFactory.registerFieldComponent('datepicker', ['bool'], DatePicker);
 componentFactory.registerFieldComponent('entitycontainer', ['entity'], EntityContainer);
 componentFactory.registerFieldComponent('arraycontainer', ['array'], ArrayContainer);
+
+// Registers all group component definitions
+componentFactory.registerGroupComponent('metaformgroup', MetaFormGroup);
 
 // Registers the component defaults
 componentFactory.setDefaultFieldComponents({
@@ -29,5 +36,7 @@ componentFactory.setDefaultFieldComponents({
     "entity": 'entitycontainer',
     "array": 'arraycontainer'
 });
+
+componentFactory.setDefaultGroupComponent('metaformgroup');
 
 export default componentFactory;

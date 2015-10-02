@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
-import TextBox from '../src/components/editors/TextBox';
+import TextBox from '../src/components/fieldComponents/TextBox';
 import FloatTypeProcessor from '../src/lib/typeProcessors/FloatTypeProcessor';
 import metadataEvaluator from '../src/lib/MetadataEvaluator.js';
 import chai from 'chai';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Alert from 'react-bootstrap/lib/Alert.js';
-import MetaFormGroup from './components/MetaFormGroup.js';
+import MetaFormGroup from './components/groupComponents/MetaFormGroup.js';
 import metadataProvider from './lib/metadataProvider.js';
 import MetaFormStateManager from './components/MetaFormStateManager.js';
 import Button from 'react-bootstrap/lib/Button.js';
@@ -8,6 +8,7 @@ import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar.js';
 import ValidationSummary from './components/ValidationSummary.js';
 import objectHelper from './lib/helpers/objectHelper.js';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
+
 import _ from 'underscore';
 
 var MetaForm = React.createClass({
@@ -18,6 +19,7 @@ var MetaForm = React.createClass({
         entityName: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string.isRequired,
         fields: React.PropTypes.object,
+        componentFactory: React.PropTypes.object.isRequired,
         model: React.PropTypes.object,
         showBottomBar: React.PropTypes.bool,
         // the onSave handler receives the model as a parameter
@@ -147,10 +149,17 @@ var MetaForm = React.createClass({
             </div>;
         }
 
+        let groupComponent = this.props.componentFactory.buildGroupComponent({
+            component: this.state.layout.component,
+            layout: this.state.layout,
+            fields: this.state.componentProps,
+            componentFactory: this.props.componentFactory
+        });
+
         return (
             <div className="meta-form">
                 {title}
-                <MetaFormGroup layout={this.state.layout} fields={_this.state.componentProps}/>
+                {groupComponent}
                 {bottomBar}
             </div>
         );

@@ -1,6 +1,6 @@
 import React from 'react';
 import metadataProvider from '../../lib/metadataProvider.js';
-import MetaFormGroup from '../MetaFormGroup.js';
+import MetaFormGroup from '../groupComponents/MetaFormGroup.js';
 
 const EntityContainer = React.createClass({
 

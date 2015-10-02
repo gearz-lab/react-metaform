@@ -17,6 +17,13 @@ class ComponentFactory {
         // defaultFieldComponents is expected to contain a property for each supported type
         // and this property's value is expected to be the component definition id
         this.defaultFieldComponents = { }
+
+        // this is expected to contain a property for each component definition
+        // and the value is expected to be the component definition itself
+        this.groupComponentsById = { };
+
+        // The id of the default component for groups
+        this.defaultGroupComponentId = null;
     }
 
     /**
@@ -104,7 +111,7 @@ class ComponentFactory {
      */
     buildFieldComponent(props) {
         if(!props) {
-            throw Error('The metadata parameter is required');
+            throw Error('The props parameter is required');
         }
 
         this._validateMetadata(props);
@@ -121,7 +128,68 @@ class ComponentFactory {
             componentType = this.getDefaultFieldComponent(props.type);
         }
         if(!componentType)
-            throw new Error(`Could not resolve the component for type type. Type: ${props.type}`);
+            throw new Error(`Could not resolve the component for the type. Type: ${props.type}`);
+
+        return React.createElement(componentType, props);
+    }
+
+    /**
+     * Registers a group component
+     * @param id
+     * @param component
+     */
+    registerGroupComponent(id, component) {
+        this.groupComponentsById[id] = component;
+    }
+
+    getGroupComponent(id) {
+        let component = this.groupComponentsById[id];
+        if(!component) {
+            throw Error(`Could not resolve the group component. Component: ${id}`);
+        }
+        return component;
+    }
+
+    /**
+     * Sets the default group component
+     * @param id
+     */
+    setDefaultGroupComponent(id) {
+        this.defaultGroupComponentId = id;
+    }
+
+    /**
+     * Gets the default group component
+     * @returns {*}
+     */
+    getDefaultGroupComponent() {
+        return this.getGroupComponent(this.defaultGroupComponentId);
+    }
+
+    /**
+     * Gets the appropriate component based on the given metadata
+     * @param props
+     * @returns {*}
+     */
+    buildGroupComponent(props) {
+        if(!props) {
+            throw Error('The props parameter is required');
+        }
+
+        let componentType;
+        if(props.component) {
+            // if the metadata explicitly specify a component, let's use it
+            componentType = this.getGroupComponent(props.component);
+        }
+        else
+        {
+            // If the metadata doesn't explicitly specify a component, let's return
+            // the default component for type. If there's no default, let's take the first
+            // that matches the type
+            componentType = this.getDefaultGroupComponent();
+        }
+        if(!componentType)
+            throw new Error(`Could not resolve the component for the group`);
 
         return React.createElement(componentType, props);
     }

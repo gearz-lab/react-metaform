@@ -1,12 +1,12 @@
 import React from 'react';
 import _ from 'underscore';
 import Alert from 'react-bootstrap/lib/Alert.js';
-import componentFactory from '../ComponentFactory';
 
 var MetaFormGroup = React.createClass({
     propTypes: {
         layout: React.PropTypes.object.isRequired,
-        fields: React.PropTypes.array.isRequired
+        fields: React.PropTypes.array.isRequired,
+        componentFactory: React.PropTypes.object.isRequired
     },
     render: function () {
         let _this = this;
@@ -22,14 +22,19 @@ var MetaFormGroup = React.createClass({
                 return {
                     data: layoutFieldInProps,
                     length: this.props.layout.fields.length,
-                    component: componentFactory.buildFieldComponent(layoutFieldInProps)
+                    component: this.props.componentFactory.buildFieldComponent(layoutFieldInProps)
                 }
             })
                 : this.props.layout.groups.map(group => {
                 return {
                     data: group,
                     length: this.props.layout.groups.length,
-                    component: <MetaFormGroup layout={group} fields={_this.props.fields}/>
+                    component: this.props.componentFactory.buildGroupComponent({
+                        component: group.component,
+                        layout: group,
+                        fields: _this.props.fields,
+                        componentFactory: this.props.componentFactory
+                    })
                 }
             });
 
