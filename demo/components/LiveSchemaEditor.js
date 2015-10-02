@@ -1,5 +1,5 @@
 import React from 'react/addons.js';
-import CodeEditor from './../../src/components/CodeEditor.js';
+import CodeEditor from './CodeEditor.js';
 import Routes from '../Router.js';
 // Bootstrap
 import Button from 'react-bootstrap/lib/Button';
