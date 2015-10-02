@@ -10,17 +10,17 @@ import EntityContainer from './components/editors/EntityContainer.js';
 import ArrayContainer from './components/editors/ArrayContainer.js';
 
 // Registers all component definitions
-componentFactory.registerComponent('textbox', ['string', 'int', 'float'], TextBox);
-componentFactory.registerComponent('label', ['string', 'int', 'float'], Label);
-componentFactory.registerComponent('select', ['string', 'int', 'float'], Select);
-componentFactory.registerComponent('lookup', ['string', 'int', 'float'], Lookup);
-componentFactory.registerComponent('checkbox', ['bool'], CheckBox);
-componentFactory.registerComponent('datepicker', ['bool'], DatePicker);
-componentFactory.registerComponent('entitycontainer', ['entity'], EntityContainer);
-componentFactory.registerComponent('arraycontainer', ['array'], ArrayContainer);
+componentFactory.registerFieldComponent('textbox', ['string', 'int', 'float'], TextBox);
+componentFactory.registerFieldComponent('label', ['string', 'int', 'float'], Label);
+componentFactory.registerFieldComponent('select', ['string', 'int', 'float'], Select);
+componentFactory.registerFieldComponent('lookup', ['string', 'int', 'float'], Lookup);
+componentFactory.registerFieldComponent('checkbox', ['bool'], CheckBox);
+componentFactory.registerFieldComponent('datepicker', ['bool'], DatePicker);
+componentFactory.registerFieldComponent('entitycontainer', ['entity'], EntityContainer);
+componentFactory.registerFieldComponent('arraycontainer', ['array'], ArrayContainer);
 
 // Registers the component defaults
-componentFactory.setDefaultComponents({
+componentFactory.setDefaultFieldComponents({
     "string": 'textbox',
     "int": 'textbox',
     "float": 'textbox',

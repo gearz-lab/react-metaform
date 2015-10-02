@@ -22,7 +22,7 @@ var MetaFormGroup = React.createClass({
                 return {
                     data: layoutFieldInProps,
                     length: this.props.layout.fields.length,
-                    component: componentFactory.buildComponent(layoutFieldInProps)
+                    component: componentFactory.buildFieldComponent(layoutFieldInProps)
                 }
             })
                 : this.props.layout.groups.map(group => {

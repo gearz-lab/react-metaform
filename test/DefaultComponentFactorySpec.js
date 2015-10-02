@@ -6,23 +6,23 @@ const assert = chai.assert;
 describe('ComponentFactory', function () {
 
 
-    describe('getComponents', function() {
+    describe('getFieldComponents', function() {
         it('Should return all definitions', function () {
-            const definitions = ComponentFactory.getComponents();
+            const definitions = ComponentFactory.getFieldComponents();
             assert.isObject(definitions);
         });
         it('Should return definitions for the string type', function () {
-            const definitions = ComponentFactory.getComponents('string');
+            const definitions = ComponentFactory.getFieldComponents('string');
             assert.isArray(definitions);
             assert.isAbove(definitions.length, 0);
         });
         it('Should return definitions for the int type', function () {
-            const definitions = ComponentFactory.getComponents('int');
+            const definitions = ComponentFactory.getFieldComponents('int');
             assert.isArray(definitions);
             assert.isAbove(definitions.length, 0);
         });
         it('Should return definitions for the float type', function () {
-            const definitions = ComponentFactory.getComponents('int');
+            const definitions = ComponentFactory.getFieldComponents('int');
             assert.isArray(definitions);
             assert.isAbove(definitions.length, 0);
         });
@@ -37,27 +37,27 @@ describe('ComponentFactory', function () {
         });
     });
 
-    describe('getDefaultComponent', function() {
+    describe('getDefaultFieldComponent', function() {
         describe('Should get default component for primitive types', function() {
 
             it('string', function() {
-                    let defaultComponent = ComponentFactory.getDefaultComponent('string');
+                    let defaultComponent = ComponentFactory.getDefaultFieldComponent('string');
                     ReactTestUtils.isElement(defaultComponent);
                 });
 
             it('float', function() {
-                    let defaultComponent = ComponentFactory.getDefaultComponent('float');
+                    let defaultComponent = ComponentFactory.getDefaultFieldComponent('float');
                     ReactTestUtils.isElement(defaultComponent);
                 });
 
             it('int', function() {
-                    let defaultComponent = ComponentFactory.getDefaultComponent('int');
+                    let defaultComponent = ComponentFactory.getDefaultFieldComponent('int');
                     ReactTestUtils.isElement(defaultComponent);
             });
         });
     });
 
-    describe('buildComponent', function() {
+    describe('buildFieldComponent', function() {
         it('Should throw exception when getting a component definition specifying an unknown component', function () {
             const metadata = {
                 name: 'name',
@@ -65,7 +65,7 @@ describe('ComponentFactory', function () {
                 component: 'foo',
                 onChange: e => {}
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata), /Could not find the given component/);
+            assert.throws(() => ComponentFactory.buildFieldComponent(metadata), /Could not find the given component/);
         });
 
         it('Should return the component when specifying the component explicitly', function() {
@@ -75,7 +75,7 @@ describe('ComponentFactory', function () {
                 component: 'textbox',
                 onChange: e => {}
             };
-            const component = ComponentFactory.buildComponent(metadata);
+            const component = ComponentFactory.buildFieldComponent(metadata);
             assert.isTrue(ReactTestUtils.isElement(component));
         });
 
@@ -85,7 +85,7 @@ describe('ComponentFactory', function () {
                 type: 'string',
                 onChange: e => {}
             };
-            const component = ComponentFactory.buildComponent(metadata);
+            const component = ComponentFactory.buildFieldComponent(metadata);
             assert.isTrue(ReactTestUtils.isElement(component));
         });
 
@@ -95,7 +95,7 @@ describe('ComponentFactory', function () {
                 type: 'foo',
                 onChange: e => {}
             };
-            assert.throws(() => ComponentFactory.buildComponent(metadata), /Couldn't find any component for the given type/);
+            assert.throws(() => ComponentFactory.buildFieldComponent(metadata), /Couldn't find any component for the given type/);
         });
 
         it('Should work with integers', function() {
@@ -104,7 +104,7 @@ describe('ComponentFactory', function () {
                 type: 'int',
                 onChange: e => {}
             };
-            const component = ComponentFactory.buildComponent(metadata);
+            const component = ComponentFactory.buildFieldComponent(metadata);
             assert.isTrue(ReactTestUtils.isElement(component));
         });
     });

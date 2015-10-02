@@ -39,7 +39,7 @@ class ComponentFactory {
      * @param component
      */
 
-    registerComponent(id, types, component) {
+    registerFieldComponent(id, types, component) {
         // registers the component definition in each given type
         for(var i = 0; i < types.length; i++)
         {
@@ -55,7 +55,7 @@ class ComponentFactory {
     /**
      * @param id The ComponentBuilder id
      */
-    getComponent(id) {
+    getFieldComponent(id) {
         var component = this.fieldComponentsById[id];
         if(!component) {
             throw `Could not find the given component. Id: ${id}`;
@@ -68,7 +68,7 @@ class ComponentFactory {
      * If a type is specified, returns the definitions for that type only
      * @returns {{}|*}
      */
-    getComponents(type) {
+    getFieldComponents(type) {
         if(!type)
             return this.fieldComponentsByType;
         return this.fieldComponentsByType[type];
@@ -78,11 +78,11 @@ class ComponentFactory {
      * Returns the default component definition for the given type
      * @param type
      */
-    getDefaultComponent(type) {
+    getDefaultFieldComponent(type) {
         if(!type) throw 'type should have a value';
         if(this.defaultFieldComponents[type])
-            return this.getComponent(this.defaultFieldComponents[type]);
-        const componentsForType = this.getComponents(type);
+            return this.getFieldComponent(this.defaultFieldComponents[type]);
+        const componentsForType = this.getFieldComponents(type);
         const component = _.first(componentsForType);
         if(!component)
             throw new Error(`Couldn't find any component for the given type. Type: ${type}. Make sure the proper component was registered in the ComponentFactory.`);
@@ -93,7 +93,7 @@ class ComponentFactory {
      * Sets the default component per type.
      * @param components - An object that should contain a type as a key and a ComponentBuilder as value
      */
-    setDefaultComponents(components) {
+    setDefaultFieldComponents(components) {
         this.defaultFieldComponents = components;
     }
 
@@ -102,7 +102,7 @@ class ComponentFactory {
      * @param props
      * @returns {*}
      */
-    buildComponent(props) {
+    buildFieldComponent(props) {
         if(!props) {
             throw Error('The metadata parameter is required');
         }
@@ -111,14 +111,14 @@ class ComponentFactory {
         let componentType;
         if(props.component) {
             // if the metadata explicitly specify a component, let's use it
-            componentType = this.getComponent(props.component);
+            componentType = this.getFieldComponent(props.component);
         }
         else
         {
             // If the metadata doesn't explicitly specify a component, let's return
             // the default component for type. If there's no default, let's take the first
             // that matches the type
-            componentType = this.getDefaultComponent(props.type);
+            componentType = this.getDefaultFieldComponent(props.type);
         }
         if(!componentType)
             throw new Error(`Could not resolve the component for type type. Type: ${props.type}`);
