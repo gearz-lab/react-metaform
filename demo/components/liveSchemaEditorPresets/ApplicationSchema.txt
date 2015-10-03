@@ -11,13 +11,17 @@
                 },
                 {
                     name: "fields",
+                    displayName: "Fields",
                     type: "array",
                     arrayType: "entity",
-                    entityType: "field"
+                    entityType: "field",
+                    layoutName: "field-edit",
+                    addText: "Add field"
                 }
             ],
             layouts: [{
                 name: "entity-edit",
+                title: "Entity",
                 fields: [
                     {
                         name: "name"
@@ -32,7 +36,50 @@
             name: "field",
             fields: [
                 {
-                    name: "name"
+                    name: "name",
+                    type: "string",
+                    displayName: "Name"
+                },
+                {
+                    name: "displayName",
+                    type: "string",
+                    displayName: "Display name"
+                },
+                {
+                    name: "type",
+                    type: "string",
+                    displayName: "Type",
+                    component: "lookup",
+                    options: [
+                        {
+                            value: "string",
+                            text: "String"
+                        },
+                        {
+                            value: "int",
+                            text: "Integer"
+                        },
+                        {
+                            value: "float",
+                            text: "Float"
+                        },
+                        {
+                            value: "bool",
+                            text: "Boolean"
+                        },
+                        {
+                            value: "date",
+                            text: "Date"
+                        },
+                        {
+                            value: "entity",
+                            text: "Entity"
+                        },
+                        {
+                            value: "array",
+                            text: "Array"
+                        }
+                    ]
                 }
             ],
             layouts: [{
@@ -40,6 +87,12 @@
                 fields: [
                     {
                         name: "name"
+                    },
+                    {
+                        name: "displayName"
+                    },
+                    {
+                        name: "type"
                     }
                 ]
             }]

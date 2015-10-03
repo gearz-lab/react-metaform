@@ -13,7 +13,7 @@ const ArrayContainerItem = React.createClass({
     propTypes: {
         index: React.PropTypes.number,
         onSelect: React.PropTypes.func,
-        addFieldText: React.PropTypes.string
+        addText: React.PropTypes.string
     },
 
     handleAction: function (e, eventKey) {
@@ -107,7 +107,7 @@ const ArrayContainer = React.createClass({
                 {components}
                 <div className="">
                     <span className="pull-right">
-                        <GlyphButton glyph="plus" text={this.props.addFieldText ? this.props.addFieldText : "Add" } onClick={this.handleAdd} bsSize="small"/>
+                        <GlyphButton glyph="plus" text={this.props.addText ? this.props.addText : "Add" } onClick={this.handleAdd} bsSize="small"/>
                     </span>
                 </div>
             </div>
