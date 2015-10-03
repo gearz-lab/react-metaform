@@ -22,6 +22,10 @@
  
 ##History##
 
+###0.3.1 (Oct 3, 2015)
+
+ - Bug fixes. The ArrayContainer and the EntityContainer were not working since version 0.3.0
+
 ###0.3.0 (Oct 2, 2015)
 
  - Now it's possible to define components for the groups (before it was only for fields).
