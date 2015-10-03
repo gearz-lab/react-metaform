@@ -111,7 +111,7 @@ class MetadataProvider {
      * @param partialResult
      * @return {Number}
      */
-    getFieldsInternal(schema, entity, layout, partialResult) {
+    getFieldsInternal(schema, entity, layout, partialResult, callback) {
 
         if(!entity) {
             throw Error('Paramater is fucked');
@@ -129,7 +129,7 @@ class MetadataProvider {
 
         if (layout.groups) {
             for (let i = 0; i < layout.groups.length; i++) {
-                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entity, layout.groups[i], partialResult));
+                thisGroupFields = _.union(thisGroupFields, this.getFieldsInternal(schema, entity, layout.groups[i], partialResult, callback));
             }
         }
         else if (layout.fields) {
@@ -159,7 +159,7 @@ class MetadataProvider {
 
                     let entityAndLayout = this.getEntityAndLayout(schema, field.entityName, field.layoutName);
                     field.layout = this.processLayout(schema, entityAndLayout.entity, entityAndLayout.layout);
-                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
+                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult, callback);
                 }
 
                 if(field.type == 'array') {
@@ -181,7 +181,11 @@ class MetadataProvider {
 
                     let entityAndLayout = this.getEntityAndLayout(schema, field.entityType, field.layoutName);
                     field.layout = this.processLayout(schema, entityAndLayout.entity, entityAndLayout.layout);
-                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult);
+                    field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult, callback);
+                }
+
+                if(callback) {
+                    callback(field);
                 }
             }
         }
@@ -199,11 +203,11 @@ class MetadataProvider {
      * @param layout
      * @external https://github.com/gearz-lab/react-metaform/blob/master/docs-md/MetadataProvider.md
      */
-    getFields(schema, entity, layout) {
+    getFields(schema, entity, layout, callback) {
         entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
         layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
 
-        return this.getFieldsInternal(schema, entity, layout);
+        return this.getFieldsInternal(schema, entity, layout, callback);
     }
 
     /**
