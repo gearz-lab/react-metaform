@@ -163,7 +163,7 @@ options | The options to display. Options are an array of objects with two prope
 
 ###Component factories###
 
-Component factories are how `react-metaform` knows which component to render for a particular field metadata.
+Component factories are how `react-metaform` knows which component to render for a particular field or group metadata.
 
 ####ComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/ComponentFactory.js))####
 
@@ -197,3 +197,11 @@ showBottomBar | Whether or not the bottom bar should be displayed
 onModelChange | Function called whenever the model changes 
 onSave | Function called when the Save button is clicked
 onCancel | Function called when the Cancel button is clicked
+
+###Third party###
+
+The `DefaultComponentFactory` relies on third-party components. Here's the list:
+
+ - [react-bootstrap](http://react-bootstrap.github.io/).
+ - [react-select](https://github.com/JedWatson/react-select).
+ - [react-widgets](https://github.com/jquense/react-widgets).
