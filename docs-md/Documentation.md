@@ -179,6 +179,8 @@ This is a pre-populated factory, the same used in the [demo](http://gearz-lab.gi
 In order to use it, `import` it and just pass it to the `componentFactory` prop of the `MetaForm`.
 
     import DefaultComponentFactory from 'react-metaform/lib/DefaultComponentFactory';
+    
+The `DefaultComponentFactory` relies on [these third-party components](#third-party).
 
 ##Components##
 

@@ -4,6 +4,7 @@
 
 - [Change log](#change-log)
   - [History](#history)
+    - [0.3.0 (Oct 2, 2015)](#030-oct-2-2015)
     - [0.2.11 (Sep 30, 2015)](#0211-sep-30-2015)
     - [0.2.10 (Sep 30, 2015)](#0210-sep-30-2015)
     - [0.2.9 (Sep 29, 2015)](#029-sep-29-2015)
@@ -20,6 +21,11 @@
  - PATCH version when you make backwards-compatible bug fixes.
  
 ##History##
+
+###0.3.0 (Oct 2, 2015)
+
+ - Now it's possible to define components for the groups (before it was only for fields).
+ - Resulting bundle is now smaller. The CodeEditor has been moved out to the demo.
 
 ###0.2.11 (Sep 30, 2015)
 
