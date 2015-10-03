@@ -35,11 +35,10 @@ var SelectiveMetaFormGroup = React.createClass({
         this.setState(updatedState);
     },
 
-    getFieldOptions: function (components) {
+    getFieldOptions: function (components, currentlySelected) {
         let allComponents = components.map(c => ({value: c.data.name, text: c.data.displayName}));
-        return allComponents;
         let selectedComponents = this.state.selectedFields.map(f => f.fieldName);
-        return _.reject(allComponents, c => _.contains(selectedComponents, c.value));
+        return _.reject(allComponents, c => c.value != currentlySelected && _.contains(selectedComponents, c.value));
     },
 
     getComponentForFieldName: function (fieldName, components) {
@@ -82,7 +81,7 @@ var SelectiveMetaFormGroup = React.createClass({
                                                     onChange={(event) => this.handleSelectField(i, event, components)}
                                                     value={f.fieldName}
                                                     options={
-                                                this.getFieldOptions(components)
+                                                this.getFieldOptions(components, f.fieldName)
                                              }/>
                                         </div>
                                         <div
