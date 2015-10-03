@@ -29,8 +29,19 @@ var SelectiveMetaFormGroup = React.createClass({
         this.setState(updatedState);
     },
 
-    handleSelectField(index, event) {
-        console.log('selected ' + event.value);
+    handleSelectField(index, event, components) {
+        let updatedState = _.extend({}, this.state);
+        let selectedField = _.find(components, c => c.data.name == event.value);
+        if(!selectedField) {
+            throw Error('Very strange.. Field not found');
+        }
+        let selectedStateField = updatedState.selectedFields[index];
+        selectedStateField.component = selectedField.component;
+        this.setState(updatedState);
+    },
+
+    getFieldOptions(components) {
+        return components.map(c => ({value: c.data.name, text: c.data.displayName}));
     },
 
     render: function () {
@@ -59,11 +70,12 @@ var SelectiveMetaFormGroup = React.createClass({
                                 <div className="col-md-11">
                                     <div className="row">
                                         <div className="col-md-6">
-                                            <Lookup name="field" displayName="Field" onChange={(event) => this.handleSelectField(i, event)} options={
-                                                components.map(c => ({value: c.data.name, text: c.data.displayName}))
+                                            <Lookup name="field" displayName="Field" onChange={(event) => this.handleSelectField(i, event, components)} options={
+                                                this.getFieldOptions(components)
                                              }/>
                                         </div>
                                         <div className="col-md-6">
+                                            {f.component}
                                         </div>
                                     </div>
                                 </div>

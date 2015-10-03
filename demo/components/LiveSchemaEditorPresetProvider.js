@@ -74,14 +74,14 @@ class LiveSchemaEditorPresetProvider {
             layoutName: 'sale-edit',
             code: confirmPurchase
         });
-        //this.presetsConfig.push({
-        //    value: 'selectiveMetaFormGroup',
-        //    text: 'SelectiveMetaFormGroup',
-        //    title: 'SelectiveMetaFormGroup',
-        //    entityName: 'contact',
-        //    layoutName: 'contact-edit',
-        //    code: selectiveMetaFormGroup
-        //});
+        this.presetsConfig.push({
+            value: 'selectiveMetaFormGroup',
+            text: 'SelectiveMetaFormGroup',
+            title: 'SelectiveMetaFormGroup',
+            entityName: 'contact',
+            layoutName: 'contact-edit',
+            code: selectiveMetaFormGroup
+        });
     }
     getPresets() {
         return this.presetsConfig;
