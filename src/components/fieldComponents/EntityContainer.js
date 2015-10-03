@@ -5,7 +5,8 @@ import MetaFormGroup from '../groupComponents/MetaFormGroup.js';
 const EntityContainer = React.createClass({
 
     propTypes: {
-        name: React.PropTypes.string.isRequired
+        name: React.PropTypes.string.isRequired,
+        componentFactory: React.PropTypes.object.isRequired
     },
 
     render: function() {
@@ -14,7 +15,7 @@ const EntityContainer = React.createClass({
             : null;
         return <div>
             {header}
-            <MetaFormGroup layout={this.props.layout} fields={this.props.fields} />
+            <MetaFormGroup layout={this.props.layout} fields={this.props.fields} componentFactory={this.props.componentFactory} />
         </div>;
     }
 });

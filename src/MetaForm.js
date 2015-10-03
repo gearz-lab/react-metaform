@@ -39,7 +39,8 @@ var MetaForm = React.createClass({
                 model,
                 () => this.state,
                 (state) => this.setState(state),
-                (model) => this.handleModelChange(model)
+                (model) => this.handleModelChange(model),
+                this.props.componentFactory
             );
 
             return this.metaformStateManager.getInitialState();

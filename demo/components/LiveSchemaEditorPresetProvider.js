@@ -13,6 +13,7 @@ import arrays from './liveSchemaEditorPresets/arrays.txt';
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
 import confirmPurchase from './liveSchemaEditorPresets/confirmPurchase.txt';
 import selectiveMetaFormGroup from './liveSchemaEditorPresets/selectiveMetaFormGroup.txt';
+import applicationSchema from './liveSchemaEditorPresets/applicationSchema.txt';
 
 class LiveSchemaEditorPresetProvider {
     constructor() {
@@ -81,6 +82,14 @@ class LiveSchemaEditorPresetProvider {
             entityName: 'contact',
             layoutName: 'contact-edit',
             code: selectiveMetaFormGroup
+        });
+        this.presetsConfig.push({
+            value: 'applicationSchema',
+            text: 'Application Schema',
+            title: 'Application Schema',
+            entityName: 'entity',
+            layoutName: 'entity-edit',
+            code: applicationSchema
         });
     }
     getPresets() {

@@ -92,9 +92,11 @@ const ArrayContainer = React.createClass({
             <header className="meta-form-entity-title"><span>{this.props.displayName}</span></header>
             : null;
 
+        console.log(this.props);
+
         let components = this.props.fields.map((fields, index) => {
             return <ArrayContainerItem index={index} onSelect={this.handleItemAction} >
-                <MetaFormGroup layout={this.props.layout} fields={fields} />
+                <MetaFormGroup layout={this.props.layout} fields={fields} componentFactory={this.props.componentFactory} />
             </ArrayContainerItem>;
         });
 

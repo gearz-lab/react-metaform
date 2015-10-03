@@ -204,10 +204,11 @@ class MetadataProvider {
      * @external https://github.com/gearz-lab/react-metaform/blob/master/docs-md/MetadataProvider.md
      */
     getFields(schema, entity, layout, callback) {
+
         entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
         layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
 
-        return this.getFieldsInternal(schema, entity, layout, callback);
+        return this.getFieldsInternal(schema, entity, layout, undefined, callback);
     }
 
     /**

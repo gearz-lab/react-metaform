@@ -82,10 +82,12 @@ describe('MetadataProvider', function () {
                 ]
             };
 
-            let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
+            let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit', f => f.fruit = 'banana');
             assert.strictEqual(fields.length, 2);
             assert.strictEqual(fields[0].layoutOnlyProp, true);
             assert.strictEqual(fields[0].type, 'string');
+            console.logObject(fields);
+            assert.equals(1, 2);
 
         });
 

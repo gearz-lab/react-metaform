@@ -1,0 +1,48 @@
+{
+    entities: [
+        {
+            name: "entity",
+            fields: [
+                {
+                    name: "name",
+                    type: "string",
+                    displayName: "Name"
+
+                },
+                {
+                    name: "fields",
+                    type: "array",
+                    arrayType: "entity",
+                    entityType: "field"
+                }
+            ],
+            layouts: [{
+                name: "entity-edit",
+                fields: [
+                    {
+                        name: "name"
+                    },
+                    {
+                        name: "fields"
+                    }
+                ]
+            }]
+        },
+        {
+            name: "field",
+            fields: [
+                {
+                    name: "name"
+                }
+            ],
+            layouts: [{
+                name: "field-edit",
+                fields: [
+                    {
+                        name: "name"
+                    }
+                ]
+            }]
+        }
+    ]
+}

@@ -12,6 +12,7 @@ var SelectiveMetaFormGroup = React.createClass({
         fields: React.PropTypes.array.isRequired,
         componentFactory: React.PropTypes.object.isRequired
     },
+
     getInitialState: function () {
         return {
             selectedFields: []
@@ -76,7 +77,7 @@ var SelectiveMetaFormGroup = React.createClass({
                                 </div>
                                 <div className="col-md-11">
                                     <div className="row">
-                                        <div className="col-md-6">
+                                        <div className="col-md-4">
                                             <Lookup name="field" displayName="Field"
                                                     onChange={(event) => this.handleSelectField(i, event, components)}
                                                     value={f.fieldName}
@@ -85,7 +86,7 @@ var SelectiveMetaFormGroup = React.createClass({
                                              }/>
                                         </div>
                                         <div
-                                            className="col-md-6">
+                                            className="col-md-8">
                                             {  this.getComponentForFieldName(f.fieldName, components)  }
                                         </div>
                                     </div>

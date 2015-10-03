@@ -18,7 +18,7 @@ class MetaFormStateManager {
      * @param stateSetter
      * @param onModelChange
      */
-    constructor(schema, entityName, layoutName, model, stateGetter, stateSetter, onModelChange) {
+    constructor(schema, entityName, layoutName, model, stateGetter, stateSetter, onModelChange, componentFactory) {
         this.schema = schema;
         this.entityName = entityName;
         this.layoutName = layoutName;
@@ -29,7 +29,9 @@ class MetaFormStateManager {
         this.onModelChange = onModelChange;
 
         this.entityAndLayout = metadataProvider.getEntityAndLayout(this.schema, this.entityName, this.layoutName);
-        this.fields = metadataProvider.getFields(this.schema, this.entityAndLayout.entity, this.entityAndLayout.layout);
+        this.fields = metadataProvider.getFields(this.schema, this.entityAndLayout.entity, this.entityAndLayout.layout, f => {
+            f.componentFactory = componentFactory;
+        });
     }
 
     getState() {
@@ -66,7 +68,7 @@ class MetaFormStateManager {
     updateState(id, newValue) {
         let newState = _.extend({}, this.getState());
         let fieldMetadata = this.metadataIndex[id];
-        if(!fieldMetadata) {
+        if (!fieldMetadata) {
             throw Error(`could not find metadata for the given field. Field: ${id}`);
         }
         let typeProcessorType = typeProcessorFactory.getProcessorType(fieldMetadata.type);
@@ -85,7 +87,7 @@ class MetaFormStateManager {
             // recalculate the componentProps for all components
             newState.componentProps = this.getComponentProps(newState.model);
 
-            if(this.onModelChange) {
+            if (this.onModelChange) {
                 this.onModelChange(newState.model);
             }
         }
@@ -134,7 +136,7 @@ class MetaFormStateManager {
      */
     getComponentProps(model) {
         // this method has a side effect of populating the this.metadataIndex. This should be fixed
-        return metadataEvaluator.evaluate(this.fields, model,'', this.metadataIndex, (e) => this.updateState(e.id, e.value));
+        return metadataEvaluator.evaluate(this.fields, model, '', this.metadataIndex, (e) => this.updateState(e.id, e.value));
     }
 
     /**

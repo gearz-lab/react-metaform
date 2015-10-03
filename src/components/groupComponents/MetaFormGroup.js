@@ -11,7 +11,7 @@ var MetaFormGroup = React.createClass({
     },
     render: function () {
         let _this = this;
-
+        console.log(this.props.componentFactory.buildFieldComponent);
         // the passed in layout can contain either fields or groups.
         // in case it contains 'fields', we're gonna render each of the fields.
         // in case it contains 'groups', we're gonna render render each group, passing the fields as a parameter
