@@ -36,7 +36,10 @@ var SelectiveMetaFormGroup = React.createClass({
     },
 
     getFieldOptions: function (components) {
-        return components.map(c => ({value: c.data.name, text: c.data.displayName}));
+        let allComponents = components.map(c => ({value: c.data.name, text: c.data.displayName}));
+        return allComponents;
+        let selectedComponents = this.state.selectedFields.map(f => f.fieldName);
+        return _.reject(allComponents, c => _.contains(selectedComponents, c.value));
     },
 
     getComponentForFieldName: function (fieldName, components) {
@@ -66,15 +69,18 @@ var SelectiveMetaFormGroup = React.createClass({
                         return <div className="selective-metaform-group-item">
                             <div className="row">
                                 <div className="col-md-1">
-                                    <Button onClick={() => this.handleRemoveField(i)}>
-                                        <Glyphicon glyph="minus"/>
-                                    </Button>
+                                    <div className="selective-metaform-group-item-actions">
+                                        <Button onClick={() => this.handleRemoveField(i)}>
+                                            <Glyphicon glyph="minus"/>
+                                        </Button>
+                                    </div>
                                 </div>
                                 <div className="col-md-11">
                                     <div className="row">
                                         <div className="col-md-6">
                                             <Lookup name="field" displayName="Field"
                                                     onChange={(event) => this.handleSelectField(i, event, components)}
+                                                    value={f.fieldName}
                                                     options={
                                                 this.getFieldOptions(components)
                                              }/>
@@ -92,9 +98,11 @@ var SelectiveMetaFormGroup = React.createClass({
                 <div className="add-field-section">
                     <div className="row">
                         <div className="col-md-2">
-                            <Button onClick={this.handleAddField}>
-                                <Glyphicon glyph="plus"/>
-                            </Button>
+                            <div className="selective-metaform-group-actions">
+                                <Button onClick={this.handleAddField}>
+                                    <Glyphicon glyph="plus"/>
+                                </Button>
+                            </div>
                         </div>
                         <div className="col-md-10"></div>
                     </div>

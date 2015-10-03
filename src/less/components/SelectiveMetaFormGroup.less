@@ -1,12 +1,30 @@
+// this is a hack so the Bootstrap button with a glyphicon inside has the same height as a regular button :(
+@glyphicon-height: 20px;
+@glyphicon-padding-top: 2px;
+
 .selective-metaform-group {
 
+}
+
+.selective-metaform-group-actions {
+
+}
+
+.selective-metaform-group-actions .glyphicon {
+  height: @glyphicon-height;
+  padding-top: @glyphicon-padding-top;
 }
 
 .selective-metaform-group-item {
 }
 
 .selective-metaform-group-item-actions {
+  margin-top: 25px;
+}
 
+.selective-metaform-group-item-actions .glyphicon {
+  height: @glyphicon-height;
+  padding-top: @glyphicon-padding-top;
 }
 
 .selective-metaform-group-item-content {
