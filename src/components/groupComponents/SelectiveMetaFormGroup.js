@@ -19,7 +19,7 @@ var SelectiveMetaFormGroup = React.createClass({
     },
 
     handleAddField: function () {
-        let updatedState = React.addons.update(this.state, {selectedFields: {$push: [{}]}});
+        let updatedState = React.addons.update(this.state, {selectedFields: {$push: [{fieldName: undefined}]}});
         this.setState(updatedState);
     },
 
@@ -29,19 +29,22 @@ var SelectiveMetaFormGroup = React.createClass({
         this.setState(updatedState);
     },
 
-    handleSelectField(index, event, components) {
+    handleSelectField: function (index, event, components) {
         let updatedState = _.extend({}, this.state);
-        let selectedField = _.find(components, c => c.data.name == event.value);
-        if(!selectedField) {
-            throw Error('Very strange.. Field not found');
-        }
-        let selectedStateField = updatedState.selectedFields[index];
-        selectedStateField.component = selectedField.component;
+        updatedState.selectedFields[index].fieldName = event.value;
         this.setState(updatedState);
     },
 
-    getFieldOptions(components) {
+    getFieldOptions: function (components) {
         return components.map(c => ({value: c.data.name, text: c.data.displayName}));
+    },
+
+    getComponentForFieldName: function (fieldName, components) {
+        let component = _.find(components, c => c.data.name == fieldName);
+        if (component) {
+            return component.component;
+        }
+        return null;
     },
 
     render: function () {
@@ -70,12 +73,15 @@ var SelectiveMetaFormGroup = React.createClass({
                                 <div className="col-md-11">
                                     <div className="row">
                                         <div className="col-md-6">
-                                            <Lookup name="field" displayName="Field" onChange={(event) => this.handleSelectField(i, event, components)} options={
+                                            <Lookup name="field" displayName="Field"
+                                                    onChange={(event) => this.handleSelectField(i, event, components)}
+                                                    options={
                                                 this.getFieldOptions(components)
                                              }/>
                                         </div>
-                                        <div className="col-md-6">
-                                            {f.component}
+                                        <div
+                                            className="col-md-6">
+                                            {  this.getComponentForFieldName(f.fieldName, components)  }
                                         </div>
                                     </div>
                                 </div>
