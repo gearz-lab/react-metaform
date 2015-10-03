@@ -19,6 +19,7 @@
       - [DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js))](#defaultcomponentfactory-sourcehttpsgithubcomgearz-labreact-metaformblobmastersrcdefaultcomponentfactoryjs)
   - [Components](#components)
     - [MetaForm](#metaform)
+    - [Third party](#third-party)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
