@@ -97,7 +97,14 @@ const ArrayContainer = React.createClass({
 
         let components = this.props.fields.map((fields, index) => {
             return <ArrayContainerItem index={index} onSelect={this.handleItemAction} >
-                <MetaFormGroup layout={this.props.layout} fields={fields} componentFactory={this.props.componentFactory} />
+                {
+                    this.props.componentFactory.buildGroupComponent({
+                        component: this.props.layout.component,
+                        layout: this.props.layout,
+                        fields: fields,
+                        componentFactory: this.props.componentFactory
+                    })
+                }
             </ArrayContainerItem>;
         });
 

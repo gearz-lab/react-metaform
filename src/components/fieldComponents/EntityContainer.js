@@ -15,7 +15,14 @@ const EntityContainer = React.createClass({
             : null;
         return <div>
             {header}
-            <MetaFormGroup layout={this.props.layout} fields={this.props.fields} componentFactory={this.props.componentFactory} />
+            {
+                this.props.componentFactory.buildGroupComponent({
+                    component: this.props.layout.component,
+                    layout: this.props.layout,
+                    fields: this.props.fields,
+                    componentFactory: this.props.componentFactory
+                })
+            }
         </div>;
     }
 });
