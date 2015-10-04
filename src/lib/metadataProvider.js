@@ -204,7 +204,6 @@ class MetadataProvider {
      * @external https://github.com/gearz-lab/react-metaform/blob/master/docs-md/MetadataProvider.md
      */
     getFields(schema, entity, layout, callback) {
-
         entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
         layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
 
@@ -228,7 +227,7 @@ class MetadataProvider {
         else if (layoutGroup.groups) {
             layoutGroupClone.groups = [];
             for (let i = 0; i < layoutGroup.groups.length; i++) {
-                layoutGroup.groups.push(this.processLayoutGroup(layoutGroup.groups[i]));
+                layoutGroupClone.groups.push(this.processLayoutGroup(layoutGroup.groups[i]));
             }
         }
 
