@@ -16,28 +16,34 @@ var MetaFormGroup = React.createClass({
         // in case it contains 'fields', we're gonna render each of the fields.
         // in case it contains 'groups', we're gonna render render each group, passing the fields as a parameter
         try {
-
-            let components = this.props.layout.fields
-                ? this.props.layout.fields.map(field => {
-                let layoutFieldInProps = _.find(_this.props.fields, cp => cp.name === field.name);
-                return {
-                    data: layoutFieldInProps,
-                    length: this.props.layout.fields.length,
-                    component: this.props.componentFactory.buildFieldComponent(layoutFieldInProps)
-                }
-            })
-                : this.props.layout.groups.map(group => {
-                return {
-                    data: group,
-                    length: this.props.layout.groups.length,
-                    component: this.props.componentFactory.buildGroupComponent({
-                        component: group.component,
-                        layout: group,
-                        fields: _this.props.fields,
-                        componentFactory: this.props.componentFactory
-                    })
-                }
-            });
+            let components;
+            if(this.props.layout.fields) {
+                components = this.props.layout.fields.map(field => {
+                    let layoutFieldInProps = _.find(_this.props.fields, cp => cp.name === field.name);
+                    return {
+                        data: layoutFieldInProps,
+                        length: this.props.layout.fields.length,
+                        component: this.props.componentFactory.buildFieldComponent(layoutFieldInProps)
+                    }
+                });
+            }
+            else if(this.props.layout.groups) {
+                components = this.props.layout.groups.map(group => {
+                    return {
+                        data: group,
+                        length: this.props.layout.groups.length,
+                        component: this.props.componentFactory.buildGroupComponent({
+                            component: group.component,
+                            layout: group,
+                            fields: _this.props.fields,
+                            componentFactory: this.props.componentFactory
+                        })
+                    }
+                });
+            }
+            else {
+                throw Error('A layout must either have fields or groups');
+            }
 
             let content = components.map(component => {
                 if (_this.props.layout.orientation != 'horizontal') {

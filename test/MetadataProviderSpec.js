@@ -86,9 +86,6 @@ describe('MetadataProvider', function () {
             assert.strictEqual(fields.length, 2);
             assert.strictEqual(fields[0].layoutOnlyProp, true);
             assert.strictEqual(fields[0].type, 'string');
-            console.logObject(fields);
-            assert.equals(1, 2);
-
         });
 
         it('Should work with nested properties', function () {
