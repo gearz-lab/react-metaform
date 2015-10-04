@@ -234,6 +234,7 @@ class MetadataProvider {
         // copying useful properties
         layoutGroupClone.orientation = layoutGroup.orientation;
         layoutGroupClone.component = layoutGroup.component;
+        layoutGroupClone.title = layoutGroup.title;
 
         return layoutGroupClone;
     }

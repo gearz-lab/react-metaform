@@ -63,7 +63,13 @@ var SelectiveMetaFormGroup = React.createClass({
                     component: this.props.componentFactory.buildFieldComponent(layoutFieldInProps)
                 }
             });
+
+            var layoutHeader = this.props.layout.title
+                ? <header className="meta-form-title"><span>{this.props.layout.title}</span></header>
+                : null;
+
             return <div className="selective-metaform-group">
+                { layoutHeader }
                 {
                     this.state.selectedFields.map((f, i) => {
                         return <div className="selective-metaform-group-item">
