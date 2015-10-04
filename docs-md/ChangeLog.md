@@ -4,6 +4,8 @@
 
 - [Change log](#change-log)
   - [History](#history)
+    - [0.3.2 (Oct 4, 2015)](#032-oct-4-2015)
+    - [0.3.1 (Oct 3, 2015)](#031-oct-3-2015)
     - [0.3.0 (Oct 2, 2015)](#030-oct-2-2015)
     - [0.2.11 (Sep 30, 2015)](#0211-sep-30-2015)
     - [0.2.10 (Sep 30, 2015)](#0210-sep-30-2015)
@@ -20,11 +22,18 @@
  - MINOR version when you add functionality in a backwards-compatible manner, and
  - PATCH version when you make backwards-compatible bug fixes.
  
+However, before the 1.0.0 release, I'm *not changing* the major version, even if the change breaks compatibility.
+ 
 ##History##
+
+###0.3.2 (Oct 4, 2015)
+
+ - Bug fixes: The ArrayContainer and the EntityContainer were not using the ComponentBuilder to resolve the group component.
+ - There was a bug in the MetadataProvider that was making it impossible to create layout groups inside inner entities.
 
 ###0.3.1 (Oct 3, 2015)
 
- - Bug fixes. The ArrayContainer and the EntityContainer were not working since version 0.3.0
+ - Bug fixes. The ArrayContainer and the EntityContainer were not working since version 0.3.0.
 
 ###0.3.0 (Oct 2, 2015)
 
@@ -33,8 +42,8 @@
 
 ###0.2.11 (Sep 30, 2015)
 
- - Removing the LiveSchemaEditor from the library (it's now part of the demo)
- - The LiveSchemaEditor version is now dynamic
+ - Removing the LiveSchemaEditor from the library (it's now part of the demo).
+ - The LiveSchemaEditor version is now dynamic.
 
 ###0.2.10 (Sep 30, 2015)
 
