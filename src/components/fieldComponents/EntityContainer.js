@@ -1,6 +1,7 @@
 import React from 'react';
 import metadataProvider from '../../lib/metadataProvider.js';
 import MetaFormGroup from '../groupComponents/MetaFormGroup.js';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import _ from 'underscore';
 
 const EntityContainer = React.createClass({
