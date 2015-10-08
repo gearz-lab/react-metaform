@@ -1,6 +1,6 @@
 {
   "name": "react-metaform",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "A library for dynamically creating React.js forms out of metadata",
   "main": "./lib/index.js",
   "scripts": {

@@ -26,6 +26,12 @@ However, before the 1.0.0 release, I'm *not changing* the major version, even if
  
 ##History##
 
+###0.4.0 (Oct 7, 2015)
+
+ - Group components now have the ability to collapse
+ - Components are now represented by CamelCase in the ComponentFactory
+ - Added styles for the group components
+
 ###0.3.2 (Oct 4, 2015)
 
  - Bug fixes: The ArrayContainer and the EntityContainer were not using the ComponentBuilder to resolve the group component.
