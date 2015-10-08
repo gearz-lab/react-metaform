@@ -1,6 +1,7 @@
 import React from 'react';
 import metadataProvider from '../../lib/metadataProvider.js';
 import MetaFormGroup from '../groupComponents/MetaFormGroup.js';
+import _ from 'underscore';
 
 const EntityContainer = React.createClass({
 
@@ -9,10 +10,29 @@ const EntityContainer = React.createClass({
         componentFactory: React.PropTypes.object.isRequired
     },
 
+    getInitialState: function () {
+        return {
+            collapsed: false
+        }
+    },
+
+    handleCollapse: function () {
+        let newState = _.extend({}, this.state);
+        newState.collapsed = !newState.collapsed;
+        this.setState(newState);
+    },
+
     render: function() {
-        var header = this.props.displayName ?
-            <header className="meta-form-entity-title"><span>{this.props.displayName}</span></header>
+
+        var header = this.props.displayName
+            ? <header className="metaform-group-header">
+            <Glyphicon glyph={this.state.collapsed ? "triangle-top" : "triangle-bottom"}
+                       onClick={this.handleCollapse}/>
+            <span className="metaform-group-title">{this.props.displayName}</span>
+        </header>
             : null;
+
+
         return <div>
             {header}
             {

@@ -72,7 +72,7 @@ describe('ComponentFactory', function () {
             const metadata = {
                 name: 'name',
                 type: 'string',
-                component: 'textbox',
+                component: 'TextBox',
                 onChange: e => {}
             };
             const component = ComponentFactory.buildFieldComponent(metadata);

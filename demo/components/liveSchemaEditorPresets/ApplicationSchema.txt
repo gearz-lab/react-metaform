@@ -35,6 +35,7 @@
         {
             name: "field",
             fields: [
+                // basic fields
                 {
                     name: "name",
                     type: "string",
@@ -49,7 +50,7 @@
                     name: "type",
                     type: "string",
                     displayName: "Type",
-                    component: "lookup",
+                    component: "Lookup",
                     options: [
                         {
                             value: "string",
@@ -80,19 +81,39 @@
                             text: "Array"
                         }
                     ]
+                },
+                // Other fields
+                {
+                    name: "addonBefore",
+                    displayName: "addonBefore",
+                    type: "string"
                 }
             ],
             layouts: [{
                 name: "field-edit",
-                fields: [
+                title: "Basic info",
+                groups: [
                     {
-                        name: "name"
+                        fields: [
+                            {
+                                name: "name"
+                            },
+                            {
+                                name: "displayName"
+                            },
+                            {
+                                name: "type"
+                            }
+                        ]
                     },
                     {
-                        name: "displayName"
-                    },
-                    {
-                        name: "type"
+                        title: "Other metadata",
+                        component: "SelectiveMetaFormGroup",
+                        fields: [
+                            {
+                                name: "addonBefore"
+                            }
+                        ]
                     }
                 ]
             }]

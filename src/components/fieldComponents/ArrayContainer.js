@@ -7,6 +7,7 @@ import DropdownButton from 'react-bootstrap/lib/DropdownButton.js';
 import MenuItem from 'react-bootstrap/lib/MenuItem.js';
 import Dropdown from 'react-bootstrap/lib/Dropdown.js';
 import arrayHelper from'../../lib/helpers/arrayHelper.js';
+import _ from 'underscore';
 
 const ArrayContainerItem = React.createClass({
 
@@ -23,27 +24,33 @@ const ArrayContainerItem = React.createClass({
     },
 
     render: function () {
-
-        return <div className="row">
-            <div className="col-md-11">
-                {this.props.children}
-            </div>
-            <div className="col-md-1">
-                <Dropdown pullRight onSelect={this.handleAction}>
-                    <Dropdown.Toggle noCaret bsSize="small">
-                        <Glyphicon glyph="cog"/>
-                    </Dropdown.Toggle>
-                    <Dropdown.Menu >
-                        <MenuItem eventKey="remove"><Glyphicon glyph="remove" className="text-danger"/><span
-                            className="glyphicon-text text-danger">Remove</span></MenuItem>
-                        <MenuItem divider/>
-                        <MenuItem eventKey="moveUp"><Glyphicon glyph="chevron-up"/><span className="glyphicon-text">Move up</span></MenuItem>
-                        <MenuItem eventKey="moveDown"><Glyphicon glyph="chevron-down"/><span className="glyphicon-text">Move down</span></MenuItem>
-                        <MenuItem divider/>
-                        <MenuItem eventKey="moveFirst"><Glyphicon glyph="chevron-up"/><span className="glyphicon-text">Move first</span></MenuItem>
-                        <MenuItem eventKey="moveLast"><Glyphicon glyph="chevron-down"/><span className="glyphicon-text">Move last</span></MenuItem>
-                    </Dropdown.Menu>
-                </Dropdown>
+        return <div className="array-container-item">
+            <div className="row">
+                <div className="col-md-11">
+                    <div className="array-container-item-content">
+                        {this.props.children}
+                    </div>
+                </div>
+                <div className="col-md-1">
+                    <Dropdown pullRight onSelect={this.handleAction}>
+                        <Dropdown.Toggle noCaret bsSize="small">
+                            <Glyphicon glyph="cog"/>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu >
+                            <MenuItem eventKey="remove"><Glyphicon glyph="remove" className="text-danger"/><span
+                                className="glyphicon-text text-danger">Remove</span></MenuItem>
+                            <MenuItem divider/>
+                            <MenuItem eventKey="moveUp"><Glyphicon glyph="chevron-up"/><span className="glyphicon-text">Move up</span></MenuItem>
+                            <MenuItem eventKey="moveDown"><Glyphicon glyph="chevron-down"/><span
+                                className="glyphicon-text">Move down</span></MenuItem>
+                            <MenuItem divider/>
+                            <MenuItem eventKey="moveFirst"><Glyphicon glyph="chevron-up"/><span
+                                className="glyphicon-text">Move first</span></MenuItem>
+                            <MenuItem eventKey="moveLast"><Glyphicon glyph="chevron-down"/><span
+                                className="glyphicon-text">Move last</span></MenuItem>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
             </div>
         </div>;
     }
@@ -63,9 +70,9 @@ const ArrayContainer = React.createClass({
         }
     },
 
-    handleItemAction: function(index, eventKey) {
+    handleItemAction: function (index, eventKey) {
         let value = this.props.value;
-        switch(eventKey) {
+        switch (eventKey) {
             case "remove":
                 value.splice(index, 1);
                 break;
@@ -90,13 +97,13 @@ const ArrayContainer = React.createClass({
     render: function () {
 
         var header = this.props.displayName ?
-            <header className="meta-form-entity-title"><span>{this.props.displayName}</span></header>
+            <header className="metaform-group-header no-lateral-margin">
+                <span>{this.props.displayName}</span>
+            </header>
             : null;
 
-        console.log(this.props);
-
         let components = this.props.fields.map((fields, index) => {
-            return <ArrayContainerItem index={index} onSelect={this.handleItemAction} >
+            return <ArrayContainerItem index={index} onSelect={this.handleItemAction}>
                 {
                     this.props.componentFactory.buildGroupComponent({
                         component: this.props.layout.component,
@@ -109,12 +116,15 @@ const ArrayContainer = React.createClass({
         });
 
         return (
-            <div>
+            <div className="array-container">
                 {header}
-                {components}
+                <div className="array-container-content">
+                    {components}
+                </div>
                 <div className="">
                     <span className="pull-right">
-                        <GlyphButton glyph="plus" text={this.props.addText ? this.props.addText : "Add" } onClick={this.handleAdd} bsSize="small"/>
+                        <GlyphButton glyph="plus" text={this.props.addText ? this.props.addText : "Add" }
+                                     onClick={this.handleAdd} bsSize="small"/>
                     </span>
                 </div>
             </div>

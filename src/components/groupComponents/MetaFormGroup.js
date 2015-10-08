@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'underscore';
 import Alert from 'react-bootstrap/lib/Alert.js';
+import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 
 var MetaFormGroup = React.createClass({
     propTypes: {
@@ -9,15 +10,27 @@ var MetaFormGroup = React.createClass({
         fields: React.PropTypes.array.isRequired,
         componentFactory: React.PropTypes.object.isRequired
     },
+
+    getInitialState: function () {
+        return {
+            collapsed: false
+        }
+    },
+
+    handleCollapse: function () {
+        let newState = _.extend({}, this.state);
+        newState.collapsed = !newState.collapsed;
+        this.setState(newState);
+    },
+
     render: function () {
         let _this = this;
-        console.log(this.props.componentFactory.buildFieldComponent);
         // the passed in layout can contain either fields or groups.
         // in case it contains 'fields', we're gonna render each of the fields.
         // in case it contains 'groups', we're gonna render render each group, passing the fields as a parameter
         try {
             let components;
-            if(this.props.layout.fields) {
+            if (this.props.layout.fields) {
                 components = this.props.layout.fields.map(field => {
                     let layoutFieldInProps = _.find(_this.props.fields, cp => cp.name === field.name);
                     return {
@@ -27,7 +40,7 @@ var MetaFormGroup = React.createClass({
                     }
                 });
             }
-            else if(this.props.layout.groups) {
+            else if (this.props.layout.groups) {
                 components = this.props.layout.groups.map(group => {
                     return {
                         data: group,
@@ -59,20 +72,29 @@ var MetaFormGroup = React.createClass({
                 }
             });
 
-            var layoutHeader = this.props.layout.title
-                ? <header className="meta-form-title"><span>{this.props.layout.title}</span></header>
+            var header = this.props.layout.title
+                ? <header className="metaform-group-header">
+                <Glyphicon glyph={this.state.collapsed ? "triangle-top" : "triangle-bottom"}
+                           onClick={this.handleCollapse}/>
+                <span className="metaform-group-title">{this.props.layout.title}</span>
+            </header>
                 : null;
 
             return <section>
                 <div className='row'>
-                    {layoutHeader}
-                    {content}
+                    <div className="metaform-group">
+                        { header }
+                        <div className="metaform-group-content" style={{ display: this.state.collapsed ? 'none' : '' }}>
+                            {content}
+                        </div>
+                    </div>
                 </div>
             </section>;
         }
         catch (ex) {
             return <Alert bsStyle='danger'>
                 <h4>Oh snap! The schema is not valid.</h4>
+
                 <p>Detailed information:
                     <b>{ex.message}</b>
                 </p>

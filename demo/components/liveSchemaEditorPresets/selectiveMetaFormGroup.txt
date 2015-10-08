@@ -16,7 +16,7 @@
             ],
             layouts: [{
                 name: "contact-edit",
-                component: 'selectivemetaformgroup',
+                component: 'SelectiveMetaFormGroup',
                 title: "Contact information",
                 fields: [
                     {

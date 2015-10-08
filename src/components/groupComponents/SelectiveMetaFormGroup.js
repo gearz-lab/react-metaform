@@ -15,8 +15,15 @@ var SelectiveMetaFormGroup = React.createClass({
 
     getInitialState: function () {
         return {
-            selectedFields: []
+            selectedFields: [],
+            collapsed: false
         }
+    },
+
+    handleCollapse: function () {
+        let newState = _.extend({}, this.state);
+        newState.collapsed = !newState.collapsed;
+        this.setState(newState);
     },
 
     handleAddField: function () {
@@ -64,55 +71,63 @@ var SelectiveMetaFormGroup = React.createClass({
                 }
             });
 
-            var layoutHeader = this.props.layout.title
-                ? <header className="meta-form-title"><span>{this.props.layout.title}</span></header>
+            var header = this.props.layout.title
+                ? <header className="metaform-group-header no-lateral-margin">
+                <Glyphicon glyph={this.state.collapsed ? "triangle-top" : "triangle-bottom"}
+                           onClick={this.handleCollapse}/>
+                <span className="metaform-group-title">{this.props.layout.title}</span>
+            </header>
                 : null;
 
+
             return <div className="selective-metaform-group">
-                { layoutHeader }
-                {
-                    this.state.selectedFields.map((f, i) => {
-                        return <div className="selective-metaform-group-item">
-                            <div className="row">
-                                <div className="col-md-1">
-                                    <div className="selective-metaform-group-item-actions">
-                                        <Button onClick={() => this.handleRemoveField(i)}>
-                                            <Glyphicon glyph="minus"/>
-                                        </Button>
+                { header }
+                <div className="selective-metaform-group-content"  style={{ display: this.state.collapsed ? 'none' : '' }}>
+                    {
+                        this.state.selectedFields.map((f, i) => {
+                            return <div className="selective-metaform-group-item">
+                                <div className="row">
+                                    <div className="col-md-1">
+                                        <div className="selective-metaform-group-item-actions">
+                                            <Button onClick={() => this.handleRemoveField(i)}>
+                                                <Glyphicon glyph="minus"/>
+                                            </Button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="col-md-11">
-                                    <div className="row">
-                                        <div className="col-md-4">
-                                            <Lookup name="field" displayName="Field"
-                                                    onChange={(event) => this.handleSelectField(i, event, components)}
-                                                    value={f.fieldName}
-                                                    options={
+                                    <div className="col-md-11">
+                                        <div className="row">
+                                            <div className="col-md-4">
+                                                <Lookup name="field" displayName="Field"
+                                                        onChange={(event) => this.handleSelectField(i, event, components)}
+                                                        value={f.fieldName}
+                                                        options={
                                                 this.getFieldOptions(components, f.fieldName)
                                              }/>
-                                        </div>
-                                        <div
-                                            className="col-md-8">
-                                            {  this.getComponentForFieldName(f.fieldName, components)  }
+                                            </div>
+                                            <div
+                                                className="col-md-8">
+                                                {  this.getComponentForFieldName(f.fieldName, components)  }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    })
-                }
-                <div className="add-field-section">
-                    <div className="row">
-                        <div className="col-md-2">
-                            <div className="selective-metaform-group-actions">
-                                <Button onClick={this.handleAddField}>
-                                    <Glyphicon glyph="plus"/>
-                                </Button>
+                        })
+                    }
+                    <div className="add-field-section">
+                        <div className="row">
+                            <div className="col-md-2">
+                                <div className="selective-metaform-group-actions">
+                                    <Button onClick={this.handleAddField}>
+                                        <Glyphicon glyph="plus"/>
+                                    </Button>
+                                </div>
                             </div>
+                            <div className="col-md-10"></div>
                         </div>
-                        <div className="col-md-10"></div>
                     </div>
                 </div>
+
             </div>
         }
         catch (ex) {

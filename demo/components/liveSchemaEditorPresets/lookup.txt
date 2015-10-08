@@ -12,7 +12,7 @@
                     name: "type",
                     displayName: "Type",
                     type: "string",
-                    component: 'lookup',
+                    component: 'Lookup',
                     options: [
                         {
                             value: 'person',

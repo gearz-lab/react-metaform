@@ -15,30 +15,30 @@ import MetaFormGroup from './components/groupComponents/MetaFormGroup.js';
 import SelectiveMetaFormGroup from './components/groupComponents/SelectiveMetaFormGroup.js';
 
 // Registers all field component definitions
-componentFactory.registerFieldComponent('textbox', ['string', 'int', 'float'], TextBox);
-componentFactory.registerFieldComponent('label', ['string', 'int', 'float'], Label);
-componentFactory.registerFieldComponent('select', ['string', 'int', 'float'], Select);
-componentFactory.registerFieldComponent('lookup', ['string', 'int', 'float'], Lookup);
-componentFactory.registerFieldComponent('checkbox', ['bool'], CheckBox);
-componentFactory.registerFieldComponent('datepicker', ['bool'], DatePicker);
-componentFactory.registerFieldComponent('entitycontainer', ['entity'], EntityContainer);
-componentFactory.registerFieldComponent('arraycontainer', ['array'], ArrayContainer);
+componentFactory.registerFieldComponent('TextBox', ['string', 'int', 'float'], TextBox);
+componentFactory.registerFieldComponent('Label', ['string', 'int', 'float'], Label);
+componentFactory.registerFieldComponent('Select', ['string', 'int', 'float'], Select);
+componentFactory.registerFieldComponent('Lookup', ['string', 'int', 'float'], Lookup);
+componentFactory.registerFieldComponent('CheckBox', ['bool'], CheckBox);
+componentFactory.registerFieldComponent('DatePicker', ['bool'], DatePicker);
+componentFactory.registerFieldComponent('EntityContainer', ['entity'], EntityContainer);
+componentFactory.registerFieldComponent('ArrayContainer', ['array'], ArrayContainer);
 
 // Registers all group component definitions
-componentFactory.registerGroupComponent('metaformgroup', MetaFormGroup);
-componentFactory.registerGroupComponent('selectivemetaformgroup', SelectiveMetaFormGroup);
+componentFactory.registerGroupComponent('MetaFormGroup', MetaFormGroup);
+componentFactory.registerGroupComponent('SelectiveMetaFormGroup', SelectiveMetaFormGroup);
 
 // Registers the component defaults
 componentFactory.setDefaultFieldComponents({
-    "string": 'textbox',
-    "int": 'textbox',
-    "float": 'textbox',
-    "bool": 'checkbox',
-    "date": 'datepicker',
-    "entity": 'entitycontainer',
-    "array": 'arraycontainer'
+    "string": 'TextBox',
+    "int": 'TextBox',
+    "float": 'TextBox',
+    "bool": 'CheckBox',
+    "date": 'DatePicker',
+    "entity": 'EntityContainer',
+    "array": 'ArrayContainer'
 });
 
-componentFactory.setDefaultGroupComponent('metaformgroup');
+componentFactory.setDefaultGroupComponent('MetaFormGroup');
 
 export default componentFactory;
