@@ -26,7 +26,7 @@ const EntityContainer = React.createClass({
     render: function() {
 
         var header = this.props.displayName
-            ? <header className="metaform-group-header">
+            ? <header className="metaform-group-header no-lateral-margin">
             <Glyphicon glyph={this.state.collapsed ? "triangle-top" : "triangle-bottom"}
                        onClick={this.handleCollapse}/>
             <span className="metaform-group-title">{this.props.displayName}</span>
@@ -34,8 +34,9 @@ const EntityContainer = React.createClass({
             : null;
 
 
-        return <div>
+        return <div className="entity-container">
             {header}
+            <div className="entity-container-content"  style={{ display: this.state.collapsed ? 'none' : '' }}>
             {
                 this.props.componentFactory.buildGroupComponent({
                     component: this.props.layout.component,
@@ -44,6 +45,7 @@ const EntityContainer = React.createClass({
                     componentFactory: this.props.componentFactory
                 })
             }
+            </div>
         </div>;
     }
 });
