@@ -26,6 +26,10 @@ However, before the 1.0.0 release, I'm *not changing* the major version, even if
  
 ##History##
 
+###0.5.0 (Oct 7, 2015)
+
+ - Removing the ability to collapse groups. It just did not work
+
 ###0.4.0 (Oct 7, 2015)
 
  - Group components now have the ability to collapse
