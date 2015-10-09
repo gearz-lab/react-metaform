@@ -11,40 +11,28 @@ const EntityContainer = React.createClass({
         componentFactory: React.PropTypes.object.isRequired
     },
 
-    getInitialState: function () {
-        return {
-            collapsed: false
-        }
-    },
-
-    handleCollapse: function () {
-        let newState = _.extend({}, this.state);
-        newState.collapsed = !newState.collapsed;
-        this.setState(newState);
-    },
-
-    render: function() {
+    render: function () {
 
         var header = this.props.displayName
             ? <header className="metaform-group-header no-lateral-margin">
-            <Glyphicon glyph={this.state.collapsed ? "triangle-top" : "triangle-bottom"}
-                       onClick={this.handleCollapse}/>
-            <span className="metaform-group-title">{this.props.displayName}</span>
+                <span className="metaform-group-title">
+                    {this.props.displayName}
+                </span>
         </header>
             : null;
 
 
         return <div className="entity-container">
             {header}
-            <div className="entity-container-content"  style={{ display: this.state.collapsed ? 'none' : '' }}>
-            {
-                this.props.componentFactory.buildGroupComponent({
-                    component: this.props.layout.component,
-                    layout: this.props.layout,
-                    fields: this.props.fields,
-                    componentFactory: this.props.componentFactory
-                })
-            }
+            <div className="entity-container-content">
+                {
+                    this.props.componentFactory.buildGroupComponent({
+                        component: this.props.layout.component,
+                        layout: this.props.layout,
+                        fields: this.props.fields,
+                        componentFactory: this.props.componentFactory
+                    })
+                }
             </div>
         </div>;
     }

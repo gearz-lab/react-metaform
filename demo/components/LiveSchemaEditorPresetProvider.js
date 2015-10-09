@@ -83,14 +83,14 @@ class LiveSchemaEditorPresetProvider {
             layoutName: 'contact-edit',
             code: selectiveMetaFormGroup
         });
-        //this.presetsConfig.push({
-        //    value: 'applicationSchema',
-        //    text: 'Application Schema',
-        //    title: 'Application Schema',
-        //    entityName: 'entity',
-        //    layoutName: 'entity-edit',
-        //    code: applicationSchema
-        //});
+        this.presetsConfig.push({
+            value: 'applicationSchema',
+            text: 'Application Schema',
+            title: 'Application Schema',
+            entityName: 'entity',
+            layoutName: 'entity-edit',
+            code: applicationSchema
+        });
     }
     getPresets() {
         return this.presetsConfig;

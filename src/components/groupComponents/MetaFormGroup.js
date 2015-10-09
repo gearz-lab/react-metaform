@@ -11,18 +11,6 @@ var MetaFormGroup = React.createClass({
         componentFactory: React.PropTypes.object.isRequired
     },
 
-    getInitialState: function () {
-        return {
-            collapsed: false
-        }
-    },
-
-    handleCollapse: function () {
-        let newState = _.extend({}, this.state);
-        newState.collapsed = !newState.collapsed;
-        this.setState(newState);
-    },
-
     render: function () {
         let _this = this;
         // the passed in layout can contain either fields or groups.
@@ -74,9 +62,8 @@ var MetaFormGroup = React.createClass({
 
             var header = this.props.layout.title
                 ? <header className="metaform-group-header">
-                <Glyphicon glyph={this.state.collapsed ? "triangle-top" : "triangle-bottom"}
-                           onClick={this.handleCollapse}/>
-                <span className="metaform-group-title">{this.props.layout.title}</span>
+                        <span className="metaform-group-title">{this.props.layout.title}
+                </span>
             </header>
                 : null;
 
@@ -84,7 +71,7 @@ var MetaFormGroup = React.createClass({
                 <div className='row'>
                     <div className="metaform-group">
                         { header }
-                        <div className="metaform-group-content" style={{ display: this.state.collapsed ? 'none' : '' }}>
+                        <div className="metaform-group-content">
                             {content}
                         </div>
                     </div>
