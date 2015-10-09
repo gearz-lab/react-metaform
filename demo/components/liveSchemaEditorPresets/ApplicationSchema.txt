@@ -91,9 +91,10 @@
             ],
             layouts: [{
                 name: "field-edit",
-                title: "Basic info",
+                title: "Field",
                 groups: [
                     {
+                        orientation: "horizontal",
                         fields: [
                             {
                                 name: "name"
