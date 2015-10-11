@@ -30,7 +30,7 @@ class LiveSchemaEditorPresetProvider {
         });
         this.presetsConfig.push({
             value: 'lookup',
-            text: 'Lookup',
+            text: 'Components - Lookup',
             title: 'Edit contact',
             entityName: 'contact',
             layoutName: 'contact-edit',
@@ -78,7 +78,7 @@ class LiveSchemaEditorPresetProvider {
         });
         this.presetsConfig.push({
             value: 'selectiveMetaFormGroup',
-            text: 'SelectiveMetaFormGroup',
+            text: 'Components - SelectiveMetaFormGroup',
             title: 'SelectiveMetaFormGroup',
             entityName: 'contact',
             layoutName: 'contact-edit',
