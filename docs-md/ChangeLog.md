@@ -4,6 +4,10 @@
 
 - [Change log](#change-log)
   - [History](#history)
+    - [0.7.0 (Oct 11, 2015)](#070-oct-11-2015)
+    - [0.6.0 (Oct 11, 2015)](#060-oct-11-2015)
+    - [0.5.0 (Oct 7, 2015)](#050-oct-7-2015)
+    - [0.4.0 (Oct 7, 2015)](#040-oct-7-2015)
     - [0.3.2 (Oct 4, 2015)](#032-oct-4-2015)
     - [0.3.1 (Oct 3, 2015)](#031-oct-3-2015)
     - [0.3.0 (Oct 2, 2015)](#030-oct-2-2015)
@@ -26,7 +30,11 @@ However, before the 1.0.0 release, I'm *not changing* the major version, even if
  
 ##History##
 
-###0.5.0 (Oct 11, 2015)
+###0.7.0 (Oct 11, 2015)
+
+ - Layouts are now optional
+
+###0.6.0 (Oct 11, 2015)
 
  - Introducing the ArrayGridContainer component
 
