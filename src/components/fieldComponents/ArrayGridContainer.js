@@ -169,6 +169,7 @@ const ArrayGridContainer = React.createClass({
             let value = this.props.value;
             value.push(model);
             this.props.onChange({id: this.props.id, value: value});
+            this.handleAddCanceled();
         }
     },
 
