@@ -80,12 +80,12 @@ const ArrayGridRow = React.createClass({
 
     render: function () {
         return <tr className="array-container-item">
-            <td>
+            <td className="col-md-11">
                 {this.props.children}
             </td>
-            <td>
+            <td className="col-md-1">
                 <Dropdown pullRight onSelect={this.handleAction}>
-                    <Dropdown.Toggle noCaret bsSize="small">
+                    <Dropdown.Toggle noCaret>
                         <Glyphicon glyph="cog"/>
                     </Dropdown.Toggle>
                     <Dropdown.Menu >
@@ -133,18 +133,8 @@ const ArrayGrid = React.createClass({
             </ArrayGridRow>;
         });
 
-        return <Table>
-            <thead>
-            <tr>
-                <th>
-                    Item
-                </th>
-                <th>
-                    Actions
-                </th>
-            </tr>
-            </thead>
-            <tbody>
+        return <Table bordered condensed>
+             <tbody>
             {rows}
             </tbody>
         </Table>;
@@ -271,15 +261,15 @@ const ArrayGridContainer = React.createClass({
         }
 
         return (
-            <div className="array-container">
+            <div className="array-grid-container">
                 {header}
-                <div className="array-container-content">
+                <div className="array-grid-container-content">
                     <ArrayGrid items={items} onItemAction={this.handleItemAction}/>
                 </div>
                 <div className="">
                     <span className="pull-right">
                         <GlyphButton glyph="plus" text={this.props.addText ? this.props.addText : "Add" }
-                                     onClick={this.handleAdd} bsSize="small"/>
+                                     onClick={this.handleAdd} />
                     </span>
                 </div>
                 <MetaFormModal
