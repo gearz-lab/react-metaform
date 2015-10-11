@@ -13,8 +13,7 @@ const ArrayContainerItem = React.createClass({
 
     propTypes: {
         index: React.PropTypes.number.isRequired,
-        onAction: React.PropTypes.func,
-        addText: React.PropTypes.string
+        onAction: React.PropTypes.func
     },
 
     handleAction: function (e, eventKey) {
@@ -59,7 +58,8 @@ const ArrayContainerItem = React.createClass({
 const ArrayContainer = React.createClass({
 
     propTypes: {
-        name: React.PropTypes.string.isRequired
+        name: React.PropTypes.string.isRequired,
+        addText: React.PropTypes.string
     },
 
     handleAdd: function () {
