@@ -25,7 +25,9 @@ describe('MetadataProvider', function () {
                             {
                                 name: 'name',
                                 displayName: '_exp:m.name',
-                                addonBefore: function(m) { return m.name},
+                                addonBefore: function (m) {
+                                    return m.name
+                                },
                                 type: 'string'
                             }
                         ],
@@ -199,7 +201,34 @@ describe('MetadataProvider', function () {
             assert.throws(() => metadataProvider.getFields(schema, 'contact', 'contact-edit'), /Could not find layout/);
         });
 
+        it('Non-specified layout', function () {
 
+            let schema = {
+
+                entities: [
+                    {
+                        name: 'contact',
+                        fields: [
+                            {
+                                name: 'name',
+                                type: 'string',
+                                displayName: 'Name'
+                            },
+                            {
+                                name: 'date',
+                                type: 'date',
+                                displayName: 'Date'
+                            }
+                        ]
+                    }
+                ],
+                layouts: []
+            };
+            let fields = metadataProvider.getFields(schema, 'contact', '');
+            assert.strictEqual(fields.length, 2);
+            assert.strictEqual(fields[0].name, 'name');
+            assert.strictEqual(fields[1].name, 'date');
+        });
 
     });
 
@@ -214,5 +243,34 @@ describe('MetadataProvider', function () {
             assert.equal(layoutProcessed.fields[1].name, 'date');
             assert.equal(layoutProcessed.fields[2].name, 'phone');
         });
+    });
+
+    describe('generateDefaultLayout', function () {
+        let schema = {
+
+            entities: [
+                {
+                    name: 'contact',
+                    fields: [
+                        {
+                            name: 'name',
+                            type: 'string',
+                            displayName: 'Name'
+                        },
+                        {
+                            name: 'date',
+                            type: 'date',
+                            displayName: 'Date'
+                        }
+                    ]
+                }
+            ],
+            layouts: []
+        };
+        let defaultLayout = metadataProvider.generateDefaultLayout(schema, 'contact');
+        assert.strictEqual(defaultLayout.name, 'contact-default');
+        assert.strictEqual(defaultLayout.fields.length, 2);
+        assert.strictEqual(defaultLayout.fields[0].name, 'name');
+        assert.strictEqual(defaultLayout.fields[1].name, 'date');
     });
 });

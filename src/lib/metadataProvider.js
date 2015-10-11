@@ -13,7 +13,7 @@ class MetadataProvider {
      * @param filter
      */
     addFilter(filter) {
-        if(!filter) {
+        if (!filter) {
             throw new Error('filter is required');
         }
         this.metadataFilters.push(filter);
@@ -25,7 +25,7 @@ class MetadataProvider {
      */
     filter(metadata) {
         let processedMetadata = metadata;
-        for(let i=0; i<this.metadataFilters.length; i++) {
+        for (let i = 0; i < this.metadataFilters.length; i++) {
             processedMetadata = this.metadataFilters[i].filter(processedMetadata);
         }
         return processedMetadata;
@@ -94,7 +94,7 @@ class MetadataProvider {
     getEntityAndLayout(schema, entityName, layoutName) {
 
         let entity = this.getEntity(schema, entityName);
-        let layout = this.getLayout(entity, layoutName);
+        let layout = layoutName ? this.getLayout(entity, layoutName) : this.generateDefaultLayout(schema, entity);
 
         return {
             entity: entity,
@@ -113,7 +113,7 @@ class MetadataProvider {
      */
     getFieldsInternal(schema, entity, layout, partialResult, callback) {
 
-        if(!entity) {
+        if (!entity) {
             throw Error('Paramater is fucked');
         }
 
@@ -162,16 +162,16 @@ class MetadataProvider {
                     field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult, callback);
                 }
 
-                if(field.type == 'array') {
-                    if(!field.arrayType) {
+                if (field.type == 'array') {
+                    if (!field.arrayType) {
                         throw Error('when a field is of type \'array\', it needs to specify an \'arrayType\'');
                     }
 
-                    if(field.arrayType != 'entity') {
+                    if (field.arrayType != 'entity') {
                         throw Error('only entity arrays are currently supported');
                     }
 
-                    if(!field.entityType) {
+                    if (!field.entityType) {
                         throw Error('when a field is of type \'array\' and arrayType is \'entity\', it needs to specify an \'entityType\'');
                     }
 
@@ -184,7 +184,7 @@ class MetadataProvider {
                     field.fields = this.getFieldsInternal(schema, entityAndLayout.entity, entityAndLayout.layout, partialResult, callback);
                 }
 
-                if(callback) {
+                if (callback) {
                     callback(field);
                 }
             }
@@ -205,8 +205,12 @@ class MetadataProvider {
      */
     getFields(schema, entity, layout, callback) {
         entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
-        layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
-
+        if(!layout) {
+            layout = this.generateDefaultLayout(schema, entity);
+        }
+        else {
+            layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
+        }
         return this.getFieldsInternal(schema, entity, layout, undefined, callback);
     }
 
@@ -221,7 +225,7 @@ class MetadataProvider {
         if (layoutGroup.fields) {
             layoutGroupClone.fields = [];
             for (let i = 0; i < layoutGroup.fields.length; i++) {
-                layoutGroupClone.fields.push({ name: layoutGroup.fields[i].name });
+                layoutGroupClone.fields.push({name: layoutGroup.fields[i].name});
             }
         }
         else if (layoutGroup.groups) {
@@ -244,6 +248,23 @@ class MetadataProvider {
         layout = typeof layout === 'string' ? this.getLayout(entity, layout) : layout;
 
         return this.processLayoutGroup(layout);
+    }
+
+    /**
+     * Generates a default layout for the given entity. Useful so it's not obligatory to implement layouts.
+     * @param schema application schema
+     * @param entity
+     */
+    generateDefaultLayout(schema, entity) {
+        entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
+        return {
+            name: `${entity.name}-default`,
+            fields: entity.fields.map(f => {
+                return {
+                    name: f.name
+                };
+            })
+        };
     }
 }
 
