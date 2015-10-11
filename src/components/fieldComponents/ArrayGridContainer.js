@@ -65,19 +65,63 @@ const MetaFormModal = React.createClass({
     }
 });
 
+const ArrayGridRow = React.createClass({
+
+    propTypes: {
+        index: React.PropTypes.number.isRequired,
+        onAction: React.PropTypes.func
+    },
+
+    handleAction: function (e, eventKey) {
+        if (this.props.onAction) {
+            this.props.onAction(this.props.index, eventKey)
+        }
+    },
+
+    render: function () {
+        return <tr className="array-container-item">
+            <td>
+                {this.props.children}
+            </td>
+            <td>
+                <Dropdown pullRight onSelect={this.handleAction}>
+                    <Dropdown.Toggle noCaret bsSize="small">
+                        <Glyphicon glyph="cog"/>
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu >
+                        <MenuItem eventKey="remove"><Glyphicon glyph="remove" className="text-danger"/><span
+                            className="glyphicon-text text-danger">Remove</span></MenuItem>
+                        <MenuItem divider/>
+                        <MenuItem eventKey="moveUp"><Glyphicon glyph="chevron-up"/><span className="glyphicon-text">Move up</span></MenuItem>
+                        <MenuItem eventKey="moveDown"><Glyphicon glyph="chevron-down"/><span
+                            className="glyphicon-text">Move down</span></MenuItem>
+                        <MenuItem divider/>
+                        <MenuItem eventKey="moveFirst"><Glyphicon glyph="chevron-up"/><span
+                            className="glyphicon-text">Move first</span></MenuItem>
+                        <MenuItem eventKey="moveLast"><Glyphicon glyph="chevron-down"/><span
+                            className="glyphicon-text">Move last</span></MenuItem>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </td>
+        </tr>;
+    }
+});
+
 const ArrayGrid = React.createClass({
+
+    handleItemAction: function (index, eventKey) {
+        if(this.props.onItemAction) {
+            this.props.onItemAction(index, eventKey);
+        }
+    },
+
     render: function () {
 
 
-        let rows = this.props.items.map(i => {
-            return <tr>
-                <td>
-                    {i.text}
-                </td>
-                <td>
-                    Some field actions
-                </td>
-            </tr>;
+        let rows = this.props.items.map((item, index) => {
+            return <ArrayGridRow index={index} onAction={this.handleItemAction}>
+                    {item.text}
+                </ArrayGridRow>;
         });
 
         return <Table>
@@ -134,6 +178,31 @@ const ArrayGridContainer = React.createClass({
         this.setState(newState);
     },
 
+    handleItemAction: function (index, eventKey) {
+        let value = this.props.value;
+        switch (eventKey) {
+            case "remove":
+                value.splice(index, 1);
+                break;
+            case 'moveUp':
+                arrayHelper.move(value, index, index - 1);
+                break;
+            case 'moveDown':
+                arrayHelper.move(value, index, index + 1);
+                break;
+            case 'moveFirst':
+                arrayHelper.move(value, index, 0);
+                break;
+            case 'moveLast':
+                arrayHelper.move(value, index, value.length - 1);
+                break;
+        }
+        if (this.props.onChange) {
+            this.props.onChange({id: this.props.id, value: value});
+        }
+    },
+
+
     render: function () {
 
         var header = this.props.displayName ?
@@ -143,7 +212,7 @@ const ArrayGridContainer = React.createClass({
             : null;
 
         let items;
-        if(this.props._itemDisplayName) {
+        if (this.props._itemDisplayName) {
             let itemDisplayNameFunction = functionHelper.getFunction(this.props._itemDisplayName);
             items = this.props.value.map(i => {
                 return {
@@ -159,13 +228,11 @@ const ArrayGridContainer = React.createClass({
             });
         }
 
-        let components = <ArrayGrid items={items}/>;
-
         return (
             <div className="array-container">
                 {header}
                 <div className="array-container-content">
-                    {components}
+                    <ArrayGrid items={items} onItemAction={this.handleItemAction} />
                 </div>
                 <div className="">
                     <span className="pull-right">
