@@ -89,17 +89,26 @@ const ArrayGridRow = React.createClass({
                         <Glyphicon glyph="cog"/>
                     </Dropdown.Toggle>
                     <Dropdown.Menu >
+                        <MenuItem eventKey="edit"><Glyphicon glyph="pencil"/>
+                            <span className="glyphicon-text">Edit</span>
+                        </MenuItem>
                         <MenuItem eventKey="remove"><Glyphicon glyph="remove" className="text-danger"/><span
-                            className="glyphicon-text text-danger">Remove</span></MenuItem>
+                            className="glyphicon-text text-danger">Remove</span>
+                        </MenuItem>
                         <MenuItem divider/>
-                        <MenuItem eventKey="moveUp"><Glyphicon glyph="chevron-up"/><span className="glyphicon-text">Move up</span></MenuItem>
+                        <MenuItem eventKey="moveUp"><Glyphicon glyph="chevron-up"/>
+                            <span className="glyphicon-text">Move up</span>
+                        </MenuItem>
                         <MenuItem eventKey="moveDown"><Glyphicon glyph="chevron-down"/><span
-                            className="glyphicon-text">Move down</span></MenuItem>
+                            className="glyphicon-text">Move down</span>
+                        </MenuItem>
                         <MenuItem divider/>
                         <MenuItem eventKey="moveFirst"><Glyphicon glyph="chevron-up"/><span
-                            className="glyphicon-text">Move first</span></MenuItem>
+                            className="glyphicon-text">Move first</span>
+                        </MenuItem>
                         <MenuItem eventKey="moveLast"><Glyphicon glyph="chevron-down"/><span
-                            className="glyphicon-text">Move last</span></MenuItem>
+                            className="glyphicon-text">Move last</span>
+                        </MenuItem>
                     </Dropdown.Menu>
                 </Dropdown>
             </td>
@@ -110,7 +119,7 @@ const ArrayGridRow = React.createClass({
 const ArrayGrid = React.createClass({
 
     handleItemAction: function (index, eventKey) {
-        if(this.props.onItemAction) {
+        if (this.props.onItemAction) {
             this.props.onItemAction(index, eventKey);
         }
     },
@@ -120,8 +129,8 @@ const ArrayGrid = React.createClass({
 
         let rows = this.props.items.map((item, index) => {
             return <ArrayGridRow index={index} onAction={this.handleItemAction}>
-                    {item.text}
-                </ArrayGridRow>;
+                {item.text}
+            </ArrayGridRow>;
         });
 
         return <Table>
@@ -154,33 +163,53 @@ const ArrayGridContainer = React.createClass({
 
     getInitialState: () => {
         return {
-            showModal: false
+            editingItemIndex: null
         }
     },
 
     handleAdd: function () {
         let newState = _.extend({}, this.state);
-        newState.showModal = true;
+        newState.editingItemIndex = -1;
         this.setState(newState);
     },
 
-    handleAddSaved: function (model) {
+    handleSaveItem: function (model) {
         if (this.props.onChange) {
             let value = this.props.value;
-            value.push(model);
+
+            if(!this.state.editingItemIndex === null || this.state.editingItemIndex === undefined) {
+                // I'm not sure if an exception should be thrown here. It should probably be. However, there could
+                // be a situation that could change it. Needs further analysis.
+                return;
+            }
+            else if(this.state.editingItemIndex == -1) {
+                value.push(model);
+            }
+            else {
+                value[this.state.editingItemIndex] = model;
+            }
+
             this.props.onChange({id: this.props.id, value: value});
-            this.handleAddCanceled();
+            this.handleModalClose();
         }
     },
 
-    handleAddCanceled: function () {
+    handleModalClose: function () {
         let newState = _.extend({}, this.state);
-        newState.showModal = false;
+        newState.editingItemIndex = null;
         this.setState(newState);
     },
 
     handleItemAction: function (index, eventKey) {
         let value = this.props.value;
+
+        if (eventKey == "edit") {
+            let newState = _.extend({}, this.state);
+            newState.editingItemIndex = index;
+            this.setState(newState);
+            return;
+        }
+
         switch (eventKey) {
             case "remove":
                 value.splice(index, 1);
@@ -229,11 +258,23 @@ const ArrayGridContainer = React.createClass({
             });
         }
 
+        let showModal = this.state.editingItemIndex != null && this.state.editingItemIndex != undefined;
+        let modalModel;
+        if (this.state.editingItemIndex == -1) {
+            modalModel = {}
+        }
+        else if (this.state.editingItemIndex >= 0) {
+            modalModel = this.props.value[this.state.editingItemIndex];
+        }
+        else {
+            modalModel = null;
+        }
+
         return (
             <div className="array-container">
                 {header}
                 <div className="array-container-content">
-                    <ArrayGrid items={items} onItemAction={this.handleItemAction} />
+                    <ArrayGrid items={items} onItemAction={this.handleItemAction}/>
                 </div>
                 <div className="">
                     <span className="pull-right">
@@ -242,14 +283,14 @@ const ArrayGridContainer = React.createClass({
                     </span>
                 </div>
                 <MetaFormModal
-                    show={this.state.showModal}
+                    show={showModal}
                     schema={this.props.schema}
                     componentFactory={this.props.componentFactory}
-                    model={{}}
+                    model={modalModel}
                     entityType={this.props.entityType}
                     layoutName={this.props.layoutName}
-                    onSave={this.handleAddSaved}
-                    onCancel={this.handleAddCanceled}
+                    onSave={this.handleSaveItem}
+                    onCancel={this.handleModalClose}
                     />
             </div>
         );
