@@ -1,15 +1,15 @@
 import expressionEvaluator from '../ExpressionEvaluator.js';
 
 class DefaultMetadataPropertyFilter {
-    filter(metadataValue, model) {
+    filter(propertyName, propertyValue, model) {
         if(!model) {
             throw new Error('model is required');
         }
-        if (typeof(metadataValue) === "function") {
+        if (typeof(propertyValue) === "function" && propertyName.indexOf('_') != 0) {
             // do something
-            return expressionEvaluator.evaluate(metadataValue, model);
+            return expressionEvaluator.evaluate(propertyValue, model);
         }
-        return metadataValue;
+        return propertyValue;
     }
 }
 export default new DefaultMetadataPropertyFilter();

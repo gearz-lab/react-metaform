@@ -1,18 +1,18 @@
 import expressionEvaluator from '../ExpressionEvaluator.js';
 
 class ConditionMessagePropertyFilter {
-    filter(metadataValue, model) {
-        if(metadataValue === undefined) {
+    filter(propertyName, propertyValue, model) {
+        if(propertyValue === undefined) {
             return undefined;
         }
         if(!model) {
             throw new Error('model is required');
         }
-        if(!(metadataValue.constructor === Array)) {
+        if(!(propertyValue.constructor === Array)) {
             throw new Error('metadata should be an array');
         }
-        for(var i = 0; i < metadataValue.length; i++) {
-            let metadataItem = metadataValue[i];
+        for(var i = 0; i < propertyValue.length; i++) {
+            let metadataItem = propertyValue[i];
             let metadataConditionResult = expressionEvaluator.evaluate(metadataItem.condition, model);
             if(metadataConditionResult === true) {
                 return {

@@ -8,7 +8,7 @@ class OnChangeMetadataFilter {
         if(!model) {
             throw new Error('model is required');
         }
-        // experimenting seting the value property of each metadata
+        // experimenting setting the value property of each metadata
         metadata.onChange = onChange;
         return metadata;
     }

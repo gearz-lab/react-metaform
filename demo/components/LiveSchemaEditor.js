@@ -141,7 +141,7 @@ const LiveSchemaEditor = React.createClass({
 
                 // the only reason why I'm getting this here, is so it's going to trigger an exception
                 // when the entityName and/or the layoutName is not valid
-                let schemaAndLayout = metadataProvider.getEntityAndLayout(schema, this.state.entityName, this.state.layoutName);
+                metadataProvider.getEntityAndLayout(schema, this.state.entityName, this.state.layoutName);
 
                 let metaForm = <Metaform
                     schema={schema}

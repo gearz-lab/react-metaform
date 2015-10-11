@@ -29,7 +29,7 @@ class MetadataEvaluator {
      * @param model
      * @private
      */
-    _evaluateExpression(expression, model){
+    _evaluateExpression(expression, model) {
         return expressionEvaluator.evaluate(expression, model);
     }
 
@@ -41,13 +41,13 @@ class MetadataEvaluator {
      */
     evaluate(metadata, model, keyPrefix, metadataIndex, onChange) {
 
-        if(!metadata) {
+        if (!metadata) {
             throw Error('metadata parameter is required');
         }
-        if(metadata.constructor === Array) {
+        if (metadata.constructor === Array) {
             return metadata.map(i => this.evaluate(i, model, keyPrefix, metadataIndex, onChange));
         }
-        if(!metadataIndex) {
+        if (!metadataIndex) {
             metadataIndex = {};
         }
 
@@ -76,7 +76,7 @@ class MetadataEvaluator {
      * @param filter
      */
     addFilter(filter) {
-        if(!filter) {
+        if (!filter) {
             throw new Error('filter is required');
         }
         this.metadataFilters.push(filter);
@@ -88,10 +88,10 @@ class MetadataEvaluator {
      * @param filter
      */
     addPropertyFilter(filter, metadataProperty) {
-        if(!filter) {
+        if (!filter) {
             throw new Error('filter is required');
         }
-        this.metadataPropertyFilters.push({ property: metadataProperty, filter: filter });
+        this.metadataPropertyFilters.push({property: metadataProperty, filter: filter});
     }
 
     /**
@@ -101,13 +101,13 @@ class MetadataEvaluator {
      * @param model
      */
     filterProperty(propertyName, propertyValue, model) {
-        let processedMetadataProperty = propertyValue;
-        for(let i=0; i < this.metadataPropertyFilters.length; i++) {
-            if(!this.metadataPropertyFilters[i].property || this.metadataPropertyFilters[i].property === propertyName) {
-                processedMetadataProperty = this.metadataPropertyFilters[i].filter.filter(processedMetadataProperty, model);
+        let processedPropertyValue = propertyValue;
+        for (let i = 0; i < this.metadataPropertyFilters.length; i++) {
+            if (!this.metadataPropertyFilters[i].property || this.metadataPropertyFilters[i].property === propertyName) {
+                processedPropertyValue = this.metadataPropertyFilters[i].filter.filter(propertyName, processedPropertyValue, model);
             }
         }
-        return processedMetadataProperty;
+        return processedPropertyValue;
     }
 
     /**
@@ -118,7 +118,7 @@ class MetadataEvaluator {
      */
     filter(metadata, model, keyPrefix, metadataIndex, onChange) {
         let processedMetadata = metadata;
-        for(let i=0; i<this.metadataFilters.length; i++) {
+        for (let i = 0; i < this.metadataFilters.length; i++) {
             processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this, metadataIndex, onChange);
         }
         return processedMetadata;
@@ -138,13 +138,13 @@ class MetadataEvaluator {
             }
 
             if (metadata.expression) {
-                if(!(typeof(metadata.expression) === 'function')) {
+                if (!(typeof(metadata.expression) === 'function')) {
                     throw new Error(`Error evaluating expression. Expression should be a function. Expression is of type: ${typeof metadata.expression}`);
                 }
             }
 
             if (metadata.expressionText) {
-                if(!(typeof(metadata.expressionText) === 'string')) {
+                if (!(typeof(metadata.expressionText) === 'string')) {
                     throw new Error(`Error evaluating ExpressionText. ExpressionText should be a string representing a function. ExpressionText is of type: ${typeof metadata.expressionText}`);
                 }
             }
@@ -159,20 +159,20 @@ class MetadataEvaluator {
             return evaluation;
         };
 
-        if(metadata instanceof Array) {
+        if (metadata instanceof Array) {
             let result = [];
             metadata.forEach(item => {
                 result.push(evaluateMetadataObject(item, model));
             });
             return result;
         }
-        else if(metadata instanceof Object) {
+        else if (metadata instanceof Object) {
             let result = [];
             result.push(evaluateMetadataObject(metadata, model));
             return result;
         }
         else {
-            return [{ value: metadata }];
+            return [{value: metadata}];
         }
     }
 

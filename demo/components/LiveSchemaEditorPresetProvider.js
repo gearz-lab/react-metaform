@@ -5,11 +5,12 @@ if (process.env.APP_ENV !== 'browser') {
     };
 }
 
-import textbox from './liveSchemaEditorPresets/textbox.txt';
+import _ from 'underscore';
 import textboxWithInvalidConstraint from './liveSchemaEditorPresets/textboxWithInvalidConstraint.txt';
 import lookup from './liveSchemaEditorPresets/lookup.txt';
 import innerEntity from './liveSchemaEditorPresets/innerEntity.txt';
-import arrays from './liveSchemaEditorPresets/arrays.txt';
+import componentsArrayContainer from './liveSchemaEditorPresets/ComponentsArrayContainer.txt';
+import componentsArrayGridContainer from './liveSchemaEditorPresets/ComponentsArrayGridContainer.txt';
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
 import confirmPurchase from './liveSchemaEditorPresets/confirmPurchase.txt';
 import selectiveMetaFormGroup from './liveSchemaEditorPresets/selectiveMetaFormGroup.txt';
@@ -21,15 +22,7 @@ class LiveSchemaEditorPresetProvider {
         this.presetsConfig = [];
         this.presetsConfig.push({
             value: 'textbox',
-            text: 'TextBox',
-            title: 'Edit contact',
-            entityName: 'contact',
-            layoutName: 'contact-edit',
-            code: textbox
-        });
-        this.presetsConfig.push({
-            value: 'textboxWithInvalidConstraint',
-            text: 'TextBox with an invalid constraint',
+            text: 'Components - TextBox',
             title: 'Edit contact',
             entityName: 'contact',
             layoutName: 'contact-edit',
@@ -37,7 +30,7 @@ class LiveSchemaEditorPresetProvider {
         });
         this.presetsConfig.push({
             value: 'lookup',
-            text: 'Lookup',
+            text: 'Components - Lookup',
             title: 'Edit contact',
             entityName: 'contact',
             layoutName: 'contact-edit',
@@ -52,12 +45,20 @@ class LiveSchemaEditorPresetProvider {
             code: innerEntity
         });
         this.presetsConfig.push({
-            value: 'arrays',
-            text: 'Arrays',
+            value: 'componentsArrayContainer',
+            text: 'Components - ArrayContainer',
             title: 'Edit contact',
             entityName: 'contact',
             layoutName: 'contact-edit',
-            code: arrays
+            code: componentsArrayContainer
+        });
+        this.presetsConfig.push({
+            value: 'componentsArrayGridContainer',
+            text: 'Components - ArrayGridContainer',
+            title: 'Edit contact',
+            entityName: 'contact',
+            layoutName: 'contact-edit',
+            code: componentsArrayGridContainer
         });
         this.presetsConfig.push({
             value: 'confirmPassword',
@@ -77,7 +78,7 @@ class LiveSchemaEditorPresetProvider {
         });
         this.presetsConfig.push({
             value: 'selectiveMetaFormGroup',
-            text: 'SelectiveMetaFormGroup',
+            text: 'Components - SelectiveMetaFormGroup',
             title: 'SelectiveMetaFormGroup',
             entityName: 'contact',
             layoutName: 'contact-edit',
@@ -93,7 +94,7 @@ class LiveSchemaEditorPresetProvider {
         });
     }
     getPresets() {
-        return this.presetsConfig;
+        return _.sortBy(this.presetsConfig, i => i.text);
     }
 }
 

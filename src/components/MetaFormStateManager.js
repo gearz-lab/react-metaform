@@ -31,6 +31,7 @@ class MetaFormStateManager {
         this.entityAndLayout = metadataProvider.getEntityAndLayout(this.schema, this.entityName, this.layoutName);
         this.fields = metadataProvider.getFields(this.schema, this.entityAndLayout.entity, this.entityAndLayout.layout, f => {
             f.componentFactory = componentFactory;
+            f.schema = schema;
         });
     }
 

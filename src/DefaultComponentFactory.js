@@ -9,6 +9,7 @@ import Lookup from './components/fieldComponents/Lookup.js';
 import DatePicker from './components/fieldComponents/DatePicker.js';
 import EntityContainer from './components/fieldComponents/EntityContainer.js';
 import ArrayContainer from './components/fieldComponents/ArrayContainer.js';
+import ArrayGridContainer from './components/fieldComponents/ArrayGridContainer.js';
 
 // Group components
 import MetaFormGroup from './components/groupComponents/MetaFormGroup.js';
@@ -23,6 +24,7 @@ componentFactory.registerFieldComponent('CheckBox', ['bool'], CheckBox);
 componentFactory.registerFieldComponent('DatePicker', ['bool'], DatePicker);
 componentFactory.registerFieldComponent('EntityContainer', ['entity'], EntityContainer);
 componentFactory.registerFieldComponent('ArrayContainer', ['array'], ArrayContainer);
+componentFactory.registerFieldComponent('ArrayGridContainer', ['array'], ArrayGridContainer);
 
 // Registers all group component definitions
 componentFactory.registerGroupComponent('MetaFormGroup', MetaFormGroup);
@@ -36,7 +38,7 @@ componentFactory.setDefaultFieldComponents({
     "bool": 'CheckBox',
     "date": 'DatePicker',
     "entity": 'EntityContainer',
-    "array": 'ArrayContainer'
+    "array": 'ArrayContainer',
 });
 
 componentFactory.setDefaultGroupComponent('MetaFormGroup');

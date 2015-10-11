@@ -12,14 +12,13 @@ import _ from 'underscore';
 const ArrayContainerItem = React.createClass({
 
     propTypes: {
-        index: React.PropTypes.number,
-        onSelect: React.PropTypes.func,
-        addText: React.PropTypes.string
+        index: React.PropTypes.number.isRequired,
+        onAction: React.PropTypes.func
     },
 
     handleAction: function (e, eventKey) {
-        if (this.props.onSelect) {
-            this.props.onSelect(this.props.index, eventKey)
+        if (this.props.onAction) {
+            this.props.onAction(this.props.index, eventKey)
         }
     },
 
@@ -59,7 +58,8 @@ const ArrayContainerItem = React.createClass({
 const ArrayContainer = React.createClass({
 
     propTypes: {
-        name: React.PropTypes.string.isRequired
+        name: React.PropTypes.string.isRequired,
+        addText: React.PropTypes.string
     },
 
     handleAdd: function () {
@@ -103,7 +103,7 @@ const ArrayContainer = React.createClass({
             : null;
 
         let components = this.props.fields.map((fields, index) => {
-            return <ArrayContainerItem index={index} onSelect={this.handleItemAction}>
+            return <ArrayContainerItem index={index} onAction={this.handleItemAction}>
                 {
                     this.props.componentFactory.buildGroupComponent({
                         component: this.props.layout.component,
