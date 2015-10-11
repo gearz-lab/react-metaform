@@ -15,7 +15,8 @@
                     arrayType: "entity",
                     entityType: "phone",
                     layoutName: "phone-edit",
-                    component: "ArrayGridContainer"
+                    component: "ArrayGridContainer",
+                    _itemDisplayName: function(m) { return "(" +  m.longDistanceCode + ") " + m.number }
                 }
             ],
             layouts: [{
