@@ -35,6 +35,15 @@ describe('MetadataEvaluator', function () {
             assert.strictEqual('Andre', metadataEvaluation.name);
             assert.isFalse(metadataEvaluation.required);
         });
+        it('DefaultMetadataFilter with a function, when the property starts with an underscore', function () {
+            let metadata = {
+                name: 'Andre',
+                _required: m => m.number < 500
+            };
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre', number: 3445});
+            assert.strictEqual('Andre', metadataEvaluation.name);
+            assert.isFunction(metadataEvaluation._required);
+        });
         it('DefaultMetadataFilter with a function, passing an array', function () {
             let metadata = [{
                 name: 'Andre',
