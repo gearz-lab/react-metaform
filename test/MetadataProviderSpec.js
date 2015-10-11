@@ -1,6 +1,7 @@
 import chai from 'chai';
 import metadataProvider from '../src/lib/metadataProvider.js';
 import console from '../src/lib/helpers/consoleHelpers.js';
+import functionHelper from '../src/lib/helpers/functionHelper.js';
 const assert = chai.assert;
 
 describe('MetadataProvider', function () {
@@ -24,6 +25,7 @@ describe('MetadataProvider', function () {
                             {
                                 name: 'name',
                                 displayName: '_exp:m.name',
+                                addonBefore: function(m) { return m.name},
                                 type: 'string'
                             }
                         ],
@@ -39,7 +41,10 @@ describe('MetadataProvider', function () {
                 ]
             };
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
+            assert.isFunction(fields[0].displayName);
             assert.equal(fields[0].displayName({name: 'Andre'}), 'Andre');
+            assert.isFunction(fields[0].addonBefore);
+            assert.equal(fields[0].addonBefore({name: 'Andre'}), 'Andre');
         });
 
         it('Should merge fields', function () {

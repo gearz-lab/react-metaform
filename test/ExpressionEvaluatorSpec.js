@@ -4,13 +4,8 @@ import formato from 'formato';
 
 describe('Expression evaluator', function () {
         it('Literals', function () {
-            assert.strictEqual(expressionEvaluator.evaluate('1 + 1'), 2);
-        });
-        it('Boolean', function () {
-            assert.strictEqual(expressionEvaluator.evaluate('true'), true);
-        });
-        it('Boolean', function () {
-            assert.strictEqual(expressionEvaluator.evaluate('true'), true);
+            assert.strictEqual(expressionEvaluator.evaluate('andre'), 'andre');
+            assert.strictEqual(expressionEvaluator.evaluate(true), true);
         });
         it('Function', function () {
             assert.strictEqual(expressionEvaluator.evaluate(m => m.nome, { nome: 'Andre'}), 'Andre');

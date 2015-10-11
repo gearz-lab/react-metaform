@@ -5,6 +5,10 @@ class DefaultMetadataPropertyFilter {
         if(!model) {
             throw new Error('model is required');
         }
+        if (typeof(metadataValue) === "function") {
+            // do something
+            return expressionEvaluator.evaluate(metadataValue, model);
+        }
         return metadataValue;
     }
 }
