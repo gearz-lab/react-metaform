@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/lib/Modal.js';
 import Button from 'react-bootstrap/lib/Button.js';
 import MetaForm from '../../MetaForm.js';
 import Table from 'react-bootstrap/lib/Table.js';
+import FormGroup from './FormGroup.js';
 import functionHelper from '../../lib/helpers/functionHelper.js';
 import _ from 'underscore';
 
@@ -225,12 +226,6 @@ const ArrayGridContainer = React.createClass({
 
     render: function () {
 
-        var header = this.props.displayName ?
-            <header className="metaform-group-header no-lateral-margin">
-                <span>{this.props.displayName}</span>
-            </header>
-            : null;
-
         let items;
         if (this.props._itemDisplayName) {
             let itemDisplayNameFunction = functionHelper.getFunction(this.props._itemDisplayName);
@@ -262,10 +257,9 @@ const ArrayGridContainer = React.createClass({
 
         return (
             <div className="array-grid-container">
-                {header}
-                <div className="array-grid-container-content">
+                <FormGroup displayName={this.props.displayName}>
                     <ArrayGrid items={items} onItemAction={this.handleItemAction}/>
-                </div>
+                </FormGroup>
                 <div className="">
                     <span className="pull-right">
                         <GlyphButton glyph="plus" text={this.props.addText ? this.props.addText : "Add" }
