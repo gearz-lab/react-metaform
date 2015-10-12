@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LED = React.createClass({
+const LiveSchemaEditorPage = React.createClass({
 
     render: function () {
 
@@ -14,4 +14,4 @@ const LED = React.createClass({
     }
 });
 
-export default LED;
+export default LiveSchemaEditorPage;
