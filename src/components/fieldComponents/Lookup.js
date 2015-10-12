@@ -21,6 +21,9 @@ const Lookup = React.createClass({
         let props = {
             value: this.props.value,
             name: this.props.name,
+            hasFeedbackIcon: this.props.hasFeedbackIcon,
+            feedback: this.props.feedback,
+            invalid: this.props.invalid,
             options: this.props.options.map(i =>
             {
                 return {
