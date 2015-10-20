@@ -30,6 +30,13 @@ However, before the 1.0.0 release, I'm *not changing* the major version, even if
  
 ##History##
 
+###0.8.0 (Oct 19, 2015)
+
+ - ArrayGridContainer styles are now better
+ - The Lookup field is now reacting correctly to the required metadata
+ - SelectiveMetaFormGroup is now automatically adding fields that are invalid and fields that have value
+ - ArrayContainer and the ArrayGridContainer now show an Alert when they are empty
+
 ###0.7.0 (Oct 11, 2015)
 
  - Layouts are now optional
