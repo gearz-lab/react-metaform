@@ -1,4 +1,5 @@
 import React from 'react';
+import Alert from 'react-bootstrap/lib/Alert.js';
 import metadataProvider from '../../lib/metadataProvider.js';
 import MetaFormGroup from '../groupComponents/MetaFormGroup.js';
 import GlyphButton from '../GlyphButton.js';
@@ -162,6 +163,9 @@ const ArrayGridContainer = React.createClass({
         let newState = _.extend({}, this.state);
         newState.editingItemIndex = -1;
         this.setState(newState);
+
+        // This "return false" is so a "#" doesn't get added to the URL when this method is triggered from a "a" element.
+        return false;
     },
 
     handleSaveItem: function (model) {
@@ -258,7 +262,12 @@ const ArrayGridContainer = React.createClass({
         return (
             <div className="array-grid-container">
                 <FormGroup displayName={this.props.displayName}>
-                    <ArrayGrid items={items} onItemAction={this.handleItemAction}/>
+                    {items.length
+                        ? <ArrayGrid items={items} onItemAction={this.handleItemAction}/>
+                        : <Alert bsStyle="warning">
+                        This array is empty. Consider <a href="#" onClick={this.handleAdd}>adding a new item</a>.
+                    </Alert>}
+
                 </FormGroup>
                 <div className="">
                     <span className="pull-right">

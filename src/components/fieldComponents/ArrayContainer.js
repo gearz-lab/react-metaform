@@ -1,6 +1,7 @@
 import React from 'react';
 import metadataProvider from '../../lib/metadataProvider.js';
 import MetaFormGroup from '../groupComponents/MetaFormGroup.js';
+import Alert from 'react-bootstrap/lib/Alert.js';
 import GlyphButton from '../GlyphButton.js';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import DropdownButton from 'react-bootstrap/lib/DropdownButton.js';
@@ -68,6 +69,8 @@ const ArrayContainer = React.createClass({
             value.push({});
             this.props.onChange({id: this.props.id, value: value});
         }
+        // This "return false" is so a "#" doesn't get added to the URL when this method is triggered from a "a" element.
+        return false;
     },
 
     handleItemAction: function (index, eventKey) {
@@ -119,12 +122,16 @@ const ArrayContainer = React.createClass({
             <div className="array-container">
                 {header}
                 <div className="array-container-content">
-                    {components}
+                    {components.length
+                        ? components
+                        : <Alert bsStyle="warning">
+                            This array is empty. Consider <a href="#" onClick={this.handleAdd}>adding a new item</a>.
+                        </Alert>}
                 </div>
                 <div className="">
                     <span className="pull-right">
                         <GlyphButton glyph="plus" text={this.props.addText ? this.props.addText : "Add" }
-                                     onClick={this.handleAdd} bsSize="small"/>
+                                     onClick={this.handleAdd}/>
                     </span>
                 </div>
             </div>
