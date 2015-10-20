@@ -64,12 +64,14 @@ export default {
                 {
                     name: "name",
                     type: "string",
-                    displayName: "Name"
+                    displayName: "Name",
+                    required: true
                 },
                 {
                     name: "displayName",
                     type: "string",
-                    displayName: "Display name"
+                    displayName: "Display name",
+                    required: true
                 },
                 {
                     name: "type",
@@ -105,7 +107,8 @@ export default {
                             value: "array",
                             text: "Array"
                         }
-                    ]
+                    ],
+                    required: true
                 },
                 // Other fields
                 {

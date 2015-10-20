@@ -50,6 +50,26 @@ var SelectiveMetaFormGroup = React.createClass({
         return null;
     },
 
+    componentDidMount: function () {
+        console.log(this.props.fields);
+
+        let fieldsToAdd = [];
+        // automatically add invalid fields and fields with value
+        for (let i = 0; i < this.props.fields.length; i++) {
+            let fieldIsInvalid = this.props.fields[i].invalid && this.props.fields[i].invalid.value;
+            let fieldHasValue = this.props.fields[i].value !== null && this.props.fields[i].value !== undefined;
+            if (fieldIsInvalid || fieldHasValue) {
+                fieldsToAdd.push({fieldName: this.props.fields[i].name});
+            }
+        }
+        // automatically add fields with value
+        if (fieldsToAdd.length) {
+            console.log(fieldsToAdd);
+            let updatedState = React.addons.update(this.state, {selectedFields: {$push: fieldsToAdd}});
+            this.setState(updatedState);
+        }
+    },
+
     render: function () {
 
         try {

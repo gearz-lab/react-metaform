@@ -6,7 +6,8 @@
                 {
                     name: "name",
                     displayName: "Name",
-                    type: "string"
+                    type: "string",
+                    required: true
                 },
                 {
                     name: "profession",
