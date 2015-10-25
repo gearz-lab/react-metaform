@@ -9,6 +9,7 @@ console.log('building lib'.green);
 const repoRoot = path.resolve(__dirname, '../');
 const lib = path.join(repoRoot, 'lib');
 const lessSrc = path.join(repoRoot, '/src/less');
+const lessDest = path.join(lib, '/less');
 
 rimraf(lib)
     .then(function (error) {
