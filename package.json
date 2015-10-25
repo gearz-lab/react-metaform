@@ -1,14 +1,13 @@
 {
   "name": "react-metaform",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A library for dynamically creating React.js forms out of metadata",
   "main": "./lib/index.js",
   "scripts": {
-    "build-demo": "SET NODE_ENV=production&&babel-node ./tools/build-demo.js",
-    "build-dist": "SET NODE_ENV=production&&babel-node ./tools/build-dist.js",
-    "build-lib": "SET NODE_ENV=production&&babel-node ./tools/build-lib.js",
+    "build-demo": "babel-node ./tools/build-demo.js",
+    "build-dist": "babel-node ./tools/build-dist.js",
+    "build-lib": "babel-node ./tools/build-lib.js",
     "start-demo": "babel-node ./demo/Server.js",
-    "start-demo-dev": "SET NODE_ENV=development&&babel-node ./demo/Server.js",
     "wpds": "webpack-dev-server --config ./webpack.config.demo.dev.js",
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
     "test-chrome": "./node_modules/.bin/karma start --single-run --browsers Chrome"

@@ -4,6 +4,8 @@
 
 - [Change log](#change-log)
   - [History](#history)
+    - [0.8.1 (Oct 25, 2015)](#081-oct-25-2015)
+    - [0.8.0 (Oct 19, 2015) [broken, skip this version]](#080-oct-19-2015-broken-skip-this-version)
     - [0.7.0 (Oct 11, 2015)](#070-oct-11-2015)
     - [0.6.0 (Oct 11, 2015)](#060-oct-11-2015)
     - [0.5.0 (Oct 7, 2015)](#050-oct-7-2015)
@@ -30,7 +32,11 @@ However, before the 1.0.0 release, I'm *not changing* the major version, even if
  
 ##History##
 
-###0.8.0 (Oct 19, 2015)
+###0.8.1 (Oct 25, 2015)
+
+ - Fixes the lib build from the previous version. No features added.
+
+###0.8.0 (Oct 19, 2015) [broken, skip this version]
 
  - ArrayGridContainer styles are now better
  - The Lookup field is now reacting correctly to the required metadata
