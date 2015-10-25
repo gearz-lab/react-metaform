@@ -4,6 +4,7 @@
 
 - [Change log](#change-log)
   - [History](#history)
+    - [0.8.2 (Oct 25, 2015)](#082-oct-25-2015)
     - [0.8.1 (Oct 25, 2015)](#081-oct-25-2015)
     - [0.8.0 (Oct 19, 2015) [broken, skip this version]](#080-oct-19-2015-broken-skip-this-version)
     - [0.7.0 (Oct 11, 2015)](#070-oct-11-2015)
@@ -32,9 +33,13 @@ However, before the 1.0.0 release, I'm *not changing* the major version, even if
  
 ##History##
 
+###0.8.2 (Oct 25, 2015)
+
+ - Fixes the lib build to include the LESS folder in the resuling lib folder.
+
 ###0.8.1 (Oct 25, 2015)
 
- - Fixes the lib build from the previous version. No features added.
+ - Fixes the lib build from the previous version.
 
 ###0.8.0 (Oct 19, 2015) [broken, skip this version]
 
