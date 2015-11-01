@@ -80,7 +80,7 @@ var MetaFormGroup = React.createClass({
         }
         catch (ex) {
             return <Alert bsStyle='danger'>
-                <h4>Oh snap! The schema is not valid.</h4>
+                <h4>Could not render the MetaFormGroup component. The schema is not valid.</h4>
 
                 <p>Detailed information:
                     <b>{ex.message}</b>

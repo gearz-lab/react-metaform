@@ -126,7 +126,7 @@ var MetaForm = React.createClass({
 
         if(this.state.error) {
             return <Alert bsStyle='danger'>
-                <h4>Oh snap! The schema is not valid.</h4>
+                <h4>Could not render the MetaForm component. The schema is not valid.</h4>
                 <p>Detailed information:
                     <b>{this.state.error}</b>
                 </p>

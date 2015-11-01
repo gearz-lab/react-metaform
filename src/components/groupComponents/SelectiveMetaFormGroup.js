@@ -145,7 +145,7 @@ var SelectiveMetaFormGroup = React.createClass({
         }
         catch (ex) {
             return <Alert bsStyle='danger'>
-                <h4>Oh snap! The schema is not valid.</h4>
+                <h4>Could not render the SelectiveMetaFormGroup component. The schema is not valid.</h4>
 
                 <p>Detailed information:
                     <b>{ex}</b>
