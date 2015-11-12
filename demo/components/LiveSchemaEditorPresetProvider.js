@@ -14,7 +14,7 @@ import componentsArrayGridContainer from './liveSchemaEditorPresets/ComponentsAr
 import confirmPassword from './liveSchemaEditorPresets/confirmPassword.txt';
 import confirmPurchase from './liveSchemaEditorPresets/confirmPurchase.txt';
 import selectiveMetaFormGroup from './liveSchemaEditorPresets/selectiveMetaFormGroup.txt';
-import applicationSchema from './liveSchemaEditorPresets/applicationSchema.txt';
+import applicationSchema from './liveSchemaEditorPresets/ApplicationSchema.txt';
 
 class LiveSchemaEditorPresetProvider {
     constructor() {
