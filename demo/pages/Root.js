@@ -4,10 +4,10 @@ import Router from 'react-router';
 const Root = React.createClass({
     render() {
         return <div className="container-fluid">
-                <Router.RouteHandler/>
+                {this.props.children}
             </div>;
     }
 });
 
 
-module.exports = Root;
+export default Root;

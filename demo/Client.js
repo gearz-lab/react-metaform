@@ -1,12 +1,13 @@
 import React from 'react';
-import Router from './Router.js';
+import ReactDom from 'react-dom';
+import { Router } from 'react-router'
+import routes from './Routes';
 
 import Styles from './less/styles.less';
 
-// TODO: Move this to Webpack
-// For React devtools
-window.React = React;
-
-Router.run((Handler, state) => {
-    React.render(<Handler/>, document.getElementById('#app_container'));
-});
+const createBrowserHistory = require('history/lib/createBrowserHistory');
+ReactDom.render ((
+    <Router history={createBrowserHistory()}>
+        {routes}
+    </Router>
+),  document.getElementById('#app_container'));

@@ -1,6 +1,5 @@
 import React from 'react/addons.js';
 import CodeEditor from './CodeEditor.js';
-import Routes from '../Router.js';
 // Bootstrap
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';

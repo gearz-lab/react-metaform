@@ -1,12 +1,13 @@
 import React from 'react/addons.js';
 import CodeEditor from './CodeEditor.js';
-import Routes from '../Router.js';
+import {Router} from 'react-router';
 // Bootstrap
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 import Alert from 'react-bootstrap/lib/Alert.js';
 import Tabs from 'react-bootstrap/lib/Tabs.js';
 import Tab from 'react-bootstrap/lib/Tab.js';
+import History from 'react-router/lib/History';
 
 import TextBox from '../../src/components/fieldComponents/TextBox.js';
 import Metaform from './../../src/MetaForm.js';
@@ -20,7 +21,10 @@ import _ from 'underscore';
 import psjon from '../../package.json';
 
 let presetsConfig = liveSchemaEditorPresetProvider.getPresets();
+
 const LiveSchemaEditor = React.createClass({
+
+    mixins: [History],
 
     getInitialState: function () {
         let initialPreset = this.props.initialPreset ? this.props.initialPreset : 'textbox';
@@ -61,8 +65,8 @@ const LiveSchemaEditor = React.createClass({
         updatedState.model = {};
         this.metaFormCache = null;
         this.setState(updatedState, () => {
-            this.resetMetaform(function () {
-                Routes.transitionTo('demo', {}, {preset: preset});
+            this.resetMetaform(() => {
+                this.history.pushState(null, 'demo.html', {preset: preset});
             });
         });
     },
