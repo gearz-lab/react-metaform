@@ -67,7 +67,7 @@ const LiveSchemaEditor = React.createClass({
         this.metaFormCache = null;
         this.setState(updatedState, () => {
             this.resetMetaform(() => {
-                this.history.pushState(null, 'demo.html', {preset: preset});
+                this.history.pushState(null, '/react-metaform/demo.html', {preset: preset});
             });
         });
     },
