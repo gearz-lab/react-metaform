@@ -35,7 +35,8 @@ const CodeEditor = React.createClass({
             width: this.props.width ? this.props.width : '100%',
             theme: 'github',
             height: this.props.height,
-            fontSize: 14
+            fontSize: 14,
+            editorProps: {$blockScrolling: true}
         };
 
         return <FormGroup {...formGroupProps}>
