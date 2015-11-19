@@ -150,7 +150,7 @@ const ArrayGridContainer = React.createClass({
         componentFactory: React.PropTypes.object.isRequired,
         entityType: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string,
-        _itemDisplayName: React
+        _itemDisplayName: React.PropTypes.object
     },
 
     getInitialState: () => {
