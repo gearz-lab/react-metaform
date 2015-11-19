@@ -47,6 +47,7 @@
     "less-loader": "^2.2.1",
     "react": "^0.14.2",
     "react-ace": "^2.5.0",
+    "react-addons-update": "^0.14.2",
     "react-bootstrap": "0.28.1",
     "react-dom": "^0.14.2",
     "react-github-fork-ribbon": "^0.4.2",

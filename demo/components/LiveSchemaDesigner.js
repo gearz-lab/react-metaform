@@ -1,4 +1,5 @@
-import React from 'react/addons.js';
+import React from 'react';
+import update from 'react-addons-update';
 import CodeEditor from './CodeEditor.js';
 // Bootstrap
 import Button from 'react-bootstrap/lib/Button';
@@ -31,19 +32,19 @@ const LiveSchemaEditor = React.createClass({
     },
 
     handleSchemaChange: function (schema) {
-        let updatedState = React.addons.update(this.state, {schema: {$set: schema}});
+        let updatedState = update(this.state, {schema: {$set: schema}});
         this.setState(updatedState, () => {
             this.resetMetaform();
         });
     },
 
     handleEntityNameChanged: function (event) {
-        let updatedState = React.addons.update(this.state, {entityName: {$set: event.value}});
+        let updatedState = update(this.state, {entityName: {$set: event.value}});
         this.setState(updatedState);
     },
 
     handleLayoutNameChanged: function (event) {
-        let updatedState = React.addons.update(this.state, {layoutName: {$set: event.value}});
+        let updatedState = update(this.state, {layoutName: {$set: event.value}});
         this.setState(updatedState);
     },
 

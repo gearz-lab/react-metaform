@@ -1,4 +1,5 @@
-import React from 'react/addons.js';
+import React from 'react';
+import update from 'react-addons-update';
 import CodeEditor from './CodeEditor.js';
 import {Router} from 'react-router';
 // Bootstrap
@@ -78,7 +79,7 @@ const LiveSchemaEditor = React.createClass({
     onAutoUpdateChange: function (event) {
 
         let setAutoupdateState = (e) => {
-            let updatedState = React.addons.update(this.state, {autoUpdate: {$set: e.value}});
+            let updatedState = update(this.state, {autoUpdate: {$set: e.value}});
             this.setState(updatedState);
         };
 
@@ -98,7 +99,7 @@ const LiveSchemaEditor = React.createClass({
     },
 
     onCodeChange: function (event) {
-        let updatedState = React.addons.update(this.state, {text: {$set: event.value}});
+        let updatedState = update(this.state, {text: {$set: event.value}});
         this.setState(updatedState, () => {
             if (this.state.autoUpdate) {
                 this.resetMetaform();
@@ -107,17 +108,17 @@ const LiveSchemaEditor = React.createClass({
     },
 
     onMainEntityNameChanged: function (event) {
-        let updatedState = React.addons.update(this.state, {entityName: {$set: event.value}});
+        let updatedState = update(this.state, {entityName: {$set: event.value}});
         this.setState(updatedState);
     },
 
     onMainLayoutNameChanged: function (event) {
-        let updatedState = React.addons.update(this.state, {layoutName: {$set: event.value}});
+        let updatedState = update(this.state, {layoutName: {$set: event.value}});
         this.setState(updatedState);
     },
 
     onFormTitleChanged: function (event) {
-        let updatedState = React.addons.update(this.state, {title: {$set: event.value}});
+        let updatedState = update(this.state, {title: {$set: event.value}});
         this.setState(updatedState);
     },
 
