@@ -6,7 +6,6 @@ const CheckBox = React.createClass({
 
     propTypes: {
         name: React.PropTypes.string.isRequired,
-        key: React.PropTypes.string.isRequired,
         value: React.PropTypes.node,
         displayName: React.PropTypes.string
     },
