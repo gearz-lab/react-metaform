@@ -6,7 +6,7 @@ const ValidationSummary = React.createClass({
     propTypes: {
         open: React.PropTypes.bool,
         messages: React.PropTypes.array,
-        onDismiss: React.PropTypes.node
+        onDismiss: React.PropTypes.func
     },
     handleAlertDismiss() {
         if (this.props.onDismiss) {
