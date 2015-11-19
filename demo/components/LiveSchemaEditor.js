@@ -206,19 +206,16 @@ const LiveSchemaEditor = React.createClass({
 
                     <div className="row">
                         <div className="col-md-6">
-                            <TextBox displayName="Main entity name" value={this.state.entityName}
-                                     onChange={this.onMainEntityNameChanged}/>
+                            <TextBox name="main-entity-name" displayName="Main entity name" value={this.state.entityName} onChange={this.onMainEntityNameChanged}/>
                         </div>
                         <div className="col-md-6">
-                            <TextBox displayName="Main layout name" value={this.state.layoutName}
-                                     onChange={this.onMainLayoutNameChanged}/>
+                            <TextBox name="main-layout-name" displayName="Main layout name" value={this.state.layoutName} onChange={this.onMainLayoutNameChanged}/>
                         </div>
                     </div>
 
                     <div className="row">
                         <div className="col-md-12">
-                            <TextBox displayName="Form title" value={this.state.title}
-                                     onChange={this.onFormTitleChanged}/>
+                            <TextBox name="form-title" displayName="Form title" value={this.state.title} onChange={this.onFormTitleChanged}/>
                         </div>
                     </div>
 
