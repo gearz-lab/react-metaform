@@ -61,7 +61,7 @@ const MetaFormModal = React.createClass({
                     model={this.props.model}
                     onSave={this.handleSave}
                     onCancel={this.handleCancel}
-                    />
+                />
             </Modal.Body>
         </Modal>
     }
@@ -91,25 +91,39 @@ const ArrayGridRow = React.createClass({
                         <Glyphicon glyph="cog"/>
                     </Dropdown.Toggle>
                     <Dropdown.Menu >
-                        <MenuItem eventKey="edit"><Glyphicon glyph="pencil"/>
+                        <MenuItem eventKey="edit">
+                            <Glyphicon glyph="pencil"/>
                             <span className="glyphicon-text">Edit</span>
                         </MenuItem>
-                        <MenuItem eventKey="remove"><Glyphicon glyph="remove" className="text-danger"/><span
-                            className="glyphicon-text text-danger">Remove</span>
+                        <MenuItem eventKey="remove">
+                            <Glyphicon glyph="remove" className="text-danger"/>
+                            <span
+                                className="glyphicon-text text-danger">Remove
+                            </span>
                         </MenuItem>
                         <MenuItem divider/>
-                        <MenuItem eventKey="moveUp"><Glyphicon glyph="chevron-up"/>
+                        <MenuItem eventKey="moveUp">
+                            <Glyphicon glyph="chevron-up"/>
                             <span className="glyphicon-text">Move up</span>
                         </MenuItem>
-                        <MenuItem eventKey="moveDown"><Glyphicon glyph="chevron-down"/><span
-                            className="glyphicon-text">Move down</span>
+                        <MenuItem eventKey="moveDown">
+                            <Glyphicon glyph="chevron-down"/>
+                            <span
+                                className="glyphicon-text">Move down
+                            </span>
                         </MenuItem>
                         <MenuItem divider/>
-                        <MenuItem eventKey="moveFirst"><Glyphicon glyph="chevron-up"/><span
-                            className="glyphicon-text">Move first</span>
+                        <MenuItem eventKey="moveFirst">
+                            <Glyphicon glyph="chevron-up"/>
+                            <span
+                                className="glyphicon-text">Move first
+                            </span>
                         </MenuItem>
-                        <MenuItem eventKey="moveLast"><Glyphicon glyph="chevron-down"/><span
-                            className="glyphicon-text">Move last</span>
+                        <MenuItem eventKey="moveLast">
+                            <Glyphicon glyph="chevron-down"/>
+                            <span
+                                className="glyphicon-text">Move last
+                            </span>
                         </MenuItem>
                     </Dropdown.Menu>
                 </Dropdown>
@@ -136,8 +150,8 @@ const ArrayGrid = React.createClass({
         });
 
         return <Table bordered condensed>
-             <tbody>
-            {rows}
+            <tbody>
+                {rows}
             </tbody>
         </Table>;
     }
@@ -150,7 +164,10 @@ const ArrayGridContainer = React.createClass({
         componentFactory: React.PropTypes.object.isRequired,
         entityType: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string,
-        _itemDisplayName: React.PropTypes.object
+        _itemDisplayName: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.func
+        ])
     },
 
     getInitialState: () => {
@@ -172,12 +189,12 @@ const ArrayGridContainer = React.createClass({
         if (this.props.onChange) {
             let value = this.props.value;
 
-            if(!this.state.editingItemIndex === null || this.state.editingItemIndex === undefined) {
+            if (!this.state.editingItemIndex === null || this.state.editingItemIndex === undefined) {
                 // I'm not sure if an exception should be thrown here. It should probably be. However, there could
                 // be a situation that could change it. Needs further analysis.
                 return;
             }
-            else if(this.state.editingItemIndex == -1) {
+            else if (this.state.editingItemIndex == -1) {
                 value.push(model);
             }
             else {
@@ -265,14 +282,14 @@ const ArrayGridContainer = React.createClass({
                     {items.length
                         ? <ArrayGrid items={items} onItemAction={this.handleItemAction}/>
                         : <Alert bsStyle="warning">
-                        This array is empty. Consider <a href="#" onClick={this.handleAdd}>adding a new item</a>.
+                        This array is empty. Consider<a href="#" onClick={this.handleAdd}>adding a new item</a>.
                     </Alert>}
 
                 </FormGroup>
                 <div className="">
                     <span className="pull-right">
                         <GlyphButton glyph="plus" text={this.props.addText ? this.props.addText : "Add" }
-                                     onClick={this.handleAdd} />
+                                     onClick={this.handleAdd}/>
                     </span>
                 </div>
                 <MetaFormModal
@@ -284,7 +301,7 @@ const ArrayGridContainer = React.createClass({
                     layoutName={this.props.layoutName}
                     onSave={this.handleSaveItem}
                     onCancel={this.handleModalClose}
-                    />
+                />
             </div>
         );
     }
