@@ -46,23 +46,25 @@ var MetaFormGroup = React.createClass({
                 throw Error('A layout must either have fields or groups');
             }
 
+
             let content = components.map(component => {
+
+                let colClass;
                 if (_this.props.layout.orientation != 'horizontal') {
-                    return <div className='col-md-12'>
-                        { component.component }
-                    </div>;
-                }
-                else {
+                    colClass = 'col-md-12';
+                } else {
                     let colSpan = component.data.colSpan ? component.data.colSpan : Math.floor(12 / component.length);
-                    return <div className={`col-md-${colSpan}`}>
-                        { component.component }
-                    </div>
+                    colClass = `col-md-${colSpan}`;
                 }
+
+                return <div className={colClass} key={component.data.key + '-wrapper'}>
+                    { component.component }
+                </div>;
             });
 
             var header = this.props.layout.title
                 ? <header className="metaform-group-header">
-                        <span className="metaform-group-title">{this.props.layout.title}
+                <span className="metaform-group-title">{this.props.layout.title}
                 </span>
             </header>
                 : null;
