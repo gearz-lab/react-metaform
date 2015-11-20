@@ -35,13 +35,7 @@ if (development) {
                     res.redirect(302, redirectLocation.pathname + redirectLocation.search)
                 } else if (renderProps) {
 
-                    //let routeHtml = renderToString(<RoutingContext {...renderProps} />);
-                    //if(routeHtml.indexOf('<noscript') === 0) {
-                    //    routeHtml = '';
-                    //}
-
                     let wrap = require('../demo/pages/BasePage.txt')
-                        .replace(/\$\{routeHtml\}/g, '')
                         .replace(/\$\{cssBundlePath\}/g, '')
                         .replace(/\$\{jsBundlePath\}/g, 'http://localhost:8082/assets/bundle.js');
                     res.status(200).send(wrap);

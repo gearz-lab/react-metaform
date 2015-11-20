@@ -7,7 +7,7 @@
 </head>
 <body>
     <div>
-        <div id="#app_container">${routeHtml}</div>
+        <div id="#app_container"></div>
     </div>
     <script src='${jsBundlePath}'></script>
 </body>
