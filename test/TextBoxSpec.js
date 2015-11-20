@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react/lib/ReactTestUtils';
 import TextBox from '../src/components/fieldComponents/TextBox';
 import FloatTypeProcessor from '../src/lib/typeProcessors/FloatTypeProcessor';
@@ -25,7 +26,7 @@ describe('TextBox', function () {
         evaluatedMetadata.onChange = e => changedValue = e.value;
 
         var component = ReactTestUtils.renderIntoDocument(<TextBox {...evaluatedMetadata} />);
-        var componentNode = React.findDOMNode(component);
+        var componentNode = ReactDOM.findDOMNode(component);
         var elementsByTagName = componentNode.getElementsByTagName('input');
 
         ReactTestUtils.Simulate.change(elementsByTagName[0], {target: {value: 'John'}} );
