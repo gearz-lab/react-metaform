@@ -21,7 +21,7 @@ const ValidationSummary = React.createClass({
                     <h4>Validation errors:</h4>
                     <ul>
                         {
-                            this.props.messages.map(error => <li>{error}</li>)
+                            this.props.messages.map((error, i) => <li key={`error-${i}`}>{error}</li>)
                         }
                     </ul>
                 </Alert>
