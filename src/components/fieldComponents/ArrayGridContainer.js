@@ -21,7 +21,7 @@ const MetaFormModal = React.createClass({
     propTypes: {
         schema: React.PropTypes.object.isRequired,
         componentFactory: React.PropTypes.object.isRequired,
-        model: React.PropTypes.object.isRequired,
+        model: React.PropTypes.object,
         entityType: React.PropTypes.string.isRequired,
         layoutName: React.PropTypes.string.isRequired,
         onSave: React.PropTypes.func,
