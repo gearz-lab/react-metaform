@@ -52,7 +52,6 @@ var SelectiveMetaFormGroup = React.createClass({
     },
 
     componentDidMount: function () {
-        console.log(this.props.fields);
 
         let fieldsToAdd = [];
         // automatically add invalid fields and fields with value
@@ -65,7 +64,6 @@ var SelectiveMetaFormGroup = React.createClass({
         }
         // automatically add fields with value
         if (fieldsToAdd.length) {
-            console.log(fieldsToAdd);
             let updatedState = update(this.state, {selectedFields: {$push: fieldsToAdd}});
             this.setState(updatedState);
         }
@@ -99,7 +97,7 @@ var SelectiveMetaFormGroup = React.createClass({
                 <div className="selective-metaform-group-content">
                     {
                         this.state.selectedFields.map((f, i) => {
-                            return <div className="selective-metaform-group-item">
+                            return <div className="selective-metaform-group-item" key={`group-item-${i}`}>
                                 <div className="row">
                                     <div className="col-md-1">
                                         <div className="selective-metaform-group-item-actions">
