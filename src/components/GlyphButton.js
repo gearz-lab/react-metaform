@@ -4,7 +4,7 @@ import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 
 let GlyphButton = React.createClass({
     propTypes: {
-        bsStyle: React.PropTypes.string.isRequired,
+        bsStyle: React.PropTypes.string,
         bsSize: React.PropTypes.string,
         text: React.PropTypes.string,
         glyph: React.PropTypes.string.isRequired,
