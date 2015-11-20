@@ -4,6 +4,7 @@ import Alert from 'react-bootstrap/lib/Alert.js';
 import Lookup from '../fieldComponents/Lookup.js';
 import Button from 'react-bootstrap/lib/Button.js';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
+import update from 'react-addons-update';
 
 var SelectiveMetaFormGroup = React.createClass({
     propTypes: {
@@ -20,7 +21,7 @@ var SelectiveMetaFormGroup = React.createClass({
     },
 
     handleAddField: function () {
-        let updatedState = React.addons.update(this.state, {selectedFields: {$push: [{fieldName: undefined}]}});
+        let updatedState = update(this.state, {selectedFields: {$push: [{fieldName: undefined}]}});
         this.setState(updatedState);
     },
 
@@ -65,7 +66,7 @@ var SelectiveMetaFormGroup = React.createClass({
         // automatically add fields with value
         if (fieldsToAdd.length) {
             console.log(fieldsToAdd);
-            let updatedState = React.addons.update(this.state, {selectedFields: {$push: fieldsToAdd}});
+            let updatedState = update(this.state, {selectedFields: {$push: fieldsToAdd}});
             this.setState(updatedState);
         }
     },
