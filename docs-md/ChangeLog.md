@@ -4,6 +4,7 @@
 
 - [Change log](#change-log)
   - [History](#history)
+    - [0.9.9 (Nov 20, 2015)](#099-nov-20-2015)
     - [0.8.2 (Oct 25, 2015)](#082-oct-25-2015)
     - [0.8.1 (Oct 25, 2015)](#081-oct-25-2015)
     - [0.8.0 (Oct 19, 2015) [broken, skip this version]](#080-oct-19-2015-broken-skip-this-version)
@@ -32,6 +33,11 @@
 However, before the 1.0.0 release, I'm *not changing* the major version, even if the change breaks compatibility.
  
 ##History##
+
+###0.9.9 (Nov 20, 2015)
+
+ - Updates React, React-Router and many other packages
+ - Fixes all warnings
 
 ###0.8.2 (Oct 25, 2015)
 
