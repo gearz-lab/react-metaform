@@ -18,13 +18,9 @@ let app = express();
 
 if (development) {
 
-    let publicPath = webpackConfig.output.publicPath;
-
     webpackConfig.output.path = '/';
     webpackConfig.output.publicPath = undefined;
 
-    // see: https://github.com/rackt/react-router/blob/master/docs/guides/advanced/ServerRendering.md
-    // for fixing
     app = app
         .use(function renderApp(req, res) {
 
