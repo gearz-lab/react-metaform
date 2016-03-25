@@ -18,8 +18,6 @@ let app = express();
 
 if (development) {
 
-    let publicPath = webpackConfig.output.publicPath;
-
     webpackConfig.output.path = '/';
     webpackConfig.output.publicPath = undefined;
 
