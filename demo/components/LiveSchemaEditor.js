@@ -109,17 +109,29 @@ const LiveSchemaEditor = React.createClass({
 
     onMainEntityNameChanged: function (event) {
         let updatedState = update(this.state, {entityName: {$set: event.value}});
-        this.setState(updatedState);
+        this.setState(updatedState, () => {
+            if (this.state.autoUpdate) {
+                this.resetMetaform();
+            }
+        });
     },
 
     onMainLayoutNameChanged: function (event) {
         let updatedState = update(this.state, {layoutName: {$set: event.value}});
-        this.setState(updatedState);
+        this.setState(updatedState, () => {
+            if (this.state.autoUpdate) {
+                this.resetMetaform();
+            }
+        });
     },
 
     onFormTitleChanged: function (event) {
         let updatedState = update(this.state, {title: {$set: event.value}});
-        this.setState(updatedState);
+        this.setState(updatedState, () => {
+            if (this.state.autoUpdate) {
+                this.resetMetaform();
+            }
+        });
     },
 
     onUpdateClick: function () {

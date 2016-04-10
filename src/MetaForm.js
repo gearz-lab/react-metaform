@@ -47,7 +47,7 @@ var MetaForm = React.createClass({
         }
         catch (ex) {
             return {
-                error: ex
+                error: ex.message
             }
         }
     },
@@ -68,7 +68,7 @@ var MetaForm = React.createClass({
             newState = this.getInitialState();
         }
         catch(ex) {
-            newState = { error: ex };
+            newState = { error: ex.message };
         }
         this.replaceState(newState, next);
     },
