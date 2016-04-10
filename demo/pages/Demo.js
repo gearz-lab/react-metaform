@@ -1,10 +1,11 @@
 import React from 'react';
+import ContactForm from '../components/ContactForm';
 
 const LiveSchemaEditorPage = React.createClass({
 
     render: function () {
         return <div>
-            Fuck this shit
+            <ContactForm />
         </div>;
     }
 });
