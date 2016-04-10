@@ -1,13 +1,19 @@
 import React from 'react';
-import ReactDom from 'react-dom';
 import { Router } from 'react-router'
 import routes from './Routes';
-
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+import {syncHistoryWithStore} from 'react-router-redux';
+import {browserHistory} from 'react-router'
+import {render} from 'react-dom';
 import Styles from './less/styles.less';
 
-const createBrowserHistory = require('history/lib/createBrowserHistory');
-ReactDom.render ((
-    <Router history={createBrowserHistory()}>
-        {routes}
-    </Router>
-),  document.getElementById('#app_container'));
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
+
+render(
+    <Provider store={store}>
+        <Router history={history} routes={routes}/>
+    </Provider>,
+    document.getElementById('#app_container')
+);    
