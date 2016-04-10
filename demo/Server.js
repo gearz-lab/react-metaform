@@ -8,6 +8,7 @@ import webpackConfig from '../webpack/webpack.config.demo.prod.js';
 import { renderToString } from 'react-dom/server'
 import { match, RoutingContext } from 'react-router'
 import routes from './Routes'
+import colors from 'colors';
 
 require.extensions['.txt'] = function (module, filename) {
     module.exports = fs.readFileSync(filename, 'utf8');
@@ -49,5 +50,5 @@ if (development) {
 
 app
     .listen(4000, function () {
-        console.log('Server started at http://localhost:4000/react-metaform/demo.html');
+        console.log(colors.green(`React-metaform started at http://localhost:4000/react-metaform/demo.html. NODE_ENV: ${process.env.NODE_ENV}`));
     });
