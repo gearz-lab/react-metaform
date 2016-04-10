@@ -1,5 +1,4 @@
 import React from 'react';
-
 import Root from './pages/Root';
 import Demo from './pages/Demo.js';
 
