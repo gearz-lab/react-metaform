@@ -1,11 +1,11 @@
 import React from 'react';
-import ContactForm from '../components/ContactForm';
+import AutoFormDemo from '../components/AutoFormDemo';
 
 const LiveSchemaEditorPage = React.createClass({
 
     render: function () {
         return <div>
-            <ContactForm />
+            <AutoFormDemo />
         </div>;
     }
 });
