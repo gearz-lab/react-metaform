@@ -1,6 +1,6 @@
 import React from 'react';
 import AutoForm from '../../src/AutoForm';
-
+import DefaultComponentFactory from '../../src/DefaultComponentFactory';
 var AutoFormDemo = React.createClass({
     render: function() {
         var schema = {
@@ -20,7 +20,7 @@ var AutoFormDemo = React.createClass({
                 }
             ]
         };
-        return <AutoForm schema={schema} />;
+        return <AutoForm schema={schema} componentFactory={DefaultComponentFactory} entityName="contact" />;
     }
 });
 
