@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm } from 'redux-form'
 export const fields = [ 'firstName', 'lastName', 'email', 'sex', 'favoriteColor', 'employed', 'notes' ];
-import metadataProvider from './lib/metadataProvider';
+
 class AutoForm extends Component {
+
     render() {
         const {
             fields: { firstName, lastName, email, sex, favoriteColor, employed, notes },
@@ -13,12 +14,6 @@ class AutoForm extends Component {
             componentFactory
         } = this.props;
         return (<form onSubmit={handleSubmit}>
-                <div>
-                    <label>First name</label>
-                    <div>
-                        <input type="text" placeholder="First Name" {...firstName}/>
-                    </div>
-                </div>
                 <div>
                     <label>Last Name</label>
                     <div>
@@ -90,7 +85,8 @@ AutoForm.propTypes = {
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
-    submitting: PropTypes.bool.isRequired
+    submitting: PropTypes.bool.isRequired,
+    componentFactory: PropTypes.object.isRequired
 };
 
 export default reduxForm({
