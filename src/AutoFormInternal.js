@@ -18,7 +18,8 @@ class AutoFormInternal extends Component {
 
         let fieldMetadataEvaluated = metadataEvaluator.evaluate(fieldMetadata, model);
         let fieldMetadataFinal = fieldMetadataEvaluated.map(f => Object.assign({}, f, fields[f.name]));
-
+        
+        
 
         let groupComponent = componentFactory.buildGroupComponent({
             component: layout.component,
@@ -26,6 +27,13 @@ class AutoFormInternal extends Component {
             fields: fieldMetadataFinal,
             componentFactory: componentFactory
         });
+        
+        console.log(fields);
+        console.log(fieldMetadataEvaluated);
+        
+        if(window) {
+            window.fields = fieldMetadataFinal;
+        }
 
         return (
             <div className="meta-form">
