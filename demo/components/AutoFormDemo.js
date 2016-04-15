@@ -22,6 +22,7 @@ var AutoFormDemo = React.createClass({
                             name: 'edit',
                             groups: [
                                 {
+                                    orientation: 'vertical',
                                     fields: [
                                         {
                                             name: 'name'
