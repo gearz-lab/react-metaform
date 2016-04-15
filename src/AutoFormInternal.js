@@ -13,7 +13,7 @@ class AutoFormInternal extends Component {
             layout,
             handleSubmit
         } = this.props;
-
+        
         let model = this.props.values;
 
         let fieldMetadataEvaluated = metadataEvaluator.evaluate(fieldMetadata, model);

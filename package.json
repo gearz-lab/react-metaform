@@ -9,7 +9,7 @@
     "build-lib": "babel-node ./tools/build-lib.js",
     "start": "cross-env NODE_ENV=production babel-node ./demo/Server.js",
     "start-dev": "cross-env NODE_ENV=development babel-node ./demo/Server.js",
-    "wpds": "webpack-dev-server --config ./webpack.config.demo.dev.js",
+    "wpds": "webpack-dev-server --hot --config ./webpack.config.demo.dev.js",
     "wpds-redux": "webpack-dev-server --config ./webpack.config.demo.redux.dev.js",
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
     "test-chrome": "./node_modules/.bin/karma start --single-run --browsers Chrome"
@@ -97,7 +97,7 @@
     "sinon": "^1.15.3",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.12.3",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.0"
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }

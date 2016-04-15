@@ -50,7 +50,7 @@ export default {
     devServer: {
         contentBase: "./demo-built",
         hot: true,
-        noInfo: true,
+        noInfo: false,
         headers: { 'Access-Control-Allow-Origin': '*' },
         port: 8082
     }
