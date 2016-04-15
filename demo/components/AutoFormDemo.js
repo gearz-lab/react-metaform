@@ -16,11 +16,24 @@ var AutoFormDemo = React.createClass({
                             name: 'email',
                             type: 'string'
                         }
+                    ],
+                    layouts: [
+                        {
+                            name: 'edit',
+                            fields: [
+                                {
+                                    name: 'name'
+                                },
+                                {
+                                    name: 'email'
+                                }
+                            ]
+                        }
                     ]
                 }
             ]
         };
-        return <AutoForm schema={schema} componentFactory={DefaultComponentFactory} entityName="contact" />;
+        return <AutoForm schema={schema} componentFactory={DefaultComponentFactory} entityName="contact" layoutName="edit" />;
     }
 });
 

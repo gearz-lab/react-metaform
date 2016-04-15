@@ -4,7 +4,7 @@ import { Input } from 'react-bootstrap';
 const TextBox = React.createClass({
 
     propTypes: {
-        value: React.PropTypes.object,
+        value: React.PropTypes.any,
         onChange: React.PropTypes.func.isRequired
     },
 
