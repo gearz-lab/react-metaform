@@ -43,9 +43,9 @@ describe('MetadataProvider', function () {
             };
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
             assert.isFunction(fields[0].displayName);
-            assert.equal(fields[0].displayName({name: 'Andre'}), 'Andre');
+            assert.equal(fields[0].displayName({ name: 'Andre' }), 'Andre');
             assert.isFunction(fields[0].addonBefore);
-            assert.equal(fields[0].addonBefore({name: 'Andre'}), 'Andre');
+            assert.equal(fields[0].addonBefore({ name: 'Andre' }), 'Andre');
         });
 
         it('Should merge fields', function () {
@@ -271,5 +271,56 @@ describe('MetadataProvider', function () {
         assert.strictEqual(defaultLayout.fields.length, 2);
         assert.strictEqual(defaultLayout.fields[0].name, 'name');
         assert.strictEqual(defaultLayout.fields[1].name, 'date');
+    });
+
+    describe('getReduxFormFields', function () {
+        it('default behavior', function () {
+            
+            let schema = {
+                entities: [
+                    {
+                        name: 'contact',
+                        fields: [
+                            {
+                                name: 'name',
+                                type: 'string'
+                            },
+                            {
+                                name: 'phones',
+                                type: 'array',
+                                arrayType: 'entity',
+                                entityType: 'phone',
+                                layoutName: 'edit'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'phone',
+                        fields: [
+                            {
+                                name: 'number',
+                                type: 'string'
+                            }
+                        ],
+                        layouts: [
+                            {
+                                name: 'edit',
+                                fields: [
+                                    {
+                                        name: 'number'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+            
+            let fields = metadataProvider.getFields(schema, 'contact');
+            let reduxFields = metadataProvider.getReduxFormFields(fields);
+            assert.strictEqual(reduxFields[0], 'name');
+            assert.strictEqual(reduxFields[1], 'phones[].number');
+            
+        })
     });
 });

@@ -205,7 +205,7 @@ class MetadataProvider {
      */
     getFields(schema, entity, layout, callback) {
         entity = typeof entity === 'string' ? this.getEntity(schema, entity) : entity;
-        if(!layout) {
+        if (!layout) {
             layout = this.generateDefaultLayout(schema, entity);
         }
         else {
@@ -225,7 +225,7 @@ class MetadataProvider {
         if (layoutGroup.fields) {
             layoutGroupClone.fields = [];
             for (let i = 0; i < layoutGroup.fields.length; i++) {
-                layoutGroupClone.fields.push({name: layoutGroup.fields[i].name});
+                layoutGroupClone.fields.push({ name: layoutGroup.fields[i].name });
             }
         }
         else if (layoutGroup.groups) {
@@ -265,6 +265,27 @@ class MetadataProvider {
                 };
             })
         };
+    }
+
+    /**
+     * Gets the field-list for Redux-Form
+     * @param fieldMetadata
+     */
+    getReduxFormFields(fieldMetadata, prefix) {
+        if (!fieldMetadata) throw Error('fieldMetadata should be truthy');
+        let result = [];
+        fieldMetadata.map(f => {
+            if (f.fields){
+                // if a field has fields, it's either an array or a complex object
+                let fieldPrefix = f.type == 'array' ? `${f.name}[]` : f.name;
+                let totalPrefix = prefix ? `${prefix}.${fieldPrefix}` : fieldPrefix;
+                this.getReduxFormFields(f.fields, totalPrefix).map(f2 => result.push(f2));
+            }
+            else {
+                result.push(prefix ? `${prefix}.${f.name}` : f.name)
+            }
+        });
+        return result;
     }
 }
 
