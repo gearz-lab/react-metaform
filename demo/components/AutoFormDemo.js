@@ -20,12 +20,16 @@ var AutoFormDemo = React.createClass({
                     layouts: [
                         {
                             name: 'edit',
-                            fields: [
+                            groups: [
                                 {
-                                    name: 'name'
-                                },
-                                {
-                                    name: 'email'
+                                    fields: [
+                                        {
+                                            name: 'name'
+                                        },
+                                        {
+                                            name: 'email'
+                                        }
+                                    ]
                                 }
                             ]
                         }

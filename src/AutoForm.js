@@ -7,10 +7,11 @@ class AutoForm extends Component {
 
     render() {
 
-        let fieldMetadata = metadataProvider.getFields(this.props.schema, this.props.entityName, this.props.layoutName);
+        let {entity, layout} = metadataProvider.getEntityAndLayout(this.props.schema, this.props.entityName, this.props.layoutName);
+        let fieldMetadata = metadataProvider.getFields(this.props.schema, entity, layout);
         let fields = reduxFormHelper.getFields(fieldMetadata);
 
-        return <AutoFormInternal fields={fields} fieldMetadata={fieldMetadata} componentFactory={this.props.componentFactory} />
+        return <AutoFormInternal fields={fields} fieldMetadata={fieldMetadata} entity={entity} layout={layout} componentFactory={this.props.componentFactory} />
     }
 }
 

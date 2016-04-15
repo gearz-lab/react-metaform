@@ -1,26 +1,34 @@
-import React, { Component, PropTypes } from 'react'
-import { reduxForm } from 'redux-form';
-
-
+import React, {Component, PropTypes} from 'react'
+import {reduxForm} from 'redux-form';
+import metadataEvaluator from './lib/MetadataEvaluator';
 
 class AutoFormInternal extends Component {
 
     render() {
-        const {
-            fields: { firstName, lastName, email, sex, favoriteColor, employed, notes },
-            handleSubmit,
-            resetForm,
-            submitting,
-            metadata,
-            componentFactory
-        } = this.props;
+
+        let { componentFactory,
+            fields,
+            fieldMetadata,
+            layout,
+            handleSubmit} = this.props;
+
+        let model = this.props.values;
+
+        let fieldMetadataEvaluated = metadataEvaluator.evaluate(fieldMetadata, model);
+        let fieldMetadataFinal = fieldMetadataEvaluated.map(f => Object.assign({}, f, fields[f.name]));
+
+
+        let groupComponent = this.props.componentFactory.buildGroupComponent({
+            component: layout.component,
+            layout: layout,
+            fields: fieldMetadataFinal,
+            componentFactory: componentFactory
+        });
 
         return (<form onSubmit={handleSubmit}>
                 {
-                    this.props.fieldMetadata.map((f, i) => {
-                        
-                        let fieldProps = Object.assign(f, this.props.fields[f.name]);
-                        return this.props.componentFactory.buildFieldComponent(fieldProps)
+                    fieldMetadataFinal.map((f, i) => {
+                        return componentFactory.buildFieldComponent(f)
                     })
                 }
             </form>
@@ -33,7 +41,9 @@ AutoFormInternal.propTypes = {
     handleSubmit: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
-    componentFactory: PropTypes.object.isRequired
+    componentFactory: PropTypes.object.isRequired,
+    entity: PropTypes.object.isRequired,
+    layout: PropTypes.object
 };
 
 export default reduxForm({
