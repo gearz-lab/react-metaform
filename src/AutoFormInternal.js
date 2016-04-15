@@ -6,11 +6,13 @@ class AutoFormInternal extends Component {
 
     render() {
 
-        let { componentFactory,
+        let {
+            componentFactory,
             fields,
             fieldMetadata,
             layout,
-            handleSubmit} = this.props;
+            handleSubmit
+        } = this.props;
 
         let model = this.props.values;
 
@@ -18,20 +20,19 @@ class AutoFormInternal extends Component {
         let fieldMetadataFinal = fieldMetadataEvaluated.map(f => Object.assign({}, f, fields[f.name]));
 
 
-        let groupComponent = this.props.componentFactory.buildGroupComponent({
+        let groupComponent = componentFactory.buildGroupComponent({
             component: layout.component,
             layout: layout,
             fields: fieldMetadataFinal,
             componentFactory: componentFactory
         });
 
-        return (<form onSubmit={handleSubmit}>
-                {
-                    fieldMetadataFinal.map((f, i) => {
-                        return componentFactory.buildFieldComponent(f)
-                    })
-                }
-            </form>
+        return (
+            <div className="meta-form">
+                <form onSubmit={handleSubmit}>
+                    { groupComponent }
+                </form>
+            </div>
         )
     }
 }

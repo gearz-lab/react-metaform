@@ -1,7 +1,6 @@
 import React from 'react';
 import _ from 'underscore';
 import Alert from 'react-bootstrap/lib/Alert.js';
-import Glyphicon from 'react-bootstrap/lib/Glyphicon.js';
 
 var Group = React.createClass({
     propTypes: {
@@ -12,32 +11,34 @@ var Group = React.createClass({
     },
 
     render: function () {
-        let _this = this;
+
+        let { layout, fields, componentFactory } = this.props;
+
         // the passed in layout can contain either fields or groups.
         // in case it contains 'fields', we're gonna render each of the fields.
         // in case it contains 'groups', we're gonna render render each group, passing the fields as a parameter
         try {
             let components;
-            if (this.props.layout.fields) {
-                components = this.props.layout.fields.map(field => {
-                    let layoutFieldInProps = _.find(_this.props.fields, cp => cp.name === field.name);
+            if (layout.fields) {
+                components = layout.fields.map(field => {
+                    let fieldMetadata = _.find(fields, cp => cp.name === field.name);
                     return {
-                        data: layoutFieldInProps,
-                        length: this.props.layout.fields.length,
-                        component: this.props.componentFactory.buildFieldComponent(layoutFieldInProps)
+                        data: fieldMetadata,
+                        length: layout.fields.length,
+                        component: componentFactory.buildFieldComponent(fieldMetadata)
                     }
                 });
             }
-            else if (this.props.layout.groups) {
+            else if (layout.groups) {
                 components = this.props.layout.groups.map(group => {
                     return {
                         data: group,
-                        length: this.props.layout.groups.length,
-                        component: this.props.componentFactory.buildGroupComponent({
+                        length: layout.groups.length,
+                        component: componentFactory.buildGroupComponent({
                             component: group.component,
                             layout: group,
-                            fields: _this.props.fields,
-                            componentFactory: this.props.componentFactory
+                            fields: fields,
+                            componentFactory: componentFactory
                         })
                     }
                 });
@@ -50,7 +51,7 @@ var Group = React.createClass({
             let content = components.map(component => {
 
                 let colClass;
-                if (_this.props.layout.orientation != 'horizontal') {
+                if (layout.orientation != 'horizontal') {
                     colClass = 'col-md-12';
                 } else {
                     let colSpan = component.data.colSpan ? component.data.colSpan : Math.floor(12 / component.length);
@@ -62,9 +63,9 @@ var Group = React.createClass({
                 </div>;
             });
 
-            var header = this.props.layout.title
+            var header = layout.title
                 ? <header className="metaform-group-header">
-                <span className="metaform-group-title">{this.props.layout.title}
+                <span className="metaform-group-title">{layout.title}
                 </span>
             </header>
                 : null;
