@@ -42,36 +42,23 @@ class MetadataEvaluatorRedux {
      * @param onChange
      * @returns {{}}
      */
-    evaluate(propertyMetadata, model, keyPrefix, metadataIndex, reduxProps, onChange) {
+    evaluate(propertyMetadata, model, keyPrefix, reduxProps, onChange) {
 
         if(!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy')
 
         if (propertyMetadata.constructor === Array) {
-            return propertyMetadata.map(i => this.evaluate(i, model, keyPrefix, metadataIndex, reduxProps, onChange));
-        }
-        if (!metadataIndex) {
-            metadataIndex = {};
+            return propertyMetadata.map(i => this.evaluate(i, model, keyPrefix, reduxProps, onChange));
         }
 
         let resultingPropertyMetadata = {};
-        // filters every field in the property metadata
-        for (var fieldName in propertyMetadata) {
-            if (propertyMetadata.hasOwnProperty(fieldName)) {
-                resultingPropertyMetadata[fieldName] = this.filterPropertyField(fieldName, propertyMetadata[fieldName], model);
-            }
-        }
-
-        // experimenting setting the value property of each metadata
+        
+        _.keys(propertyMetadata).map((fieldName) => {
+            resultingPropertyMetadata[fieldName] = this.filterPropertyField(fieldName, propertyMetadata[fieldName], model);
+        });
+        
         let newPrefix = keyPrefix ? `${keyPrefix}.${propertyMetadata.name}` : propertyMetadata.name;
-        // // key is a special prop in React, so it knows 'what' component this is
-        // resultingPropertyMetadata.key = newPrefix;
-        // // because key is inaccessible from a React component, we need to replicate it into an 'id' prop
-        // resultingPropertyMetadata.id = resultingPropertyMetadata.key;
 
-        // populates de index
-        metadataIndex[resultingPropertyMetadata.key] = resultingPropertyMetadata;
-
-        return this.filterProperty(resultingPropertyMetadata, model, newPrefix, metadataIndex, reduxProps, onChange);
+        return this.filterProperty(resultingPropertyMetadata, model, newPrefix, reduxProps, onChange);
     }
 
     /**

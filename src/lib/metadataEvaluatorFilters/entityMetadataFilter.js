@@ -1,7 +1,7 @@
 import _ from 'underscore';
 
 class EntityMetadataFilter {
-    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, metadataIndex, reduxProps, onChange) {
+    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, reduxProps, onChange) {
         if(!propertyMetadata) {
             throw new Error('metadata is required');
         }
@@ -23,7 +23,7 @@ class EntityMetadataFilter {
                 }
             }
             let itemReduxProps = reduxProps ? reduxProps[propertyMetadata.name] : undefined;
-            propertyMetadata.fields = metadataEvaluator.evaluate(propertyMetadata.fields, model[propertyMetadata.name], keyPrefix, metadataIndex, itemReduxProps, onChange);
+            propertyMetadata.fields = metadataEvaluator.evaluate(propertyMetadata.fields, model[propertyMetadata.name], keyPrefix, itemReduxProps, onChange);
         }
         return propertyMetadata;
     }

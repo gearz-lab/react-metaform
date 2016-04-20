@@ -30,7 +30,7 @@ const ArrayContainerItem = React.createClass({
                     </div>
                 </div>
                 <div className="col-md-1">
-                    <Dropdown pullRight onSelect={this.handleAction}>
+                    <Dropdown pullRight onSelect={this.handleAction} id={`dd-${this.props.index}`}>
                         <Dropdown.Toggle noCaret bsSize="small">
                             <Glyphicon glyph="cog"/>
                         </Dropdown.Toggle>
@@ -91,8 +91,6 @@ const ArrayContainer = React.createClass({
 
     render: function () {
 
-        console.log(this.props.componentFactory);
-
         var header = this.props.displayName ?
             <header className="metaform-group-header no-lateral-margin">
                 <span>{this.props.displayName}</span>
@@ -100,7 +98,7 @@ const ArrayContainer = React.createClass({
             : null;
 
         let components = this.props.fields.map((fields, index) => {
-            return <ArrayContainerItem index={index} onAction={this.handleItemAction}>
+            return <ArrayContainerItem index={index} onAction={this.handleItemAction} key={index}>
                 {
                     this.props.componentFactory.buildGroupComponent({
                         component: this.props.layout.component,

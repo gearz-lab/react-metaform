@@ -1,7 +1,7 @@
 import _ from 'underscore';
 
 class EntityMetadataFilter {
-    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, metadataIndex, reduxProps, onChange) {
+    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, reduxProps, onChange) {
         
         if(!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy');
         if(!model) throw Error('Argument \'model\' should be truthy');
@@ -28,7 +28,7 @@ class EntityMetadataFilter {
                 return reduxProps[propertyMetadata.name][index];
             };
             
-            propertyMetadata.fields = model[propertyMetadata.name].map((item, index) =>  metadataEvaluator.evaluate(propertyMetadata.fields, item, `${keyPrefix}.${index}`, metadataIndex, getReduxPropsForItem(index), onChange));
+            propertyMetadata.fields = model[propertyMetadata.name].map((item, index) =>  metadataEvaluator.evaluate(propertyMetadata.fields, item, `${keyPrefix}.${index}`, getReduxPropsForItem(index), onChange));
         }
         return propertyMetadata;
     }

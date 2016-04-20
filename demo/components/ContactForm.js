@@ -10,7 +10,6 @@ class SimpleForm extends Component {
             resetForm,
             submitting
         } = this.props;
-        console.log(this.props.values);
         return (<form onSubmit={handleSubmit}>
                 <div>
                     <label>First Name</label>
