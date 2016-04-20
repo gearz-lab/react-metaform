@@ -110,10 +110,8 @@ class ComponentFactory {
      * @returns {*}
      */
     buildFieldComponent(props) {
-        if(!props) {
-            throw Error('The props parameter is required');
-        }
-
+        if(!props) throw Error('Argument \'props\' should be truthy');
+        
         this._validateMetadata(props);
         let componentType;
         if(props.component) {
@@ -130,7 +128,8 @@ class ComponentFactory {
         if(!componentType)
             throw new Error(`Could not resolve the component for the type. Type: ${props.type}`);
 
-        return React.createElement(componentType, props);
+        // if there's a 'reduxFormProps' metadata, it should be merged with the 
+        return React.createElement(componentType, Object.assign({}, props, props.reduxFormProps));
     }
 
     /**

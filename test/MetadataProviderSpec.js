@@ -2,6 +2,7 @@ import chai from 'chai';
 import metadataProvider from '../src/lib/metadataProvider.js';
 import console from '../src/lib/helpers/consoleHelpers.js';
 import functionHelper from '../src/lib/helpers/functionHelper.js';
+import log from './utils/log.js'
 const assert = chai.assert;
 
 describe('MetadataProvider', function () {
@@ -99,6 +100,7 @@ describe('MetadataProvider', function () {
             let schema = require('./assets/metadataProviderTestData/completeWithNestedEntity');
 
             let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit');
+            
 
             assert.strictEqual(fields.length, 3);
 
@@ -123,6 +125,114 @@ describe('MetadataProvider', function () {
             assert.strictEqual(fields[2].fields[1].entityName, 'carrier');
             assert.strictEqual(fields[2].fields[1].layoutName, 'carrier-edit');
             assert.strictEqual(fields[2].fields[1].fields.length, 1);
+        });
+        
+        it('Should work with nested props 2', function () {
+            
+            let schema = {
+                entities: [
+                    {
+                        name: 'contact',
+                        fields: [
+                            {
+                                name: 'name',
+                                type: 'string',
+                                displayName: 'Name'
+                            },
+                            {
+                                name: 'date',
+                                type: 'date',
+                                displayName: 'Date'
+                            },
+                            {
+                                name: 'phone',
+                                type: 'entity',
+                                entityName: 'phone',
+                                displayName: 'Phone'
+                            }
+                        ],
+                        layouts: [
+                            {
+                                name: 'contact-edit',
+                                groups: [
+                                    {
+                                        fields: [
+                                            {
+                                                name: 'name'
+                                            },
+                                            {
+                                                name: 'date'
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        fields: [
+                                            {
+                                                name: 'phone',
+                                                layoutName: 'phone-edit'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'phone',
+                        fields: [
+                            {
+                                name: 'number',
+                                type: 'string'
+                            },
+                            {
+                                name: 'carrier',
+                                type: 'entity',
+                                entityName: 'carrier'
+                            }
+                        ],
+                        layouts: [
+                            {
+                                name: 'phone-edit',
+                                groups: [
+                                    {
+                                        fields: [
+                                            {
+                                                name: 'number'
+                                            },
+                                            {
+                                                name: 'carrier',
+                                                layoutName: 'carrier-edit'
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'carrier',
+                        fields: [
+                            {
+                                name: 'longDistanceCode',
+                                type: 'int'
+                            }
+                        ],
+                        layouts: [
+                            {
+                                name: 'carrier-edit',
+                                fields: [
+                                    {
+                                        name: 'longDistanceCode'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            };
+            
+            let { layout } = metadataProvider.getEntityAndLayout(schema, 'contact', 'contact-edit');
+            let fields = metadataProvider.getFields(schema, 'contact', 'contact-edit'); 
         });
 
         it('Should merge fields with nested layouts', function () {

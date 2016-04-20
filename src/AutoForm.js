@@ -5,12 +5,15 @@ import metadataProvider from './lib/metadataProvider';
 class AutoForm extends Component {
 
     render() {
-
+        
         let {entity, layout} = metadataProvider.getEntityAndLayout(this.props.schema, this.props.entityName, this.props.layoutName);
-        let fieldMetadata = metadataProvider.getFields(this.props.schema, entity, layout);
+        let componentFactory = this.props.componentFactory;
+        let fieldMetadata = metadataProvider.getFields(this.props.schema, entity, layout, f => {
+            f.componentFactory = componentFactory;
+        });
         let fields = metadataProvider.getReduxFormFields(fieldMetadata);
 
-        return <AutoFormInternal fields={fields} fieldMetadata={fieldMetadata} entity={entity} layout={layout} componentFactory={this.props.componentFactory} />
+        return <AutoFormInternal fields={fields} fieldMetadata={fieldMetadata} entity={entity} layout={layout} componentFactory={componentFactory} />
     }
 }
 

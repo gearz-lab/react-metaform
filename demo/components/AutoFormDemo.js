@@ -14,7 +14,8 @@ var AutoFormDemo = React.createClass({
                         },
                         {
                             name: 'email',
-                            type: 'string'
+                            type: 'string',
+                            fuck: function(m) { return m.name }
                         },
                         {
                             name: 'phones',

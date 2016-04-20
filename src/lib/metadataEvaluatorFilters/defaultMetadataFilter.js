@@ -1,19 +1,22 @@
 import expressionEvaluator from '../ExpressionEvaluator.js';
 import dataEvaluator from '../DataEvaluator.js';
+import _ from 'underscore';
 
 class DefaultMetadataFilter {
-    filter(metadata, model, keyPrefix, metadataEvaluator) {
-        if(!metadata) {
-            throw new Error('metadata is required');
+    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, metadataIndex, reduxProps, onChange) {
+        
+        if(!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy');
+        if(!model) throw Error('Argument \'model\' should be truthy');
+               
+        propertyMetadata.key = keyPrefix;
+        //propertyMetadata.id = keyPrefix;
+        
+        // set redux properties
+        if(_.has(reduxProps, propertyMetadata.name)) {
+            propertyMetadata.reduxFormProps = reduxProps[propertyMetadata.name];
         }
-        if(!model) {
-            throw new Error('model is required');
-        }
-        let value = dataEvaluator.evaluate(metadata, model);
-        if(metadata.required && (value === null || value === undefined || value === '')) {
-            metadata.invalid = {value: true, message: `The field '${metadata.name}' is required`};
-        }
-        return metadata;
+        
+        return propertyMetadata;
     }
 }
 export default new DefaultMetadataFilter();

@@ -1,30 +1,31 @@
 import _ from 'underscore';
 
 class EntityMetadataFilter {
-    filter(metadata, model, keyPrefix, metadataEvaluator, metadataIndex, onChange) {
-        if(!metadata) {
+    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, metadataIndex, reduxProps, onChange) {
+        if(!propertyMetadata) {
             throw new Error('metadata is required');
         }
         if(!model) {
             throw new Error('model is required');
         }
-        if(metadata.type == 'entity') {
-            if(! metadata.fields) {
+        if(propertyMetadata.type == 'entity') {
+            if(! propertyMetadata.fields) {
                 throw Error('when metadata is of type entity, it must have a fields property');
             }
 
-            if(!_.has(model, metadata.name) || model[metadata.name] === null || model[metadata.name] === undefined) {
+            if(!_.has(model, propertyMetadata.name) || model[propertyMetadata.name] === null || model[propertyMetadata.name] === undefined) {
                 // if the property does not exist, create it
-                model[metadata.name] = {};
+                model[propertyMetadata.name] = {};
             } else {
                 // if the property exists, it must be an object
-                if (typeof model[metadata.name] !== 'object') {
+                if (typeof model[propertyMetadata.name] !== 'object') {
                     throw Error('when metadata is of type entity, the model value should be an object');
                 }
             }
-            metadata.fields = metadataEvaluator.evaluate(metadata.fields, model[metadata.name], keyPrefix, metadataIndex, onChange);
+            let itemReduxProps = reduxProps ? reduxProps[propertyMetadata.name] : undefined;
+            propertyMetadata.fields = metadataEvaluator.evaluate(propertyMetadata.fields, model[propertyMetadata.name], keyPrefix, metadataIndex, itemReduxProps, onChange);
         }
-        return metadata;
+        return propertyMetadata;
     }
 }
 

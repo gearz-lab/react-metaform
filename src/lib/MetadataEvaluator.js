@@ -12,7 +12,7 @@ import defaultPropertyMetadataFilter from './metadataEvaluatorPropertyFilters/de
 import conditionMessagePropertyFilter from './metadataEvaluatorPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
 
-class MetadataEvaluator {
+class MetadataEvaluatorRedux {
 
     constructor() {
         // this array contains objects like: { property: 'invalid', filter: filter }
@@ -35,47 +35,50 @@ class MetadataEvaluator {
 
     /**
      * Evaluates the given metadata against the model
-     * @param metadata - Can be either an object or an array of objects
+     * @param propertyMetadata - Can be either an object or an array of objects
      * @param model
+     * @param keyPrefix
+     * @param metadataIndex
+     * @param onChange
      * @returns {{}}
      */
-    evaluate(metadata, model, keyPrefix, metadataIndex, onChange) {
+    evaluate(propertyMetadata, model, keyPrefix, metadataIndex, reduxProps, onChange) {
 
-        if (!metadata) {
-            throw Error('metadata parameter is required');
-        }
-        if (metadata.constructor === Array) {
-            return metadata.map(i => this.evaluate(i, model, keyPrefix, metadataIndex, onChange));
+        if(!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy')
+
+        if (propertyMetadata.constructor === Array) {
+            return propertyMetadata.map(i => this.evaluate(i, model, keyPrefix, metadataIndex, reduxProps, onChange));
         }
         if (!metadataIndex) {
             metadataIndex = {};
         }
 
-        let result = {};
-        for (var propertyName in metadata) {
-            if (metadata.hasOwnProperty(propertyName)) {
-                result[propertyName] = this.filterProperty(propertyName, metadata[propertyName], model);
+        let resultingPropertyMetadata = {};
+        // filters every field in the property metadata
+        for (var fieldName in propertyMetadata) {
+            if (propertyMetadata.hasOwnProperty(fieldName)) {
+                resultingPropertyMetadata[fieldName] = this.filterPropertyField(fieldName, propertyMetadata[fieldName], model);
             }
         }
 
         // experimenting setting the value property of each metadata
-        let newPrefix = keyPrefix ? `${keyPrefix}.${metadata.name}` : metadata.name;
-        // key is a special prop in React, so it knows 'what' component this is
-        result.key = newPrefix;
-        // because key is inaccessible from a React component, we need to replicate it into an 'id' prop
-        result.id = result.key;
+        let newPrefix = keyPrefix ? `${keyPrefix}.${propertyMetadata.name}` : propertyMetadata.name;
+        // // key is a special prop in React, so it knows 'what' component this is
+        // resultingPropertyMetadata.key = newPrefix;
+        // // because key is inaccessible from a React component, we need to replicate it into an 'id' prop
+        // resultingPropertyMetadata.id = resultingPropertyMetadata.key;
 
         // populates de index
-        metadataIndex[result.key] = result;
+        metadataIndex[resultingPropertyMetadata.key] = resultingPropertyMetadata;
 
-        return this.filter(result, model, newPrefix, metadataIndex, onChange);
+        return this.filterProperty(resultingPropertyMetadata, model, newPrefix, metadataIndex, reduxProps, onChange);
     }
 
     /**
      * Adds the given filter
-     * @param filter
+     * @param 
      */
-    addFilter(filter) {
+    addPropertyFilter(filter) {
         if (!filter) {
             throw new Error('filter is required');
         }
@@ -87,7 +90,7 @@ class MetadataEvaluator {
      * @param metadataProperty
      * @param filter
      */
-    addPropertyFilter(filter, metadataProperty) {
+    addPropertyFieldFilter(filter, metadataProperty) {
         if (!filter) {
             throw new Error('filter is required');
         }
@@ -100,7 +103,7 @@ class MetadataEvaluator {
      * @param propertyValue
      * @param model
      */
-    filterProperty(propertyName, propertyValue, model) {
+    filterPropertyField(propertyName, propertyValue, model) {
         let processedPropertyValue = propertyValue;
         for (let i = 0; i < this.metadataPropertyFilters.length; i++) {
             if (!this.metadataPropertyFilters[i].property || this.metadataPropertyFilters[i].property === propertyName) {
@@ -116,64 +119,12 @@ class MetadataEvaluator {
      * @param model
      * @returns {*}
      */
-    filter(metadata, model, keyPrefix, metadataIndex, onChange) {
+    filterProperty(metadata, model, keyPrefix, metadataIndex, reduxProps, onChange) {
         let processedMetadata = metadata;
         for (let i = 0; i < this.metadataFilters.length; i++) {
-            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this, metadataIndex, onChange);
+            processedMetadata = this.metadataFilters[i].filter(processedMetadata, model, keyPrefix, this, metadataIndex, reduxProps, onChange);
         }
         return processedMetadata;
-    }
-
-    /**
-     * Evaluates the field metadata against the model
-     * @param metadata
-     * @param model
-     */
-    evaluateProperty(metadata, model) {
-
-        let evaluateMetadataObject = (metadata, model) => {
-
-            if (metadata.expression && metadata.expressionText) {
-                throw new Error('Metadata cannot define both expression and expressionText')
-            }
-
-            if (metadata.expression) {
-                if (!(typeof(metadata.expression) === 'function')) {
-                    throw new Error(`Error evaluating expression. Expression should be a function. Expression is of type: ${typeof metadata.expression}`);
-                }
-            }
-
-            if (metadata.expressionText) {
-                if (!(typeof(metadata.expressionText) === 'string')) {
-                    throw new Error(`Error evaluating ExpressionText. ExpressionText should be a string representing a function. ExpressionText is of type: ${typeof metadata.expressionText}`);
-                }
-            }
-
-            let expression = metadata.expression ? metadata.expression : metadata.expressionText;
-            let evaluation = {value: this._evaluateExpression(expression, model)};
-            _.extend(evaluation, metadata);
-
-            delete evaluation.expression;
-            delete evaluation.expressionText;
-
-            return evaluation;
-        };
-
-        if (metadata instanceof Array) {
-            let result = [];
-            metadata.forEach(item => {
-                result.push(evaluateMetadataObject(item, model));
-            });
-            return result;
-        }
-        else if (metadata instanceof Object) {
-            let result = [];
-            result.push(evaluateMetadataObject(metadata, model));
-            return result;
-        }
-        else {
-            return [{value: metadata}];
-        }
     }
 
     /**
@@ -188,18 +139,14 @@ class MetadataEvaluator {
 
 }
 
-let metadataEvaluator = new MetadataEvaluator();
+let metadataEvaluator = new MetadataEvaluatorRedux();
 
 // register metadata filters
-metadataEvaluator.addFilter(defaultMetadataFilter);
-metadataEvaluator.addFilter(entityMetadataFilter);
-metadataEvaluator.addFilter(arrayMetadataFilter);
-metadataEvaluator.addFilter(valueSetterMetadataFilter);
-metadataEvaluator.addFilter(onChangeSetterMetadataFilter);
+metadataEvaluator.addPropertyFilter(defaultMetadataFilter); // sets redux props, key and id
+metadataEvaluator.addPropertyFilter(entityMetadataFilter); // processes entities
+metadataEvaluator.addPropertyFilter(arrayMetadataFilter); // processes arrays
 
-// register property filters
-metadataEvaluator.addPropertyFilter(defaultPropertyMetadataFilter);
-metadataEvaluator.addPropertyFilter(conditionMessagePropertyFilter, 'invalid');
-
+// register property field filters
+metadataEvaluator.addPropertyFieldFilter(defaultPropertyMetadataFilter); // evaluates functions to literals
 
 export default metadataEvaluator;

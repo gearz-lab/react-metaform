@@ -15,7 +15,7 @@ export default {
 
     externals: undefined,
 
-    //devtool: 'source-map',
+    devtool: 'source-map',
 
     resolve: {
         extensions: ['', '.js', '.json']

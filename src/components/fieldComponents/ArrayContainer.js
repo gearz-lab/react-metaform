@@ -20,6 +20,8 @@ const ArrayContainerItem = React.createClass({
     },
 
     render: function () {
+
+        
         return <div className="array-container-item">
             <div className="row">
                 <div className="col-md-11">
@@ -60,13 +62,7 @@ const ArrayContainer = React.createClass({
     },
 
     handleAdd: function () {
-        if (this.props.onChange) {
-            let value = this.props.value;
-            value.push({});
-            this.props.onChange({id: this.props.id, value: value});
-        }
-        // This "return false" is so a "#" doesn't get added to the URL when this method is triggered from a "a" element.
-        return false;
+        this.props.reduxFormProps.addField();
     },
 
     handleItemAction: function (index, eventKey) {
@@ -94,6 +90,8 @@ const ArrayContainer = React.createClass({
     },
 
     render: function () {
+
+        console.log(this.props.componentFactory);
 
         var header = this.props.displayName ?
             <header className="metaform-group-header no-lateral-margin">

@@ -1,8 +1,9 @@
 import chai from 'chai';
 import metadataEvaluator from '../src/lib/MetadataEvaluator.js';
+import log from './utils/log';
 const assert = chai.assert;
 
-describe('MetadataEvaluator', function () {
+describe('MetadataEvaluatorRedux', function () {
 
 
     describe('evaluate', function () {
@@ -58,80 +59,80 @@ describe('MetadataEvaluator', function () {
             assert.isTrue(metadataEvaluation[1].required);
         });
         it('ConditionMessageFilter, when there is one and one truthy', function () {
-            let metadata = {
-                name: 'name',
-                required: true,
-                invalid: [
-                    {
-                        condition: m => m.name == 'Andre',
-                        message: 'Name should not be andre'
-                    }
-                ]
-            };
-            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre'});
-            assert.strictEqual('name', metadataEvaluation.name);
-            assert.isTrue(metadataEvaluation.invalid.value);
-            assert.strictEqual('Name should not be andre', metadataEvaluation.invalid.message);
+            // let metadata = {
+            //     name: 'name',
+            //     required: true,
+            //     invalid: [
+            //         {
+            //             condition: m => m.name == 'Andre',
+            //             message: 'Name should not be andre'
+            //         }
+            //     ]
+            // };
+            // let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre'});
+            // assert.strictEqual('name', metadataEvaluation.name);
+            // assert.isTrue(metadataEvaluation.invalid.value);
+            // assert.strictEqual('Name should not be andre', metadataEvaluation.invalid.message);
         });
         it('ConditionMessageFilter, when there is multiple and one truthy', function () {
-            let metadata = {
-                name: 'name',
-                required: true,
-                invalid: [
-                    {
-                        condition: m => m.name == 'John',
-                        message: 'Name should not be andre'
-                    },
-                    {
-                        condition: m => m.number === 1000,
-                        message: 'Number should not be 1000'
-                    }
-                ]
-            };
-            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre', number: 1000});
-            assert.strictEqual('name', metadataEvaluation.name);
-            assert.isTrue(metadataEvaluation.invalid.value);
-            assert.strictEqual('Number should not be 1000', metadataEvaluation.invalid.message);
+            // let metadata = {
+            //     name: 'name',
+            //     required: true,
+            //     invalid: [
+            //         {
+            //             condition: m => m.name == 'John',
+            //             message: 'Name should not be andre'
+            //         },
+            //         {
+            //             condition: m => m.number === 1000,
+            //             message: 'Number should not be 1000'
+            //         }
+            //     ]
+            // };
+            // let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre', number: 1000});
+            // assert.strictEqual('name', metadataEvaluation.name);
+            // assert.isTrue(metadataEvaluation.invalid.value);
+            // assert.strictEqual('Number should not be 1000', metadataEvaluation.invalid.message);
         });
         it('ConditionMessageFilter, when there is multiple and not a truthy', function () {
-            let metadata = {
-                name: 'name',
-                required: true,
-                invalid: [
-                    {
-                        condition: m => m.name == 'John',
-                        message: 'Name should not be andre'
-                    },
-                    {
-                        condition: m => m.number === 400,
-                        message: 'Number should not be 1000'
-                    }
-                ]
-            };
-            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre', number: 1000});
-            assert.strictEqual('name', metadataEvaluation.name);
-            assert.isFalse(metadataEvaluation.invalid.value);
+            // let metadata = {
+            //     name: 'name',
+            //     required: true,
+            //     invalid: [
+            //         {
+            //             condition: m => m.name == 'John',
+            //             message: 'Name should not be andre'
+            //         },
+            //         {
+            //             condition: m => m.number === 400,
+            //             message: 'Number should not be 1000'
+            //         }
+            //     ]
+            // };
+            // let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre', number: 1000});
+            // assert.strictEqual('name', metadataEvaluation.name);
+            // assert.isFalse(metadataEvaluation.invalid.value);
         });
         it('Checking for a required property, when not passing', function () {
-            let metadata = {
-                name: 'name',
-                required: true
-            };
-            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: ''});
-            assert.strictEqual('name', metadataEvaluation.name);
-            assert.isTrue(metadataEvaluation.required);
-            assert.isTrue(metadataEvaluation.invalid.value);
-            assert.strictEqual(metadataEvaluation.invalid.message, 'The field \'name\' is required');
+            // let metadata = {
+            //     name: 'name',
+            //     required: true
+            // };
+            // let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: ''});
+            // assert.strictEqual('name', metadataEvaluation.name);
+            // assert.isTrue(metadataEvaluation.required);
+            // assert.isTrue(metadataEvaluation.invalid.value);
+            // assert.strictEqual(metadataEvaluation.invalid.message, 'The field \'name\' is required');
         });
         it('Checking for a required property, when passing', function () {
-            let metadata = {
-                name: 'name',
-                required: true
-            };
-            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre'});
-            assert.strictEqual('name', metadataEvaluation.name);
-            assert.isTrue(metadataEvaluation.required);
-            assert.isUndefined(metadataEvaluation.invalid);
+            // let metadata = {
+            //     name: 'name',
+            //     required: true
+            // };
+            // let metadataEvaluation = metadataEvaluator.evaluate(metadata, {name: 'Andre'});
+            // assert.strictEqual('name', metadataEvaluation.name);
+            // assert.isTrue(metadataEvaluation.required);
+            // assert.isUndefined(metadataEvaluation.invalid);
         });
         it('Should work with entities', function () {
             let metadata = {
@@ -142,13 +143,7 @@ describe('MetadataEvaluator', function () {
                         name: 'number'
                     },
                     {
-                        name: 'longDistanceCode',
-                        invalid: [
-                            {
-                                condition: p => p.longDistanceCode > 99,
-                                message: 'long distance codes should be lower than 99'
-                            }
-                        ]
+                        name: 'longDistanceCode'
                     }
                 ]
             };
@@ -162,10 +157,7 @@ describe('MetadataEvaluator', function () {
             assert.strictEqual(metadataEvaluation.name, 'phone');
             assert.strictEqual(metadataEvaluation.type, 'entity');
             assert.strictEqual(metadataEvaluation.fields.length, 2);
-            assert.strictEqual(metadataEvaluation.fields[1].invalid.value, true);
-
         });
-
         it('Should work with inner entities', function () {
             let metadata = {
                 name: 'phone',
@@ -203,7 +195,6 @@ describe('MetadataEvaluator', function () {
                     }
                 }, '', metadataIndex );
         });
-
         it('Should work with of arrays', function () {
             let metadata = {
                 name: 'phones',
@@ -234,10 +225,7 @@ describe('MetadataEvaluator', function () {
                         }
                     ]
                 });
-
-
         });
-
         it('Should work with of arrays of arrays', function () {
             let metadata = {
                 name: 'contacts',
@@ -298,6 +286,84 @@ describe('MetadataEvaluator', function () {
                     }
                 ]
             }, '', metadataIndex);
+        });
+        
+        it('Should process redux props - Simple props', function() {
+            
+            let metadata = [{
+                name: 'contacts',
+                type: 'array',
+                arrayType: 'entity',
+                entityType: 'contact',
+                fields: [
+                    {
+                        name: 'name',
+                        type: 'string'
+                    },
+                    {
+                        name: 'phones',
+                        type: 'array',
+                        arrayType: 'entity',
+                        entityType: 'phone',
+                        fields: [
+                            {
+                                name: 'number',
+                                newFormat: p => p.number.length > 8
+                            },
+                            {
+                                name: 'longDistanceCode'
+                            }
+                        ]
+                    }
+                ]
+            },{
+                name: 'phone',
+                type: 'entity',
+                entityType: 'phone',
+                fields: [
+                    {
+                        name: 'number',
+                        type: 'string'
+                    }
+                ]
+            }];
+            
+            let reduxProps = {
+                phone: {
+                    number: {
+                        x: 0
+                    }
+                },
+                contacts: [
+                    {
+                        name: {
+                            x: 1
+                        }
+                    },
+                    {
+                        name: {
+                            x: 2
+                        }
+                    }
+                ]
+            };
+            
+            let metadataEvaluation = metadataEvaluator.evaluate(metadata, {
+                phone: {
+                    number: '553299168204'
+                },
+                contacts: [
+                    {
+                        name: 'andre',
+                        
+                    },
+                    {
+                        name: 'john'
+                    }
+                ]
+            }, '', {}, reduxProps);
+            
+            log(metadataEvaluation);
         });
     });
 });

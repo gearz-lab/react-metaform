@@ -1,31 +1,36 @@
 import _ from 'underscore';
 
 class EntityMetadataFilter {
-    filter(metadata, model, keyPrefix, metadataEvaluator, metadataIndex, onChange) {
-        if (!metadata) {
-            throw new Error('metadata is required');
-        }
-        if (!model) {
-            throw new Error('model is required');
-        }
-        if (metadata.type == 'array' && metadata.arrayType == 'entity') {
-            if (!metadata.fields) {
+    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, metadataIndex, reduxProps, onChange) {
+        
+        if(!propertyMetadata) throw Error('Argument \'propertyMetadata\' should be truthy');
+        if(!model) throw Error('Argument \'model\' should be truthy');
+        
+        if (propertyMetadata.type == 'array' && propertyMetadata.arrayType == 'entity') {
+            if (!propertyMetadata.fields) {
                 throw Error('when metadata is of type \'array\' and arrayType is \'entity\', it must have a fields property');
             }
 
-            if (!_.has(model, metadata.name) || model[metadata.name] === null || model[metadata.name] === undefined) {
+            if (!_.has(model, propertyMetadata.name) || model[propertyMetadata.name] === null || model[propertyMetadata.name] === undefined) {
                 // if the property does not exist, create it
-                model[metadata.name] = [];
+                model[propertyMetadata.name] = [];
             } else {
                 // if the property exists, it must be an object
-                if (!(model[metadata.name] instanceof Array)) {
+                if (!(model[propertyMetadata.name] instanceof Array)) {
                     throw Error('when metadata is of type array, the model value should be an array');
                 }
             }
-
-            metadata.fields = model[metadata.name].map((item, index) =>  metadataEvaluator.evaluate(metadata.fields, item, `${keyPrefix}.${index}`, metadataIndex, onChange));
+            
+            // returns the reduxProps for a particular array item
+            let getReduxPropsForItem = (index) => {
+                if(!reduxProps) return undefined;
+                if(!_.has(reduxProps, propertyMetadata.name)) throw Error('reduxProps is defined but it does not have the required property metadata');
+                return reduxProps[propertyMetadata.name][index];
+            };
+            
+            propertyMetadata.fields = model[propertyMetadata.name].map((item, index) =>  metadataEvaluator.evaluate(propertyMetadata.fields, item, `${keyPrefix}.${index}`, metadataIndex, getReduxPropsForItem(index), onChange));
         }
-        return metadata;
+        return propertyMetadata;
     }
 }
 

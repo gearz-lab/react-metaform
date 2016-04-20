@@ -1,8 +1,8 @@
 import _ from 'underscore';
 
 class EntityMetadataFilter {
-    filter(metadata, model, keyPrefix, metadataEvaluator) {
-        if(!metadata) {
+    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, metadataIndex, reduxProps, onChange) {
+        if(!propertyMetadata) {
             throw new Error('metadata is required');
         }
         if(!model) {
@@ -10,11 +10,11 @@ class EntityMetadataFilter {
         }
         // experimenting seting the value property of each metadata
         if(model) {
-            if(model.hasOwnProperty(metadata.name) && !metadata.hasOwnProperty('value')) {
-                metadata.value = model[metadata.name];
+            if(model.hasOwnProperty(propertyMetadata.name) && !propertyMetadata.hasOwnProperty('value')) {
+                propertyMetadata.value = model[propertyMetadata.name];
             }
         }
-        return metadata;
+        return propertyMetadata;
     }
 }
 
