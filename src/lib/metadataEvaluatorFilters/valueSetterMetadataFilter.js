@@ -1,7 +1,7 @@
 import _ from 'underscore';
 
 class EntityMetadataFilter {
-    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, metadataIndex, reduxProps, onChange) {
+    filter(propertyMetadata, model, keyPrefix, metadataEvaluator, reduxProps, onChange) {
         if(!propertyMetadata) {
             throw new Error('metadata is required');
         }

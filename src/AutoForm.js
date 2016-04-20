@@ -13,8 +13,6 @@ class AutoForm extends Component {
         });
         let fields = metadataProvider.getReduxFormFields(fieldMetadata);
 
-        console.log('process');
-
         return <AutoFormInternal fields={fields} fieldMetadata={fieldMetadata} entity={entity} layout={layout} componentFactory={componentFactory} />
     }
     

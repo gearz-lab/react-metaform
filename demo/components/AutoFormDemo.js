@@ -10,7 +10,8 @@ var AutoFormDemo = React.createClass({
                     fields: [
                         {
                             name: 'name',
-                            type: 'string'
+                            type: 'string',
+                            help: 'Fuck this 2'
                         },
                         {
                             name: 'email',

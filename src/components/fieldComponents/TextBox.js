@@ -13,18 +13,29 @@ const TextBox = React.createClass({
     },
 
     render() {
+        
+        let { value,
+            name,
+            placeholder,
+            displayName,
+            help
+            } = this.props;
+        
         return (
-            <Input
-                type="text"
-                value={this.props.value}
-                placeholder="Enter text"
-                label="Working example with validation"
-                help="Validation is based on string length."
-                hasFeedback
-                ref="input"
-                groupClassName="group-class"
-                labelClassName="label-class"
-                onChange={this.handleChange} />
+            <div>
+                Olha, alterei
+                <Input
+                    type="text"
+                    value={value}
+                    placeholder={placeholder}
+                    label={displayName || name}
+                    help={help}
+                    hasFeedback
+                    ref="input"
+                    groupClassName="group-class"
+                    labelClassName="label-class"
+                    onChange={this.handleChange} />
+            </div>
         );
     }
 });

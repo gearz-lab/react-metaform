@@ -17,7 +17,6 @@ class AutoFormInternal extends Component {
         let model = this.props.values;
         let fieldMetadataEvaluated = metadataEvaluator.evaluate(fieldMetadata, model, '', fields);
      
-        
         let groupComponent = componentFactory.buildGroupComponent({
             component: layout.component,
             layout: layout,
