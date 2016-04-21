@@ -1,4 +1,4 @@
-import expressionHelper from './expressionHelper.js';
+import expressionHelper from './helpers/expressionHelper.js';
 
 /**
  * Evaluates expressions

@@ -1,5 +1,3 @@
-import expressionEvaluator from '../ExpressionEvaluator.js';
-import dataEvaluator from '../DataEvaluator.js';
 import _ from 'underscore';
 
 class DefaultMetadataFilter {

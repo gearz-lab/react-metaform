@@ -23,7 +23,6 @@ const TextBox = React.createClass({
         
         return (
             <div>
-                Olha, alterei
                 <Input
                     type="text"
                     value={value}

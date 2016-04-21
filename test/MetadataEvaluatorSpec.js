@@ -255,7 +255,6 @@ describe('MetadataEvaluatorRedux', function () {
                 ]
             };
 
-            let metadataIndex = {};
             let metadataEvaluation = metadataEvaluator.evaluate(metadata, {
                 contacts: [
                     {
@@ -285,7 +284,8 @@ describe('MetadataEvaluatorRedux', function () {
                         ]
                     }
                 ]
-            }, '', metadataIndex);
+            }, '');
+
         });
         
         it('Should process redux props - Simple props', function() {
@@ -361,9 +361,7 @@ describe('MetadataEvaluatorRedux', function () {
                         name: 'john'
                     }
                 ]
-            }, '', {}, reduxProps);
-            
-            log(metadataEvaluation);
+            }, '', reduxProps);
         });
     });
 });

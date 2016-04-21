@@ -1,15 +1,10 @@
-import expressionEvaluator from './ExpressionEvaluator.js';
-
 // metadata filters
 import defaultMetadataFilter from './metadataEvaluatorFilters/defaultMetadataFilter.js';
 import entityMetadataFilter from './metadataEvaluatorFilters/entityMetadataFilter.js';
 import arrayMetadataFilter from './metadataEvaluatorFilters/arrayMetadataFilter.js';
-import valueSetterMetadataFilter from './metadataEvaluatorFilters/valueSetterMetadataFilter.js';
-import onChangeSetterMetadataFilter from './metadataEvaluatorFilters/onChangeSetterMetadataFilter.js';
 
 // property filters
 import defaultPropertyMetadataFilter from './metadataEvaluatorPropertyFilters/defaultMetadataPropertyFilter.js';
-import conditionMessagePropertyFilter from './metadataEvaluatorPropertyFilters/conditionMessagePropertyFilter.js';
 import _ from 'underscore';
 
 class MetadataEvaluatorRedux {
@@ -21,16 +16,6 @@ class MetadataEvaluatorRedux {
         this.metadataPropertyFilters = [];
         // this array contains metadata filters
         this.metadataFilters = [];
-    }
-
-    /**
-     * Evaluates the given expression against the model
-     * @param expression
-     * @param model
-     * @private
-     */
-    _evaluateExpression(expression, model) {
-        return expressionEvaluator.evaluate(expression, model);
     }
 
     /**

@@ -1,6 +1,4 @@
 import _ from 'underscore';
-import console from '../lib/helpers/consoleHelpers.js';
-import textExpressionFilter from './metadataProviderFilters/textExpressionsPropertyFilter.js';
 
 class MetadataProvider {
 
@@ -290,6 +288,4 @@ class MetadataProvider {
 }
 
 let metadataProvider = new MetadataProvider();
-metadataProvider.addFilter(textExpressionFilter);
-
 export default metadataProvider;

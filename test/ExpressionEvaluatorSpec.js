@@ -1,6 +1,4 @@
 import expressionEvaluator from '../src/lib/ExpressionEvaluator.js';
-import formato from 'formato';
-
 
 describe('Expression evaluator', function () {
         it('Literals', function () {

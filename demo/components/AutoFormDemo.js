@@ -34,9 +34,11 @@ var AutoFormDemo = React.createClass({
                                     orientation: 'vertical',
                                     fields: [
                                         {
+                                            displayName: 'Name',
                                             name: 'name'
                                         },
                                         {
+                                            displayName: 'E-mail',
                                             name: 'email'
                                         },
                                         {
@@ -65,9 +67,11 @@ var AutoFormDemo = React.createClass({
                             name: 'edit',
                             fields: [
                                 {
+                                    displayName: 'Number',
                                     name: 'number'
                                 },
                                 {
+                                    displayName: 'Long distance code',
                                     name: 'longDistanceCode'
                                 }
                             ]
