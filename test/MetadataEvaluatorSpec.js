@@ -1,9 +1,9 @@
 import chai from 'chai';
-import metadataEvaluator from '../src/lib/MetadataEvaluator.js';
+import metadataEvaluator from '../src/lib/metadataEvaluator.js';
 import log from './utils/log';
 const assert = chai.assert;
 
-describe('MetadataEvaluatorRedux', function () {
+describe('MetadataEvaluator', function () {
 
 
     describe('evaluate', function () {

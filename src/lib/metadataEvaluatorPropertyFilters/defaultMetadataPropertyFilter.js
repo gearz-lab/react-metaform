@@ -1,4 +1,4 @@
-import expressionEvaluator from '../ExpressionEvaluator.js';
+import expressionEvaluator from '../expressionEvaluator.js';
 
 class DefaultMetadataPropertyFilter {
     filter(propertyName, propertyValue, model) {
