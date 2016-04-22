@@ -1,5 +1,8 @@
 import _ from 'underscore';
 import defaultValidator from './metadataValidators/defaultMetadataValidator';
+import arrayValidator from './metadataValidators/arrayValidator';
+import entityValidator from './metadataValidators/entityValidator';
+import requiredValidator from './metadataValidators/requiredValidator';
 
 var validator = {
     validators: [],
@@ -31,6 +34,9 @@ var validator = {
     }
 };
 
+validator.validators.push(requiredValidator);
+validator.validators.push(arrayValidator);
+validator.validators.push(entityValidator)
 validator.validators.push(defaultValidator);
 
 export default validator;

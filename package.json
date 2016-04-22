@@ -11,8 +11,8 @@
     "start-dev": "cross-env NODE_ENV=development babel-node ./demo/Server.js",
     "wpds": "webpack-dev-server --config ./webpack.config.demo.dev.js",
     "wpds-redux": "webpack-dev-server --config ./webpack.config.demo.redux.dev.js",
-    "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS",
-    "test-chrome": "./node_modules/.bin/karma start --single-run --browsers Chrome"
+    "test": "./node_modules/.bin/karma start --browsers PhantomJS",
+    "test-chrome": "./node_modules/.bin/karma start --browsers Chrome"
   },
   "repository": {
     "type": "git",
