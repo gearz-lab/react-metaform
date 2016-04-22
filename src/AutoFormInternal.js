@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react'
 import {reduxForm} from 'redux-form';
 import metadataEvaluator from './lib/metadataEvaluator';
+import perf from 'react-addons-perf';
 
 class AutoFormInternal extends Component {
 
@@ -14,6 +15,8 @@ class AutoFormInternal extends Component {
             handleSubmit
         } = this.props;
         
+        let date = new Date().getTime();
+        //perf.start();
         let model = this.props.values;
         let fieldMetadataEvaluated = metadataEvaluator.evaluate(fieldMetadata, model, '', fields);
      
@@ -23,6 +26,11 @@ class AutoFormInternal extends Component {
             fields: fieldMetadataEvaluated,
             componentFactory: componentFactory
         });
+        let diff = new Date().getTime() - date;
+        console.log(diff);
+        //perf.stop();
+        //let measurements = perf.getLastMeasurements();
+        //perf.printInclusive(measurements);
 
         return (
             <div className="meta-form">

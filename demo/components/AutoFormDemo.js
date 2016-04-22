@@ -67,7 +67,13 @@ var AutoFormDemo = React.createClass({
                             name: 'edit',
                             fields: [
                                 {
-                                    displayName: 'Number',
+                                    displayName: function(m) {
+                                        var now = new Date().getTime();
+                                         while(new Date().getTime() < now + 50)
+                                        { /* do nothing */ }
+                                        
+                                        return m.number;
+                                     },
                                     name: 'number'
                                 },
                                 {
