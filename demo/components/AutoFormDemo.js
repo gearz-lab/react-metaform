@@ -2,7 +2,7 @@ import React from 'react';
 import AutoForm from '../../src/AutoForm';
 import DefaultComponentFactory from '../../src/DefaultComponentFactory';
 var AutoFormDemo = React.createClass({
-    render: function() {
+    render: function () {
         var schema = {
             entities: [
                 {
@@ -17,8 +17,7 @@ var AutoFormDemo = React.createClass({
                         },
                         {
                             name: 'email',
-                            type: 'string',
-                            fuck: function(m) { return m.name }
+                            type: 'string'
                         },
                         {
                             name: 'phones',
@@ -69,13 +68,13 @@ var AutoFormDemo = React.createClass({
                             name: 'edit',
                             fields: [
                                 {
-                                    displayName: function(m) {
+                                    displayName: function (m) {
                                         var now = new Date().getTime();
-                                         while(new Date().getTime() < now + 50)
+                                        while (new Date().getTime() < now + 50)
                                         { /* do nothing */ }
-                                        
+
                                         return m.number;
-                                     },
+                                    },
                                     name: 'number'
                                 },
                                 {
@@ -88,7 +87,12 @@ var AutoFormDemo = React.createClass({
                 }
             ]
         };
-        return <AutoForm schema={schema} componentFactory={DefaultComponentFactory} entityName="contact" layoutName="edit" onSubmit={ () => console.log('yeaaah') } />;
+        return <AutoForm
+            schema={schema}
+            componentFactory={DefaultComponentFactory}
+            entityName="contact"
+            layoutName="edit"
+            />;
     }
 });
 

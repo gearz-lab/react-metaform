@@ -7,14 +7,23 @@ class AutoForm extends Component {
 
     render() {
 
-        let {entity, layout} = metadataProvider.getEntityAndLayout(this.props.schema, this.props.entityName, this.props.layoutName);
-        let componentFactory = this.props.componentFactory;
-        let fieldMetadata = metadataProvider.getFields(this.props.schema, entity, layout, f => {
+        let {
+            schema,
+            entityName,
+            layoutName,
+            componentFactory,
+            onSubmit,
+            onSubmitFail,
+            onSubmitSuccess
+        } = this.props;
+
+        let {entity, layout} = metadataProvider.getEntityAndLayout(schema, entityName, layoutName);
+        let fieldMetadata = metadataProvider.getFields(schema, entity, layout, f => {
             f.componentFactory = componentFactory;
         });
         let fields = metadataProvider.getReduxFormFields(fieldMetadata);
         let validate = (values) => {
-            return metadataValidator.validate(fieldMetadata, values);
+            return metadataValidator.validate(fieldMetadata, values) || {};
         }
 
         return <AutoFormInternal
@@ -24,10 +33,10 @@ class AutoForm extends Component {
             layout={layout}
             validate={validate}
             componentFactory={componentFactory}
-            onSubmit={(values) => console.log(arguments)}
-            onSubmitSuccess={() => console.log('submit success')}
-            onSubmitFail={() => console.log('submit fail')}
-             />
+            onSubmit={onSubmit}
+            onSubmitSuccess={onSubmitSuccess}
+            onSubmitFail={onSubmitFail}
+            />
     }
 
 }
@@ -36,7 +45,10 @@ AutoForm.propTypes = {
     componentFactory: PropTypes.object.isRequired,
     schema: PropTypes.object.isRequired,
     entityName: PropTypes.string.isRequired,
-    layoutName: PropTypes.string.isRequired
+    layoutName: PropTypes.string.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onSubmitSuccess: PropTypes.func,
+    onSubmitFail: PropTypes.func
 };
 
 export default AutoForm;
