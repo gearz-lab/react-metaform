@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react'
 import {reduxForm} from 'redux-form';
 import metadataEvaluator from './lib/metadataEvaluator';
 import perf from 'react-addons-perf';
+import { ButtonToolbar, Button } from 'react-bootstrap';
+
 
 class AutoFormInternal extends Component {
 
@@ -12,30 +14,32 @@ class AutoFormInternal extends Component {
             fields,
             fieldMetadata,
             layout,
-            handleSubmit
+            handleSubmit,
+            submitting
         } = this.props;
-        
-        let date = new Date().getTime();
-        //perf.start();
+
         let model = this.props.values;
         let fieldMetadataEvaluated = metadataEvaluator.evaluate(fieldMetadata, model, '', fields);
-     
+
         let groupComponent = componentFactory.buildGroupComponent({
             component: layout.component,
             layout: layout,
             fields: fieldMetadataEvaluated,
             componentFactory: componentFactory
         });
-        let diff = new Date().getTime() - date;
-        console.log(diff);
-        //perf.stop();
-        //let measurements = perf.getLastMeasurements();
-        //perf.printInclusive(measurements);
+
+        // <button type="submit" disabled={submitting}>
+        //     {submitting ? <i/> : <i/>} Submit
+        // </button>
 
         return (
             <div className="meta-form">
                 <form onSubmit={handleSubmit}>
                     { groupComponent }
+                    <ButtonToolbar>
+                        <Button type="submit" bsStyle="primary" disabled={submitting}>Submit</Button>
+                        <Button disabled={submitting}>Cancel</Button>
+                    </ButtonToolbar>
                 </form>
             </div>
         )

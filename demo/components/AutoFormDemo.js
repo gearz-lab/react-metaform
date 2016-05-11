@@ -11,7 +11,9 @@ var AutoFormDemo = React.createClass({
                         {
                             name: 'name',
                             type: 'string',
-                            help: 'Fuck this 2'
+                            help: 'Fuck this 2',
+                            required: true,
+                            addonAfter: 'fuck'
                         },
                         {
                             name: 'email',
@@ -86,7 +88,7 @@ var AutoFormDemo = React.createClass({
                 }
             ]
         };
-        return <AutoForm schema={schema} componentFactory={DefaultComponentFactory} entityName="contact" layoutName="edit" />;
+        return <AutoForm schema={schema} componentFactory={DefaultComponentFactory} entityName="contact" layoutName="edit" onSubmit={ () => console.log('yeaaah') } />;
     }
 });
 
