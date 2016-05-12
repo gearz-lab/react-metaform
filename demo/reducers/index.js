@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
-import counter from './counter';
 import {reducer as formReducer} from 'redux-form';
+import counter from './counter';
+import presets from './presets';
 
 const rootReducer = combineReducers({
     routing,
     form: formReducer,
-    counter
+    counter,
+    presets
 });
 
 export default rootReducer;

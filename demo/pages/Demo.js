@@ -1,5 +1,6 @@
 import React from 'react';
 import AutoFormDemo from '../components/AutoFormDemo';
+import LiveSchemaEditor from '../components/LiveSchemaEditor';
 
 
 const LiveSchemaEditorPage = React.createClass({
@@ -7,7 +8,7 @@ const LiveSchemaEditorPage = React.createClass({
     render: function () {
 
         return <div>
-            <AutoFormDemo />
+            <LiveSchemaEditor />
         </div>;
     }
 });

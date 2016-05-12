@@ -1,0 +1,84 @@
+{
+    entities: [
+        {
+            name: 'contact',
+            fields: [
+                {
+                    name: 'name',
+                    type: 'string',
+                    help: 'Fuck this 2',
+                    required: true,
+                    addonAfter: 'fuck'
+                },
+                {
+                    name: 'email',
+                    type: 'string'
+                },
+                {
+                    name: 'phones',
+                    type: 'array',
+                    arrayType: 'entity',
+                    entityType: 'phone',
+                    layoutName: 'edit'
+                }
+            ],
+            layouts: [
+                {
+                    name: 'edit',
+                    groups: [
+                        {
+                            orientation: 'vertical',
+                            fields: [
+                                {
+                                    displayName: 'Name',
+                                    name: 'name'
+                                },
+                                {
+                                    displayName: 'E-mail',
+                                    name: 'email'
+                                },
+                                {
+                                    name: 'phones'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            name: 'phone',
+            fields: [
+                {
+                    name: 'number',
+                    type: 'string'
+                },
+                {
+                    name: 'longDistanceCode',
+                    type: 'string'
+                }
+            ],
+            layouts: [
+                {
+                    name: 'edit',
+                    fields: [
+                        {
+                            displayName: function (m) {
+                                var now = new Date().getTime();
+                                while (new Date().getTime() < now + 50)
+                                { /* do nothing */ }
+
+                                return m.number;
+                            },
+                            name: 'number'
+                        },
+                        {
+                            displayName: 'Long distance code',
+                            name: 'longDistanceCode'
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
