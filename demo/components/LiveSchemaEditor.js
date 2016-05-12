@@ -6,6 +6,7 @@ import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 class LiveSchemaEditor extends Component {
 
     render() {
+
         return <div className="live-schema-editor">
             <GitHubForkRibbon href="https://github.com/gearz-lab/react-metaform"
                 target="_blank"

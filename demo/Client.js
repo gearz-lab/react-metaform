@@ -1,13 +1,13 @@
 import React from 'react';
-import { Router } from 'react-router'
+import {Router} from 'react-router'
 import routes from './Routes';
 import configureStore from './store/configureStore';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import {syncHistoryWithStore} from 'react-router-redux';
 import {browserHistory} from 'react-router'
 import {render} from 'react-dom';
 import Styles from './less/styles.less';
-import {load as loadPresets} from './actions/presets.js';
+import {loadPresets} from './actions/presets.js';
 
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);

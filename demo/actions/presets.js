@@ -5,11 +5,15 @@ if (process.env.APP_ENV !== 'browser') {
     };
 }
 
-import _ from 'underscore';
 import base from './presets/default.txt';
 export const LOAD_PRESETS = 'LOAD_PRESETS';
+export const SET_PRESET = 'SET_PRESET';
 
-export function load() {
+/**
+ * Loads all available presets
+ * @returns {{type: string, presets: *[]}}
+ */
+export function loadPresets() {
     return {
         type: LOAD_PRESETS,
         presets: [
@@ -22,5 +26,17 @@ export function load() {
                 code: base
             }
         ]
+    }
+}
+
+/**
+ * Sets the selected preset
+ * @param preset
+ * @returns {{type: string, preset: *}}
+ */
+export function setPreset(preset) {
+    return {
+        type: SET_PRESET,
+        preset: preset
     }
 }
