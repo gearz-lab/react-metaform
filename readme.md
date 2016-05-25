@@ -1,6 +1,8 @@
 React-metaform
 ===
 
+THIS PROJECT IS NOW **DEPRECATED**. I'M NOW ACTIVELY WORKING ON THE [REDUX VERSION](https://github.com/gearz-lab/redux-autoform) WHICH IS EXPECTED TO BE RELEASED AT THE END OF JUNE.
+
 [![Join the chat at https://gitter.im/gearz-lab/react-metaform](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gearz-lab/react-metaform?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 ![Travis](https://travis-ci.org/gearz-lab/react-metaform.svg)
 
