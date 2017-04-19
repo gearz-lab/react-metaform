@@ -23,13 +23,13 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-#React-metaform#
+# React-metaform #
 
 > Be patient. This documentation is still under construction. Pull-requests are welcome.
 
 For an introduction to the library, as well as instructions on how to install, run and build it, please refer to the [README.md](https://github.com/gearz-lab/react-metaform/blob/master/readme.md).
 
-##Metadata##
+## Metadata ##
 
 Metadata is the single most important thing to understand in order to work with `react-metaform`. Basically, you pass a
 `schema` to the `MetaForm` component and it renders itself. You can find examples of valid schema [here](https://github.com/gearz-lab/react-metaform/tree/master/demo/components/liveSchemaEditorPresets).
@@ -44,7 +44,7 @@ These are the most important things you should know about Metadata:
  - Each `Field` metadata can be either a literal or a function. When it's a function, it's evaluated automatically every time the
  form changes.
 
-###Schema###
+### Schema ###
 
 The root of all metadata. It may represent your entire application schema or just a subset of it. If you choose to pass only
 a subset to the `MetaForm`, make sure it contains all the referenced `entities`.
@@ -53,7 +53,7 @@ Metadata | Description
 --- | ---
 entities | An array of `entity`.
 
-###Entity###
+### Entity ###
 
 Represents an `entity`. 
 
@@ -63,7 +63,7 @@ name | The `entity` name
 fields | An array or `field`.
 layouts | An array or `layout`.
 
-###Layout###
+### Layout ###
 
 Represents a visualization of an `entity`. Examples of layouts would be `edit` and `details`.  Every `entity` field that
  should be displayed in a `layout`  should be declared both in the `entity.fields` and in the `layout.fields` or `layout.someGroup.fields`.
@@ -77,7 +77,7 @@ fields | An array of `field`. These `fields` are merged with the fields from the
 merged based on the `name` metadata.
 groups | (optional) An array of `group`.
 
-###Group###
+### Group ###
 
 Represents a group in the `layout`. Groups exist just so the `layouts` are flexible and customizable.
 
@@ -88,7 +88,7 @@ fields | An array of `field`. These `fields` are merged with the fields from the
 merged based on the `name` metadata.
 groups | (optional) An array of `group`.
 
-###Field###
+### Field ###
 
 Represents a `field`. `Fields` can exist in `entities`, `layouts` or `groups`. `Field` metadata are passed to the component as `props`.
  
@@ -115,7 +115,7 @@ type | The `field` type. This is the default way to determine which component sh
 
 Other `field` metadata will depend on the component.
  
-####Common####
+#### Common ####
 
 Metadata that is common to most of the components.
 
@@ -131,7 +131,7 @@ readOnly | Whether or not the component should be in read-only state.
 onChange | Handles the component change. The callback function receives 2 parameters: The field name and an event which value is the new value for the component. To get the new value you need to access `e.value`.
 help | Additional help so the end-user knows what the field is about.
 
-####Input####
+#### Input ####
 
 Metadata for the `Input` component.
 
@@ -148,11 +148,11 @@ hasFeedbackIcon | If feedback should be displayed, `hasFeedbackIcon` determines 
 groupClassName | The CSS class that should be added to the Bootstrap field group.
 labelClassName | The CSS class that should be added to the Bootstrap field label.
 
-####CheckBox####
+#### CheckBox ####
 
 Metadata for the CheckBox component. The CheckBox doesn't have any specific metadata.
 
-####Select and Lookup####
+#### Select and Lookup ####
 
 Metadata for the Select and Lookup components.
 
@@ -160,20 +160,20 @@ Metadata | Description
 --- | ---
 options | The options to display. Options are an array of objects with two properties: **value**: The actual value that is stored in the model. **text**: What is displayed to the user
 
-##Lib##
+## Lib ##
 
-###Component factories###
+### Component factories ###
 
 Component factories are how `react-metaform` knows which component to render for a particular field or group metadata.
 
-####ComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/ComponentFactory.js))####
+#### ComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/ComponentFactory.js)) ####
 
 This a *clean* factory. In order to use it, `import` it, register all your components and then pass it to the `componentFactory`
 prop of the `MetaForm`.
 
     import ComponentFactory from 'react-metaform/lib/ComponentFactory';
 
-####DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js))####
+#### DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js)) ####
 
 This is a pre-populated factory, the same used in the [demo](http://gearz-lab.github.io/react-metaform/demo.html).
 In order to use it, `import` it and just pass it to the `componentFactory` prop of the `MetaForm`.
@@ -182,9 +182,9 @@ In order to use it, `import` it and just pass it to the `componentFactory` prop 
     
 The `DefaultComponentFactory` relies on [these third-party components](#third-party).
 
-##Components##
+## Components ##
 
-###MetaForm###
+### MetaForm ###
 
 A form component that renders itself based on metadata
 
@@ -201,7 +201,7 @@ onModelChange | Function called whenever the model changes
 onSave | Function called when the Save button is clicked
 onCancel | Function called when the Cancel button is clicked
 
-###Third party###
+### Third party ###
 
 The `DefaultComponentFactory` relies on third-party components. Here's the list:
 

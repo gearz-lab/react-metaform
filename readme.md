@@ -40,7 +40,7 @@ Install:
 Using
 ---
 
-####MetaForm ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/MetaForm.js))####
+#### MetaForm ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/MetaForm.js)) ####
 
 The main React component.
 
@@ -51,14 +51,14 @@ The `MetaForm` props are listed [here](https://github.com/gearz-lab/react-metafo
 Additionally, you need a `ComponentFactory`. The `ComponentFactory` is responsible for determining which React
 component to use for a given field metadata. `React-metaform` comes with 2 `ComponentFactories`:
 
-####ComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/ComponentFactory.js))####
+#### ComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/ComponentFactory.js)) ####
 
 This a *clean* factory. In order to use it, `import` it, register all your components and then pass it to the `componentFactory`
 prop of the `MetaForm`.
 
     import ComponentFactory from 'react-metaform/lib/ComponentFactory';
     
-####DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js))####
+#### DefaultComponentFactory ([source](https://github.com/gearz-lab/react-metaform/blob/master/src/DefaultComponentFactory.js)) ####
 
 This is a pre-populated factory, the same used in the [demo](http://gearz-lab.github.io/react-metaform/demo.html).
 In order to use it, `import` it and just pass it to the `componentFactory` prop of the `MetaForm`.
